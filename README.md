@@ -7,3 +7,5 @@ Team Members:
 - John Gay
 - Carlos Power
 - Steven Li
+
+"Have you checked the REC for that new club event?" - RPI Student
