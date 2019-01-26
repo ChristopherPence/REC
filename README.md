@@ -8,4 +8,5 @@ Team Members:
 - Carlos Power
 - Steven Li
 
+How to use our project name in a sentence:
 "Have you checked the REC for that new club event?" - RPI Student
