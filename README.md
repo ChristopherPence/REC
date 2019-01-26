@@ -9,5 +9,5 @@ Team Members:
 - Steven Li
 
 How to use our project name in a sentence:
-"Have you checked the REC for that new club event?" - RPI Student
-"REC is so cool! I can see all of the flyers from my dorm room" - Another RPI Student
+- "Have you checked the REC for that new club event?" - RPI Student
+- "REC is so cool! I can see all of the flyers from my dorm room" - Another RPI Student
