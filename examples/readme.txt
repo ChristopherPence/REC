@@ -1,0 +1,1 @@
+This is our folder containing examples how to use web technologies such as Node.js, Angular and Express.
