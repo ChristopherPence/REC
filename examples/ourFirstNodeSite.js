@@ -11,6 +11,7 @@ http.createServer(function(req, res){
 	var q = url.parse(req.url, true);
 	var filename = "." + q.pathname;
 	console.log(q.pathname);
+	//read the file from the filesystem
 	fs.readFile(filename, function(err, data){
 		//If there was an error loading the file
 		if(err){
@@ -21,6 +22,4 @@ http.createServer(function(req, res){
 		res.write(data);
 		return res.end();
 	});
-
-	
 }).listen(8080);
