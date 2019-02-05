@@ -8,6 +8,15 @@ Team Members:
 - Carlos Power
 - Steven Li
 
+Naming Conventions:
+Please use camel case to name all files. Folders should follow the same but should hopefully be kept to one word. When naming Git branches, please follow the conventions on the slides from LMS. Examples include:
+features/[feature_name]
+bugfix/[bug_name]
+hotfix/[hotfix_name]
+
+Git Conventions:
+We are no longer making any commits to master. Commit to your feature's branch and then we will merge into master.
+
 How to use our project name in a sentence:
 - "Have you checked the REC for that new club event?" - RPI Student
 - "REC is so cool! I can see all of the flyers from my dorm room" - Another RPI Student
