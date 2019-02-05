@@ -23,3 +23,49 @@ http.createServer(function(req, res){
 		return res.end();
 	});
 }).listen(8080);
+
+var contin = 0;
+
+function terminator()
+{
+  const readline = require('readline');
+
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.question('$:', (killNode) => {
+    // TODO: Log the answer in a database
+    if(killNode == "k")
+    {
+      
+      return process.kill(process.pid);
+      console.log(`Terminated Node Server`);
+    }
+    else if(killNode == "help")
+    {
+      console.log(`Commands allowed:`);
+      console.log(`k for killing the node server`);
+      rl.close();
+      terminator();
+    }
+    else if(killNode != "")
+    {
+      console.log(`Error: Type "help" for nessesary commands.`);
+      rl.close();
+      terminator();
+    }
+    else
+    {
+      rl.close();
+      terminator();
+    }
+    rl.close();
+  });
+}
+
+terminator();
+
+
+///mnt/c/Users/pikef/documents/github/REC/examples
