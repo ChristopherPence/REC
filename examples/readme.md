@@ -14,3 +14,15 @@ HOW TO USE NODE.JS:
 		2. 'ctrl' + 'z'
 		3. 'pkill -f node'
 		4. 'jobs' 
+
+Using MongoDB:
+	Install:
+		sudo apt-get install -y mongodb
+
+	To start mongo: 
+		sudo service mongodb start
+
+	
+
+
+
