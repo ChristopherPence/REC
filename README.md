@@ -40,3 +40,8 @@ Install Node.js 11.9.0 (Current)
   4. run "sudo apt install nodejs-legacy"
   5. run "node server.js"
   6. stop the node js program with .exit or "ctrl-z" (may be different due to bash configuration)
+  
+  
+Flow Chart 
+
+<img width="802" alt="rec flowchart" src="https://user-images.githubusercontent.com/20056711/52525810-23858d80-2c7d-11e9-817b-b35dd77397f9.png"> 
