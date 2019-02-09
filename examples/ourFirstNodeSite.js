@@ -1,4 +1,5 @@
 //THIS IS AN EXAMPLE FROM W3 SCHOOLS, THIS IS NOT OUR OWN CODE
+//Only part of this code is our own. We are using this file to learn
 //We are using this to test how node.js works
 
 //load the required modules
@@ -10,8 +11,20 @@ var fs = require('fs');
 http.createServer(function(req, res){
 	var q = url.parse(req.url, true);
 	var filename = "." + q.pathname;
-	console.log(q.pathname);
-	//read the file from the filesystem
+  //check for blank url
+  if(q.pathname == "/"){
+    fs.readFile("./index.html", function(err, data){
+      //If there was an error loading the file
+      if(err){
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        return res.end("404 Not Found");
+      }
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(data);
+      return res.end();
+      });
+  }
+	//por read the specified file from the system
 	fs.readFile(filename, function(err, data){
 		//If there was an error loading the file
 		if(err){
@@ -25,6 +38,12 @@ http.createServer(function(req, res){
 }).listen(8080);
 
 var contin = 0;
+
+
+
+
+
+
 
 function terminator()
 {
