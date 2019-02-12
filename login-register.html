@@ -6,27 +6,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    <link rel="icon" href="resources/hurricane-icon.png">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    
   </head>
   
-  <body ng-controller=mainController>
-    <header class="d-flex justify-content-center border-bottom mt-5 mb-5"><h1>Login/Registration</h1></header>
-    <div class="container">
+  <body ng-controller="mainController">
+    
+    <header class="d-flex justify-content-center mt-5 mb-5"><h1>Login/Registration</h1></header>
+    
+    <div class="container bg-warning border px-1 py-5 rounded-circle">
       <form>
-        <div class="form-group row">
-          <label class="d-flex justify-content-center" for="username">UserName</label>
-          <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+        <div class="form-group row d-flex justify-content-center">
+          <div class="col-6">
+            <label for="username">UserName</label>
+            <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+          </div>
         </div>
-        <div class="form-group row">
-          <label for="password" class="d-flex justify-content-center" >Password</label>
-          <input id="password" class="form-control" type="password" placeholder="Password"/>
+        <div class="form-group row d-flex justify-content-center">
+          <div class="col-6">
+            <label for="password">Password</label>
+            <input id="password" class="form-control" type="password" placeholder="Password"/>
+          </div>
         </div>
-        <button type="submit" class="form-group row btn btn-primary">Submit</button>
+        <div class="form-group row d-flex justify-content-center">
+          <button type="submit" class="form-group row btn btn-primary">Submit</button>
+        </div>
       </form>
     </div>
-    <footer class="d-flex justify-content-center border-top mt-5 mb-5"><h1>Footer</h1></footer>
+    <footer class="d-flex justify-content-center pt-3 pb-3 border-top fixed-bottom"><h5 class="text-muted">Rensselaer Events Calender(REC) Copyright &#169 2019</h5></footer>
+    
   </body>
   
   <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
