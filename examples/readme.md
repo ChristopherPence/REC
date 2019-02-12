@@ -24,9 +24,9 @@ To start mongo:
 
 Connect to recdb:
 >mongo
-use recdb
-show collections
-exit
+>use recdb
+>show collections
+>exit
 
 DO NOT MONGODUMP AND PUSH TO THE GITHUB
 >~~Export recdb:
