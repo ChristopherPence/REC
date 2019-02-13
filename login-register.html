@@ -6,42 +6,136 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    <!-- Tab icon image -->
     <link rel="icon" href="resources/hurricane-icon.png">
     
+    <!-- Angular script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
     
+    <!-- External CSS link -->
+    <link rel="stylesheet" href="resources/login-register.css">
+    
+    <!-- Bootstrap links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     
   </head>
   
   <body ng-controller="mainController">
     
+    <!-- Header -->
     <header class="d-flex justify-content-center mt-5 mb-5"><h1>Login/Registration</h1></header>
     
+    <!-- Form to sign in -->
     <div class="container bg-warning border px-1 py-5 rounded-circle">
       <form>
-        <div class="form-group row d-flex justify-content-center">
+        
+        <!-- Login username area -->
+        <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
-            <label for="username">UserName</label>
+            <label for="username">Username</label>
             <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
           </div>
         </div>
-        <div class="form-group row d-flex justify-content-center">
+        
+        <!-- Login password area -->
+        <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
             <label for="password">Password</label>
             <input id="password" class="form-control" type="password" placeholder="Password"/>
           </div>
         </div>
-        <div class="form-group row d-flex justify-content-center">
-          <button type="submit" class="form-group row btn btn-primary">Submit</button>
+        
+        <div class="row">
+          <!-- Forgot Password hyperlink -->
+          <div id="forgotPassword" class="form-group col d-flex justify-content-end">
+            <a href="#">Forgot Password?</a>
+          </div>
+          
+          <!-- Login button -->
+          <div id="submitDiv" class="form-group col d-flex justify-content-start">
+            <button type="submit" class="btn btn-primary px-6">Log In</button>
+          </div>
         </div>
+
+        <!-- Button that triggers register modal -->
+        <div class="form-group col d-flex justify-content-center">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+            New here? Sign up
+          </button>
+        </div>
+
+        <!-- Register Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="modal-body">
+                <form>
+                  
+                  <!-- Register organization name area -->
+                  <div class="form-group col d-flex justify-content-center">
+                    <div class="col-6">
+                      <label for="username">Organization</label>
+                      <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
+                    </div>
+                  </div>
+                  
+                  <!-- Register username area -->
+                  <div class="form-group col d-flex justify-content-center">
+                    <div class="col-6">
+                      <label for="username">Username</label>
+                      <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+                    </div>
+                  </div>
+
+                  <!-- Register password area -->
+                  <div class="form-group col d-flex justify-content-center">
+                    <div class="col-6">
+                      <label for="password">Password</label>
+                      <input id="password" class="form-control" type="password" placeholder="Password"/>
+                    </div>
+                  </div>
+                  
+                  <!-- Register re-confirm password area -->
+                  <div class="form-group col d-flex justify-content-center">
+                    <div class="col-6">
+                      <label for="password">Confirm Password</label>
+                      <input id="password" class="form-control" type="password" placeholder="Confirm password"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              
+              <!-- Register or Exit buttons for Modal -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Register</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
       </form>
     </div>
+    
+    <!-- Footer -->
     <footer class="d-flex justify-content-center pt-3 pb-3 border-top fixed-bottom"><h5 class="text-muted">Rensselaer Events Calender(REC) Copyright &#169 2019</h5></footer>
     
   </body>
   
+  <!-- jQuery script -->
   <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   
   <script>
     var app = angular.module("login", []);
