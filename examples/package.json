@@ -1,0 +1,16 @@
+{
+  "name": "rec",
+  "version": "1.0.0",
+  "description": "Rensselaer Events Calendar",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Web Science Systems Development Team 5",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "file-system": "^2.2.2"
+  }
+}
