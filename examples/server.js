@@ -3,9 +3,9 @@
 //We are using this to test how node.js works
 
 //load the required modules
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
+const http = require('http');
+const url = require('url');
+const fs = require('fs');
 
 //create the server
 http.createServer(function(req, res){
@@ -24,7 +24,7 @@ http.createServer(function(req, res){
       return res.end();
       });
   }
-	//por read the specified file from the system
+	//or read the specified file from the system
 	fs.readFile(filename, function(err, data){
 		//If there was an error loading the file
 		if(err){
