@@ -7,7 +7,35 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 
-//create the server
+const parser = require("body-parser");
+const request = require("request");
+const express = require('express');
+const app = express();
+const port = 8080;
+
+//Allow access to the static files folder
+app.use('/static', express.static(__dirname + '/static'));
+
+//Send index.html on default page load
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+//Open the app to listen on the proper port
+app.listen(port, function(){
+  console.log('REC app listening on port ' + port);
+})
+
+//listen for a post request
+app.use(parser.urlencoded({extended : true}));
+app.post('/', function(req, res){
+  //determin what kind of post request we are making
+
+})
+
+//OLD code
+
+/*//create the server
 http.createServer(function(req, res){
 	var q = url.parse(req.url, true);
 	var filename = "." + q.pathname;
@@ -35,9 +63,9 @@ http.createServer(function(req, res){
 		res.write(data);
 		return res.end();
 	});
-}).listen(8080);
+}).listen(8080);*/
 
-var contin = 0;
+/*var contin = 0;
 
 
 
@@ -84,7 +112,7 @@ function terminator()
   });
 }
 
-terminator();
+terminator();*/
 
 
 ///mnt/c/Users/pikef/documents/github/REC/examples
