@@ -12,6 +12,6 @@ app.use('/resources', express.static(__dirname + '/resources'));
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
-app.listen(port, function{
+app.listen(port, function(){
 	console.log('Server started on port: ' + port)
 });
