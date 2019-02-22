@@ -1,3 +1,4 @@
 /examples/node_modules/
 /node_modules
 .env
+package_lock.json
