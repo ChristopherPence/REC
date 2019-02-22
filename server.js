@@ -10,7 +10,7 @@ const port = process.env.MAIN_PORT;
 
 app.use('/resources', express.static(__dirname + '/resources'));
 app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/login-register.html');
 });
 app.listen(port, function(){
 	console.log('Server started on port: ' + port)
