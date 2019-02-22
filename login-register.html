@@ -46,17 +46,15 @@
           </div>
         </div>
         
-        <div class="row border">
-          <!-- Forgot Password hyperlink -->
-          <div id="forgotPassword" class="form-group col d-flex justify-content-end">
+        <!-- Forgot Password hyperlink -->
+        <div class="row">
+          <div id="forgotPassword" class="form-group col d-flex justify-content-end mr-4 pr-4">
             <a href="#">Forgot Password?</a>
           </div>
           
-          <div class="form-group col d-flex justify-content-center"></div>
-          
           <!-- Login button -->
-          <div id="submitDiv" class="form-group col d-flex justify-content-start">
-            <button type="submit" class="btn btn-primary px-6">Log In</button>
+          <div id="submitDiv" class="form-group col d-flex justify-content-start ml-4 pl-4">
+            <button type="submit" class="btn btn-primary pr-5 pl-5">Log In</button>
           </div>
         </div>
 
@@ -81,6 +79,14 @@
               
               <div class="modal-body">
                 <form>
+                  
+                  <!-- Organization picture -->
+                  <div class="form-group col d-flex justify-content-center">
+                    <div class="col-6">
+                      <label for="organizationPicture">Organization Profile Picture</label>
+                      <input class="inputfiles" type="file" class="form-control d-flex justify-content-center" />
+                    </div>
+                  </div>
                   
                   <!-- Register organization name area -->
                   <div class="form-group col d-flex justify-content-center">
@@ -111,6 +117,14 @@
                     <div class="col-6">
                       <label for="password">Confirm Password</label>
                       <input id="password" class="form-control" type="password" placeholder="Confirm password"/>
+                    </div>
+                  </div>
+                  
+                  <!-- Organization profile blurb/information -->
+                  <div class="form-group col d-flex justify-content-center">
+                    <div class="col-6">
+                      <label for="blurb">Organization Profile Blurb</label>
+                      <textarea id="blurb" class="form-control" type="text" height="100px" placeholder="Type in your profile description"></textarea>
                     </div>
                   </div>
                 </form>
