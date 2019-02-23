@@ -14,6 +14,13 @@
     "url": "git+https://github.com/ChristopherPence/REC.git"
   },
   "author": "Web Science Systems Development Team 5",
+  "contributors":[
+    "Christopher Pence",
+    "Finnegan Pike",
+    "John Gay",
+    "Carlos Power",
+    "Steven Li"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ChristopherPence/REC/issues"
