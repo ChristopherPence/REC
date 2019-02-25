@@ -14,7 +14,7 @@
     "url": "git+https://github.com/ChristopherPence/REC.git"
   },
   "author": "Web Science Systems Development Team 5",
-  "contributors":[
+  "contributors": [
     "Christopher Pence",
     "Finnegan Pike",
     "John Gay",
@@ -31,6 +31,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "file-system": "^2.2.2",
+    "imgur": "^0.3.1",
     "request": "^2.88.0"
   }
 }

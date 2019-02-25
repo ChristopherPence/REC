@@ -1,4 +1,5 @@
 const fs = require('fs');
+const imgur = require('imgur');
 const https = require('https');
 const express = require('express');
 const parser = require("body-parser");
@@ -21,23 +22,33 @@ app.listen(port, function(){
 
 
 
-//Make an image upload
-var options = {
-	'method' : 'POST',
-	'hostname' : 'api.imgur.com',
-	'path' : '/3/image',
-	'headers' : {
-		'Authorization': 'Client-ID ' + process.env.CLIENT_ID
-	}
-};
 
-var req = https.request(options, function(res) {
-	res.on('data', function(i){
-		console.log(i.toString());
-	}); 
-});
+//save the client id to the imgur module
+imgur.setClientId(process.env.CLIENT_ID);
+imgur.setAPIUrl('https://api.imgur.com/3/');
 
-// var postData = "https://raw.githubusercontent.com/ChristopherPence/REC/master/REC%20Flowchart.png";
-
-// req.write(postData);
-// req.end();
+/*
+	Upload a flyer to imgur and document it in database
+	Will upload image to imgur and output the delhash, THIS MUST BE SAVED
+*/
+function uploadFlyer(image){
+	imgur.uploadFile(image).then(function(res){
+		console.log('Delete Hash: '+res.data.deletehash);
+		console.log('Link: '+res.data.link);
+	}).catch(function(err){
+		console.log(err.message);
+	});
+}
+	
+/*
+	Delete a flyer from imgur and document it in database
+	Will delete an image uploaded to imgur, nothing to save here
+*/
+function deleteFlyer(delhash){
+	imgur.deleteImage(delhash).then(function(status){
+		console.log(status);
+	}).catch(function(err){
+		console.log(err.message);
+	});
+}
+	
