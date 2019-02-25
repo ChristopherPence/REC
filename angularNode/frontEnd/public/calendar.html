@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US" class = "h-100 w-100 m-0">
+  <head>
+    <title>REC Calendar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- this is the script that allows for the angular functionality to be included -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
+    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body class = "w-100 h-100"> 
+    <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100"> 
+      <div ng-include="'navbar.html'" class = "h-25"></div>
+<!--      <h1 ng-repeat="x in records">{{x}}</h1>-->
+      
+    </div>
+  </body>
+  <script>
+  var app = angular.module('myApp', []);
+  app.controller('customersCtrl', function($scope, $http) {
+//    $http({
+//          method : "get",
+//          url : 'resources/news/news.json'
+//          }).then(function mySuccess(response) 
+//          {
+//            console.log(response);
+//          }, function myError(response) 
+//          {
+//            console.log(response);
+//          });
+  });
+  </script>
+</html>
