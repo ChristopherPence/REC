@@ -8,6 +8,10 @@ const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const app = express();
 
+const mongo = require('mongodb').mongoClient;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 //Load in env variables
 require('dotenv').load();
 const port = process.env.MAIN_PORT;
@@ -23,8 +27,10 @@ app.get('/upimg', function(req, res){
 });
 
 
-/*
-	POST /flyerUpload
+//=========================================
+// Flyer uploading
+/*  
+    POST /flyerUpload
 	DATA: 	imgsrc: image file
 
 	Saves image as a file in /uploads
@@ -85,7 +91,22 @@ function imgurDelete(delhash){
 }
 
 
-
+//========================================
+// MongoDB Connection for the Registration Page
+app.post('/login', function (req, res, next)) {
+  var userSchema = new Schema ({
+    var username: req.username,
+    var password: req.password
+  }, {collection: 'userAccounts'});
+         
+  var userLogin = mongoose.model('findUser', userSchema);
+  userLogin.find({}, function(err, data)) {
+    if(err){
+      console.log("Could not find account");
+    }
+    console.log(data);            
+  }
+}
 
 
 

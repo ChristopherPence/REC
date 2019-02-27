@@ -47,6 +47,66 @@ We are no longer making any commits to master. Commit to your feature's branch a
 <img width="802" alt="rec flowchart" src="https://user-images.githubusercontent.com/20056711/52525810-23858d80-2c7d-11e9-817b-b35dd77397f9.png"> 
 
 
-Utilizing MongoDB
+## Install MongoDB 4.0 (Current)
  1. download the MongoDB server (database software) at https://www.mongodb.com/download-center/community
  2. find the data path to the MongoDB execution files (mongod.exe and mongo.exe)
+ ```
+ ..../C:/Program Files/MongoDB/Server/4.0/bin/.... 
+ ```
+ ### Difference between mongod.exe and mongo.exe
+ - mongod (Mongo Daemon) is the background process that manages the entirety of the MongoDB servers (basically the MongoDB server)
+ - mongo (Javascript shell interface) allows developers to test queries and operations directly with the database (client that interacts with the MongoDB server)
+ 
+ ### Mongo Data Type Support
+ Mongo supports many datatypes, some of which are:
+    -string
+    -integer
+    -boolean
+    -double
+    -arrays
+    -binary data
+    -timestamp
+    -object
+    -date
+ 
+## Working with MongoDB
+ ### Creating a database
+   ```
+   > use DATABASE_NAME
+   ```
+   
+ ### Showing current database
+   ```
+   > db
+   ```
+   
+ ### Show all operable databases
+   ```
+   > show dbs
+   ```
+   
+ ### Deleting a database (after selecting database)
+   ```
+   > db.dropDatabase()
+   ```
+   
+ ### Creating a collection (or a table in MySQL)
+   ```
+   > db.createCollection(name, options)
+   > db.createCollection(name, { capped : ?, autoIndexId : ?, size: ?, max : ?})
+   ```
+   name: name of collection (table)
+   options: specify memory size and indexing
+      -capped: boolean on whether or not to overwrite over old entries          should max entries be reached
+      -autoIndexId: boolean on whether or not to create index on id                 fields
+      -size: maximum size in bytes allowed for capped collection
+      -max: max number of documents allowed for capped collection
+   
+ ### Dropping a collection
+   ```
+   db.COLLECTION_NAME.drop()
+   ```
+ 
+ 
+ 
+ 
