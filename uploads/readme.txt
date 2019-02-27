@@ -1,0 +1,1 @@
+Temporary storage for flyers and images before uploading to imgur for long term storage.
