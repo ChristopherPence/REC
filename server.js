@@ -8,6 +8,13 @@ const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const app = express();
 
+// Cool module that can add color to bash/terminal text
+/*
+  var goodColor = chalk.bold.red;
+  console.log(goodColor("The text color is red."));
+*/
+const chalk = require('chalk');
+
 const mongo = require('mongodb').mongoClient;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -90,26 +97,70 @@ function imgurDelete(delhash){
 	});
 }
 
+//========================================
+// MongoDB Connection for the Login Page
+app.post('/login', function (req, res, next) {
+         
+  var URL = 'mongodb://localhost:' + port + '/REC_database';
+  
+  mongoose.connect(URL, {useNewUrlParser : true});
+
+  mongoose.connection.on('connected', function(err) {
+    if(err){
+      console.log("Error connecting to the database");
+    }
+    console.log("Connected to database");
+    
+    var loginSchema = new Schema ({
+      "username" : req.username,
+      "password" : req.password
+    });
+
+    var userLogin = mongoose.model('userAccounts', loginSchema);
+    var account = userLogin.find(loginSchema);
+
+    if(!account) {
+      console.log("Account not registered!");
+    }
+    else {
+      console.log("Account found! Logging in......");
+    }
+  });
+
+  mongoose.connection.close();
+});
 
 //========================================
 // MongoDB Connection for the Registration Page
-app.post('/login', function (req, res, next)) {
-  var userSchema = new Schema ({
-    var username: req.username,
-    var password: req.password
-  }, {collection: 'userAccounts'});
+app.post('/register', function(req, res, next) {
          
-  var userLogin = mongoose.model('findUser', userSchema);
-  userLogin.find({}, function(err, data)) {
-    if(err){
-      console.log("Could not find account");
+  var URL = 'mongodb://localhost:' + port + '/REC_database';
+  
+  mongoose.connect(URL, {useNewUrlParser : true});
+         
+  mongoose.connection.on('connected', function(err) {
+    if(err) {
+      console.log("Problem connected to database.");
     }
-    console.log(data);            
-  }
-}
+    var regSchema = new Schema ({
+      "organization" : req.organization,
+      "username" : req.username,
+      "password" : req.password,
+      "blurb" : req.blurb
+    });
 
+    var userRegister = mongoose.model("userAccounts", regSchema);
+    userRegister.create({}, function(err, output) {
+      if(err) {
+        console.log("Error creating account!");
+      }
 
-
+      console.log("Successfully created account!");
+    });
+    
+    mongoose.connection.close();
+  });
+});
 
 //Server listen on port
 app.listen(port, function(){

@@ -34,7 +34,7 @@
         <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
             <label for="username">Username</label>
-            <input id="loginUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+            <input ng-model="loginUsername" id="loginUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
           </div>
         </div>
         
@@ -42,7 +42,7 @@
         <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
             <label for="password">Password</label>
-            <input id="loginPassword" class="form-control" type="password" placeholder="Password"/>
+            <input ng-model="loginPassword" id="loginPassword" class="form-control" type="password" placeholder="Password"/>
           </div>
         </div>
         
@@ -54,7 +54,7 @@
           
           <!-- Login button -->
           <div id="submitDiv" class="form-group col d-flex justify-content-start ml-4 pl-4">
-            <button type="submit" class="btn btn-primary pr-5 pl-5">Log In</button>
+            <button ng-click="login()" type="submit" class="btn btn-primary pr-5 pl-5">Log In</button>
           </div>
         </div>
 
@@ -80,19 +80,21 @@
               <div class="modal-body">
                 <form>
                   
-                  <!-- Organization picture -->
+<!--
+                   Organization picture 
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="organizationPicture">Organization Profile Picture</label>
                       <input type="file" class="form-control d-flex justify-content-center" />
                     </div>
                   </div>
+-->
                   
                   <!-- Register organization name area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="username">Organization</label>
-                      <input id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
+                      <input ng-model="organization" id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
                     </div>
                   </div>
                   
@@ -100,7 +102,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="username">Username</label>
-                      <input id="registerUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+                      <input ng-model="registerUsername" id="registerUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
                     </div>
                   </div>
 
@@ -108,7 +110,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="password">Password</label>
-                      <input id="registerPassword" class="form-control" type="password" placeholder="Password"/>
+                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" placeholder="Password"/>
                     </div>
                   </div>
                   
@@ -116,7 +118,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="password">Confirm Password</label>
-                      <input id="confirmPassword" class="form-control" type="password" placeholder="Confirm password"/>
+                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" placeholder="Confirm password"/>
                     </div>
                   </div>
                   
@@ -124,7 +126,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="blurb">Organization Profile Blurb</label>
-                      <textarea id="blurb" class="form-control" type="text" placeholder="Type in your profile description"></textarea>
+                      <textarea ng-model="blurb" id="blurb" class="form-control" type="text" placeholder="Type in your profile description"></textarea>
                     </div>
                   </div>
                 </form>
@@ -132,7 +134,7 @@
               
               <!-- Register or Exit buttons for Modal -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Register</button>
+                <button ng-click="register()" type="button" class="btn btn-primary">Register</button>
               </div>
               
             </div>
@@ -157,6 +159,31 @@
     var app = angular.module("login", []);
     app.controller("mainController", function($scope, $http){
       
+      $scope.register = function() {
+        $http({
+          method: "POST",
+          url: "http://localhost:8080/register"
+        }).then
+          (function success(data){
+            $scope.pulledTweets = data.data;
+          },
+          function error(response){
+            alert("Error while processing query: " + response);
+        });
+      }
+      
+      $scope.login = function() {
+        $http({
+          method: "POST",
+          url: "http://localhost:8080/login"
+        }).then
+          (function success(data){
+            $scope.pulledTweets = data.data;
+          },
+          function error(response){
+            alert("Error while processing query: " + response);
+        });
+      }
     });
   </script>
   
