@@ -10,7 +10,7 @@
     <link rel="icon" href="resources/hurricane-icon.png">
     
     <!-- Angular script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.js"></script>
     
     <!-- External CSS link -->
     <link rel="stylesheet" href="resources/login-register.css">
@@ -24,7 +24,7 @@
   <body ng-controller="mainController">
     
     <!-- Header -->
-    <header class="d-flex justify-content-start pl-5 mb-5 border-bottom"><h1>Rensselaer Events Calendar</h1></header>
+    <header class="d-flex justify-content-start pl-5 mb-5 border-bottom"><img class="img-fluid login_logo" src="resources/website_logo.png" alt="Rensselaer Events Calendar Logo"/></header>
     
     <!-- Form to sign in -->
     <div class="container bg-warning border px-1 py-5 rounded-circle">
@@ -34,7 +34,7 @@
         <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
             <label for="username">Username</label>
-            <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+            <input ng-model="loginUsername" id="loginUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
           </div>
         </div>
         
@@ -42,7 +42,7 @@
         <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
             <label for="password">Password</label>
-            <input id="password" class="form-control" type="password" placeholder="Password"/>
+            <input ng-model="loginPassword" id="loginPassword" class="form-control" type="password" placeholder="Password"/>
           </div>
         </div>
         
@@ -54,7 +54,7 @@
           
           <!-- Login button -->
           <div id="submitDiv" class="form-group col d-flex justify-content-start ml-4 pl-4">
-            <button type="submit" class="btn btn-primary pr-5 pl-5">Log In</button>
+            <button ng-click="login()" type="submit" class="btn btn-primary pr-5 pl-5">Log In</button>
           </div>
         </div>
 
@@ -80,19 +80,21 @@
               <div class="modal-body">
                 <form>
                   
-                  <!-- Organization picture -->
+<!--
+                   Organization picture 
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="organizationPicture">Organization Profile Picture</label>
-                      <input class="inputfiles" type="file" class="form-control d-flex justify-content-center" />
+                      <input type="file" class="form-control d-flex justify-content-center" />
                     </div>
                   </div>
+-->
                   
                   <!-- Register organization name area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="username">Organization</label>
-                      <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
+                      <input ng-model="organization" id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
                     </div>
                   </div>
                   
@@ -100,7 +102,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="username">Username</label>
-                      <input id="username" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+                      <input ng-model="registerUsername" id="registerUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
                     </div>
                   </div>
 
@@ -108,7 +110,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="password">Password</label>
-                      <input id="password" class="form-control" type="password" placeholder="Password"/>
+                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" placeholder="Password"/>
                     </div>
                   </div>
                   
@@ -116,7 +118,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="password">Confirm Password</label>
-                      <input id="password" class="form-control" type="password" placeholder="Confirm password"/>
+                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" placeholder="Confirm password"/>
                     </div>
                   </div>
                   
@@ -124,7 +126,7 @@
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
                       <label for="blurb">Organization Profile Blurb</label>
-                      <textarea id="blurb" class="form-control" type="text" height="100px" placeholder="Type in your profile description"></textarea>
+                      <textarea ng-model="blurb" id="blurb" class="form-control" type="text" placeholder="Type in your profile description"></textarea>
                     </div>
                   </div>
                 </form>
@@ -132,7 +134,7 @@
               
               <!-- Register or Exit buttons for Modal -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Register</button>
+                <button ng-click="register()" type="button" class="btn btn-primary">Register</button>
               </div>
               
             </div>
@@ -157,6 +159,33 @@
     var app = angular.module("login", []);
     app.controller("mainController", function($scope, $http){
       
+      $scope.register = function() {
+        $http({
+          method: "post",
+          url: "http://localhost:8080/register"
+        }).then
+          (function success(data){
+            console.log("Successfully registered");
+            console.log(data);
+          },
+          function error(response){
+            alert("Error while registering");
+        });
+      }
+      
+      $scope.login = function() {
+        $http({
+          method: "post",
+          url: "http://localhost:8080/login"
+        }).then
+          (function success(data){
+            console.log("Logged In!");
+            console.log(data);
+          },
+          function error(response){
+            alert("Error while logging in");
+        });
+      }
     });
   </script>
   
