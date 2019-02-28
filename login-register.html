@@ -161,27 +161,29 @@
       
       $scope.register = function() {
         $http({
-          method: "POST",
+          method: "post",
           url: "http://localhost:8080/register"
         }).then
           (function success(data){
-            $scope.pulledTweets = data.data;
+            console.log("Successfully registered");
+            console.log(data);
           },
           function error(response){
-            alert("Error while processing query: " + response);
+            alert("Error while registering");
         });
       }
       
       $scope.login = function() {
         $http({
-          method: "POST",
+          method: "post",
           url: "http://localhost:8080/login"
         }).then
           (function success(data){
-            $scope.pulledTweets = data.data;
+            console.log("Logged In!");
+            console.log(data);
           },
           function error(response){
-            alert("Error while processing query: " + response);
+            alert("Error while logging in");
         });
       }
     });

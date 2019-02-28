@@ -15,7 +15,7 @@ const app = express();
 */
 const chalk = require('chalk');
 
-const mongo = require('mongodb').mongoClient;
+const mongo = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -27,12 +27,11 @@ const port = process.env.MAIN_PORT;
 app.use('/resources', express.static(__dirname + '/resources'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.get('/', function(req, res){
-	res.sendFile(__dirname + '/login-register.html');
+  res.sendFile(__dirname + '/login-register.html');
 });
 app.get('/upimg', function(req, res){
-	res.sendFile(__dirname + '/upimg.html');
+  res.sendFile(__dirname + '/upimg.html');
 });
-
 
 //=========================================
 // Flyer uploading
@@ -100,66 +99,74 @@ function imgurDelete(delhash){
 //========================================
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
-         
-  var URL = 'mongodb://localhost:' + port + '/REC_database';
+           
+  var URL = 'mongodb://localhost:' + port;
   
-  mongoose.connect(URL, {useNewUrlParser : true});
-
-  mongoose.connection.on('connected', function(err) {
-    if(err){
-      console.log("Error connecting to the database");
+  mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
+    if(err) {
+      console.log("Error connecting to database");
     }
     console.log("Connected to database");
     
-    var loginSchema = new Schema ({
-      "username" : req.username,
-      "password" : req.password
+    var dbo = db.db("REC_database");
+  
+    dbo.collection('userAccounts', function (err, collection){
+      if(err) {
+        console.log("Error logging into the server");
+      }
+      
+      var found = collection.find({username : req.username, password : req.password});
+      
+      if(!found) {
+        console.log("Account not found.");
+        res.send("Found");
+      }
+      else {
+        console.log("Account found.");
+        res.send("Not Found");
+      }
     });
-
-    var userLogin = mongoose.model('userAccounts', loginSchema);
-    var account = userLogin.find(loginSchema);
-
-    if(!account) {
-      console.log("Account not registered!");
-    }
-    else {
-      console.log("Account found! Logging in......");
-    }
+    
+    dbo.close();
   });
-
-  mongoose.connection.close();
+  
 });
 
 //========================================
 // MongoDB Connection for the Registration Page
 app.post('/register', function(req, res, next) {
-         
+           
   var URL = 'mongodb://localhost:' + port + '/REC_database';
   
-  mongoose.connect(URL, {useNewUrlParser : true});
-         
-  mongoose.connection.on('connected', function(err) {
+  mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
     if(err) {
-      console.log("Problem connected to database.");
+      console.log("Problem connecting to database.");
     }
-    var regSchema = new Schema ({
-      "organization" : req.organization,
-      "username" : req.username,
-      "password" : req.password,
-      "blurb" : req.blurb
-    });
-
-    var userRegister = mongoose.model("userAccounts", regSchema);
-    userRegister.create({}, function(err, output) {
-      if(err) {
-        console.log("Error creating account!");
+    console.log("Connected to database");
+    
+    var dbo = db.db("REC_database");
+    
+    dbo.collection('userAccounts', function (err, collection){
+      if (err) {
+        console.log("Error registering to the server.");
       }
-
-      console.log("Successfully created account!");
+      
+      collection.insert({ organization: req.organization, username : req.username, password : req.password, blurb : req.blurb})
+      
+      res.send("Registered");
+      
     });
     
-    mongoose.connection.close();
+    dbo.collection('userAccounts').count(function (err, count) {
+      if (err) {
+        console.log("Problem occurred counting the total accounts.");
+      }
+      console.log("Total Rows: " + count);
+    });
+    
+    dbo.close();
   });
+         
 });
 
 //Server listen on port
