@@ -8,11 +8,23 @@
    <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
   </head>
-  <body class = "w-100 h-100"> 
-    <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100"> 
-      <div ng-include="'navbar.html'" class = "h-25"></div>
-<!--      <h1 ng-repeat="x in records">{{x}}</h1>-->
-      
+  <body class = "w-100 h-100">
+    <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100">
+      <div ng-include="'navbar.html'" class = "h-25">
+        <div class="row">
+            <span class="col-sm" ng-repeat="x in clubs">
+              <div class="card" style="width: 18rem;">
+                <!--<img src={{x.picture}} class="card-img-top">-->
+                <div class="card-body">
+                  <h5 class="card-title">{{ x.title }}</h5>
+                  <p class="card-text">{{ x.description }}</p>
+                  <!--<a href="{{ x.url }}" class="btn btn-primary">Read more</a>-->
+                </div>
+              </div>
+              <br>
+            </span>
+        </div>
+      </div>
     </div>
   </body>
   <script>
