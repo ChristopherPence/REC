@@ -16,12 +16,11 @@ const app = express();
 const chalk = require('chalk');
 
 const mongo = require('mongodb').MongoClient;
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 //Load in env variables
 require('dotenv').load();
 const port = process.env.MAIN_PORT;
+const mongo_port = process.env.MONGO_PORT;
 
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
@@ -100,71 +99,74 @@ function imgurDelete(delhash){
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
            
-  var URL = 'mongodb://localhost:' + port;
+  var URL = 'mongodb://localhost:' + mongo_port + '/';
   
   mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
     if(err) {
-      console.log("Error connecting to database");
+      throw err;
     }
-    console.log("Connected to database");
-    
-    var dbo = db.db("REC_database");
-  
-    dbo.collection('userAccounts', function (err, collection){
-      if(err) {
-        console.log("Error logging into the server");
-      }
+    else {
+      console.log("Connected to database");
+
+      var dbo = db.db("REC_database");
+
+      dbo.collection('userAccounts', function (err, collection){
+        if(err) {
+          throw err;
+        }
+
+        var found = collection.find({username : req.username, password : req.password});
+
+        if(!found) {
+          console.log("Account not found.");
+          res.send("Not Found");
+        }
+        else {
+          console.log("Account found.");
+          res.send("Found");
+        }
+      });
       
-      var found = collection.find({username : req.username, password : req.password});
-      
-      if(!found) {
-        console.log("Account not found.");
-        res.send("Found");
-      }
-      else {
-        console.log("Account found.");
-        res.send("Not Found");
-      }
-    });
-    
-    dbo.close();
+      db.close();
+    }
   });
-  
 });
 
 //========================================
 // MongoDB Connection for the Registration Page
 app.post('/register', function(req, res, next) {
            
-  var URL = 'mongodb://localhost:' + port + '/REC_database';
+  var URL = 'mongodb://localhost:' + mongo_port + '/';
   
   mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
     if(err) {
-      console.log("Problem connecting to database.");
+      throw err;
     }
-    console.log("Connected to database");
-    
-    var dbo = db.db("REC_database");
-    
-    dbo.collection('userAccounts', function (err, collection){
-      if (err) {
-        console.log("Error registering to the server.");
-      }
+    else {
+      console.log("Connected to database");
+
+      var dbo = db.db("REC_database");
+
+      dbo.collection('userAccounts', function (err, collection){
+        if (err) {
+          throw err;
+        }
+
+        collection.insertOne({ organization: req.organization, username : req.username, password : req.password, blurb : req.blurb})
+
+        res.send("Registered");
+
+      });
+
+      dbo.collection('userAccounts').countDocuments(function (err, count) {
+        if (err) {
+          throw err;
+        }
+        console.log("Total Rows: " + count);
+      });
       
-      collection.insert({ organization: req.organization, username : req.username, password : req.password, blurb : req.blurb})
-      
-      res.send("Registered");
-      
-    });
-    
-    dbo.collection('userAccounts').count(function (err, count) {
-      if (err) {
-        console.log("Problem occurred counting the total accounts.");
-      }
-      console.log("Total Rows: " + count);
-    });
-    
-    dbo.close();
+      db.close();
+    }
   });
          
 });
