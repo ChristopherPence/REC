@@ -1,0 +1,42 @@
+[
+  {
+    "organizer":"SASE",
+    "title": "SASE Interview Preperation",
+    "timeStart":"6:00pm",
+    "timeEnd":"7:00pm",
+    "date":"03/12/19",
+    "description": "Ready to get an interview with an amazing company? Want to land a job in a high paying job? Getting through an interview, with the correct skills and preperation is important for succeding in obtaining a career. How does one prepare for an interview? How does somebody dress and speak during an interview? How does an interview go smoothly? We can help you answer all of these qestions at the SASE Interview Preperation Event."
+  },
+  {
+    "organizer":"RRS",
+    "title": "RRS Trivia Night",
+    "timeStart":"6:30pm",
+    "timeEnd":"9:00pm",
+    "date":"03/12/19",
+    "description": "Welcome, to the greatest Trivia night of your life! This trivia will blow your mind, and the experience will be out of this world! Please come to our Trivia night, and get a prize of a cool NASA shirt. Once you have this shirt on, you'll know that for the day, you're going to rock-it!!!"
+  },
+  {
+    "organizer":"Eighth Wonder",
+    "title": "Eighth Wonder Stomp and Shout",
+    "timeStart":"7:00pm",
+    "timeEnd":"9:00pm",
+    "date":"03/12/19",
+    "description": "Want to learn about rythmic dancing? Come to the Eighth Wonder Stomp and Shout event. We will be teaching how to stay in rythm with other dances, and how to time loud dance movements to other dancers. Come to have a fun loud time."
+  },
+  {
+    "organizer":"ROC",
+    "title": "Bouldering Wall Hours Closed",
+    "timeStart":"7:00pm",
+    "timeEnd":"8:00pm",
+    "date":"03/12/19",
+    "description": "Unluckily, one of our gym members fell down the stairs, and we have had to cancel Rock Wall hours for today. Please understand the situation. The stairs are the hardest bouldering wall to climb. Hopefully Matt will be fine. Please send him your support."
+  },
+  {
+    "organizer":"SHPE",
+    "title": "Lazer Tag",
+    "timeStart":"7:30pm",
+    "timeEnd":"9:00pm",
+    "date":"03/12/19",
+    "description": "RPI students love lazers, and what better way to work with lazers than to have fun with them. RPI students don't need to look over dozens of safety sheets that detail the lazer specs, just bring 15 dollars and the will to have fun. We will be providing the transportation. Please come and have FUN!!!"
+  }  
+]
