@@ -28,19 +28,19 @@
     </div>
   </body>
   <script>
-  var app = angular.module('myApp', []);
-  app.controller('customersCtrl', function($scope, $http) {
-//    $http({
-//          method : "get",
-//          url : 'resources/news/news.json'
-//          }).then(function mySuccess(response) 
-//          {
-//            console.log(response);
-//          }, function myError(response) 
-//          {
-//            console.log(response);
-//          });
-  });
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+      $http({
+            method : "get",
+            url : 'resources/clubs/clubs.json'
+            }).then(function mySuccess(response)
+            {
+              console.log(response);
+            }, function myError(response)
+            {
+              console.log(response);
+            });
+    });
   </script>
-<!-->>>>>>> b0012ce7fc3d92f8edc3559f6ce8f5a3601aebae-->
+<!--&gt;>>>>>> b0012ce7fc3d92f8edc3559f6ce8f5a3601aebae-->
 </html>
