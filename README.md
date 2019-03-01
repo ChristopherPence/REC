@@ -56,7 +56,10 @@ We are no longer making any commits to master. Commit to your feature's branch a
  ### Difference between mongod.exe and mongo.exe
  - mongod (Mongo Daemon) is the background process that manages the entirety of the MongoDB servers (basically the MongoDB server)
  - mongo (Javascript shell interface) allows developers to test queries and operations directly with the database (client that interacts with the MongoDB server)
- 
+
+## MONGO DB SERVER COMMANDS
+ 1. 'sudo service mongodb start'
+ 2. 'sudo service mongodb stop' 
  
  
  
