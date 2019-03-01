@@ -4,46 +4,38 @@ function imageChange()
 {
   var heightz = window.innerHeight;
   var widthz = window.innerWidth;
-  
-  if(widthz < 850)
-  {
-    $('.headingz').addClass('flex-column');
-  }
-  else
-  {
-    $('.headingz').removeClass('flex-column');
-  }
-  
-  if(heightz > widthz)
+  if(heightz > widthz * 0.8)
   {
     heightz = widthz;
+    widthz = (widthz/11)*8.5;
   }
-  else if(heightz < widthz)
+  else if(heightz < widthz && heightz <= 400)
+  {
+    widthz = 366;
+    heightz = 487;
+  }
+    else if(heightz < widthz)
   {
     widthz = heightz;
+    heightz = (heightz/8.5)*11;
   }
-  if(heightz < 400)
-  {
-    heightz = 400;
-    widthz = 400;
-  }
-  $(".clubIm").css("height", heightz*0.1);
-  $(".clubIm").css("width", widthz*0.1);
+  $(".flyerz").css("height", heightz*0.7);
+  $(".flyerz").css("width", widthz*0.7);
 }
+
 
 var app = angular.module('myApp', []);
   app.controller('customersCtrl', function($scope, $http) {
     $http({
           method : "get",
-          url : 'resources/news/news.json'
+          url : 'resources/flyers/flyers.json'
           }).then(function mySuccess(response) 
           {
-            $scope.news = response.data;
+            $scope.flyers = response.data;
           }, function myError(response) 
           {
             console.log(response);
           });    
-    
     $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) 
     {
 	     
@@ -59,7 +51,7 @@ app.filter('removeSpaces', [function() {
       return string.replace(/[\s]/g, '');
     };
 }]);
-  
+
 app.directive('onFinishRender', function ($timeout) {
 	return {
 		restrict: 'A',
@@ -72,7 +64,3 @@ app.directive('onFinishRender', function ($timeout) {
 		}
 	}
 });
-
-    
-    
-   
