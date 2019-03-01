@@ -57,8 +57,6 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 });
 
 
-
-
 // ========================================
 // Imgur functions
 
