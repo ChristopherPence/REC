@@ -19,8 +19,7 @@ const mongo = require('mongodb').MongoClient;
 
 //Load in env variables
 require('dotenv').load();
-//const port = process.env.MAIN_PORT;
-const port = 3000;
+const port = process.env.MAIN_PORT;
 const mongo_port = process.env.MONGO_PORT;
 
 //Send html and static files upon request
