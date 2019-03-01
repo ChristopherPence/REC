@@ -1,4 +1,3 @@
-
 window.onresize = imageChange;
 
 function imageChange() 
@@ -42,7 +41,10 @@ var app = angular.module('myApp', []);
           {
             console.log(response);
           });    
-  
+    
+    if ($scope.$last){
+      console.log("im the last!");
+    }
   });
    
 app.filter('removeSpaces', [function() {
