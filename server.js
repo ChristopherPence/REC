@@ -25,8 +25,14 @@ const mongo_port = process.env.MONGO_PORT;
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/login-register.html');
+
+//include the subfolder as a static point in which all the scripts can actually be referenced in the client side
+app.use(express.static('public')); 
+
+//send the webpage html to the user on localhost port 3000
+app.get('/', function (req, res) 
+{
+  res.send(__dirname + '/public');
 });
 app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
@@ -123,7 +129,7 @@ app.post('/login', function (req, res, next) {
         }
         else {
           console.log("Account found.");
-          res.send("Found");
+          res.redirect('/');
         }
       });
       
