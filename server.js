@@ -129,7 +129,7 @@ app.post('/login', function (req, res, next) {
         }
         else {
           console.log("Account found.");
-          res.redirect('/');
+          res.send('Found');
         }
       });
       
