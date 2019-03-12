@@ -14,13 +14,14 @@ const app = express();
   console.log(goodColor("The text color is red."));
 */
 const chalk = require('chalk');
-
 const mongo = require('mongodb').MongoClient;
 
 //Load in env variables
 require('dotenv').load();
 const port = process.env.MAIN_PORT;
 const mongo_port = process.env.MONGO_PORT;
+
+const URL = 'mongodb://localhost:' + mongo_port + '/';
 
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
@@ -38,10 +39,14 @@ app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
 
-//send over the news
-app.get('/getnews', function(req, res){
+//GET request for news list
+app.get('/getNews', function(req, res){
 
-  
+});
+
+//GET request for club list
+app.get('/getClubs', function(req, res){
+
 });
 
 //=========================================
@@ -109,8 +114,6 @@ function imgurDelete(delhash){
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
            
-  var URL = 'mongodb://localhost:' + mongo_port + '/';
-  
   mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
     if(err) {
       throw err;
