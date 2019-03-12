@@ -53,55 +53,6 @@ nav a:active {
 }
 nav a {
   font-weight: bold;
-  font-size: 1.3em;
   margin-left: 16px;
-}
-
-@media only screen and (max-width: 700px) 
-{
-  nav a {
-    font-size: 1.2em;
-  }
-}
-
-@media only screen and (max-width: 650px) 
-{
-  nav a {
-    font-size: 1.1em;
-  }
-}
-
-@media only screen and (max-width: 600px) 
-{
-  #logo {
-    width: 180px;
-    height: 75px;
-  }
-  nav a {
-    font-size: 1em;
-    margin-left: 14px;
-  }
-}
-
-@media only screen and (max-width: 550px) 
-{
-  nav a {
-    font-size: 0.9em;
-    margin-left: 12px;
-  }
-}
-
-@media only screen and (max-width: 500px) 
-{
-  nav a {
-    font-size: 0.8em;
-    margin-left: 11px;
-  }
-}
-@media only screen and (max-width: 450px) 
-{
-  nav a {
-    font-size: 0.7em;
-    margin-left: 10px;
-  }
+  font-size:calc(8px + 1.0vw);
 }
