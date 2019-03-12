@@ -20,8 +20,7 @@ const mongo = require('mongodb').MongoClient;
 require('dotenv').load();
 const port = process.env.MAIN_PORT;
 const mongo_port = process.env.MONGO_PORT;
-
-const URL = 'mongodb://localhost:' + mongo_port + '/';
+const mongo_url = 'mongodb://localhost:' + mongo_port + '/';
 
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
@@ -46,7 +45,25 @@ app.get('/getNews', function(req, res){
 
 //GET request for club list
 app.get('/getClubs', function(req, res){
-
+  mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
+    if(err) {
+      throw err;
+    }
+    else {
+      console.log("Connected to database");
+      var dbo = db.db("REC_database");
+      dbo.collection('clubs', function (err, collection){
+        if(err) {
+          throw err;
+        }
+        var found = collection.find().toArray(function(err, items){
+          console.log(items);
+          res.send(items);
+        });
+      });
+      db.close();
+    }
+  });
 });
 
 //=========================================
@@ -114,6 +131,8 @@ function imgurDelete(delhash){
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
            
+  var URL = 'mongodb://localhost:' + mongo_port + '/';
+
   mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
     if(err) {
       throw err;

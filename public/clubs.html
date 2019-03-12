@@ -10,14 +10,36 @@
     <link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>
   </head>
   <body class = "w-100 h-100"> 
-    <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100"> 
+    <div ng-app="myApp" ng-controller="mainctrl" class="h-100 w-100"> 
       <div ng-include="'navbar.html'" class = "h-25"></div>
       <section class="mt-1 rounded d-flex align-items-center">
           <img class = "calendar" src = "resources/clubs.png" alt="Calendar Page" width="350" height="500">
+          <button ng-click="getClubs();">Click me</button>
       </section>
         
     </div>
   </body>
   <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>
   <script src="resources/calendar/calendar.js"></script>
+
+  <script type="text/javascript">
+    var app = angular.module("myApp", []);
+    app.controller("mainctrl", function($scope, $http){
+      
+      $scope.getClubs = function() {
+        console.log('get data');
+        $http({
+          method: "GET",
+          url: "/getclubs"
+        }).then
+          (function success(data){
+            console.log(data);
+            console.log(data.data[0].organization);
+          },
+          function error(response){
+            console.log("Error while looking" + response);
+        });
+      }
+    });
+  </script>
 </html>
