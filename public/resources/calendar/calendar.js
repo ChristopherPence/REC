@@ -1,125 +1,146 @@
-var dayz = 0;
-var monthz = 0;
-var yearz = 0;
-var curDayz = 0;
-var curMonthz = 0;
-var curYearz = 0;
 var total = 0;
-var bigEnough = 1;
+var todayz = new Date();
+var yearz = todayz.getFullYear();
+var monthz = todayz.getMonth();
+var dayzNext = new Date(yearz, monthz+1, 0).getDate();
+var curDate = new Date();
+var curYearz = todayz.getFullYear();
+var curMonthz = todayz.getMonth();
+var curDayz = todayz.getDate();
+var firstDay;
+var nextMonthDayz;
+var totalDay;
 var fullWeek = ['Sunday','Monday','Tuesday','Wednesday','Thrusday','Friday','Saturday'];
 var smallWeek = ['Sun.','Mon.','Tue.','Wed.','Thr.','Fri.','Sat.'];
+var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
 
-//CHECK WHAT VARIABLES USE var
 window.onresize = cellzChange;
-window.onload = cellzChange;
+window.onload = makeCalendar();
 
 function cellzChange() 
 {
   var heightz = window.innerHeight;
   var widthz = window.innerWidth;
-  if(widthz < 710)
+  var fontSize = $(".cellz").css('font-size');
+  var divHeight;
+//  console.log(widthz);
+//  console.log(heightz);
+  $(".calendar").css("width", widthz*0.8);
+  if(heightz < 500)
   {
-    if(bigEnough == 1)
-    {
-      bigEnough = 0;
-      makeCalendar();
-    }
-    bigEnough = 0;
+    $(".cellz").css("height", 45);
+//    divHeight = 45;
   }
   else
   {
-    if(bigEnough == 0)
-    {
-      bigEnough = 1;
-      makeCalendar();
-    }
-    bigEnough = 1;
+    divHeight = $(".datez").css('height');
+    divHeight = parseInt(divHeight.substring(0,divHeight.length-2))*2.3;
+    $(".cellz").css('height',divHeight);
   }
-  
-  
-//  if(heightz > widthz * 0.8)
-//  {
-//    heightz = widthz;
-//    widthz = (widthz/11)*8.5;
-//  }
-//  else if(heightz < widthz && heightz <= 400)
-//  {
-//    widthz = 366;
-//    heightz = 487;
-//  }
-//    else if(heightz < widthz)
-//  {
-//    widthz = heightz;
-//    heightz = (heightz/8.5)*11;
-//  }
-  $(".cellz").css("height", heightz*0.1);
-  $(".cellz").css("width", widthz*0.1);
+  //$("#calendarHeader").css("font-size", divHeight*0.5);
+}
+
+function moveCalUp() {
+  console.log("HELLO");
+  console.log(firstDay);
+  console.log(firstDay.getDay());
+  if(firstDay.getDay() == 0)
+  {
+    //when whole new month above
+    curDate = new Date(curYearz, curMonthz-1, 1);
+    curDayz = curDate.getDate();
+    curMonthz = curDate.getMonth();
+    curYearz = curDate.getFullYear();
+    makeCalendar();
+  }
+  else
+  {
+    curDate = new Date(curYearz, curMonthz-1, 1);
+    curDayz = curDate.getDate();
+    curMonthz = curDate.getMonth();
+    curYearz = curDate.getFullYear();
+    makeCalendar();
+  }
+}
+
+function moveCalDown() {
+  console.log("HELLO");
+  console.log(firstDay);
+  console.log(firstDay.getDay());
+  if(firstDay.getDay() == 0)
+  {
+    //when whole new month above
+    curDate = new Date(curYearz, curMonthz+1, 1);
+    curDayz = curDate.getDate();
+    curMonthz = curDate.getMonth();
+    curYearz = curDate.getFullYear();
+    makeCalendar();
+  }
+  else
+  {
+    curDate = new Date(curYearz, curMonthz+1, 1);
+    curDayz = curDate.getDate();
+    curMonthz = curDate.getMonth();
+    curYearz = curDate.getFullYear();
+    makeCalendar();
+  }
 }
 
 function makeCalendar()
 {
-  todayz = new Date();
-  yearz = todayz.getFullYear();
-  monthz = todayz.getMonth();
-  dayz = new Date(yearz, monthz+1, 0).getDate();
-  curYearz = todayz.getFullYear();
-  curMonthz = todayz.getMonth();
-  curDayz = todayz.getDate();
-
-  firstDay = new Date(yearz, monthz, 1);
-  beforeDayz = 7-((firstDay.getDay() + dayz))%7;
-  totalDay = firstDay.getDay() + dayz + beforeDayz;
+  firstDay = new Date(curYearz, curMonthz, 1);
+  nextMonthDayz = 7-((firstDay.getDay() + dayzNext))%7;
+  totalDay = firstDay.getDay() + dayzNext + nextMonthDayz;
+//  console.log(firstDay.getDay());
+//  console.log(dayzNext);
+//  console.log(nextMonthDayz);
+//  console.log(curDayz);
 //    console.log(firstDay);
 //    console.log(7-((firstDay.getDay() + dayz))%7);
   var stringCal = "";
   total = 0;
-  stringCal += '<div class="row bg-white no-gutters">';
-  if(bigEnough)
+  stringCal += '<tr class = "border"><th colspan="1" class = "cellz" id = "calendarHeader"></th> <th colspan="1" class = "cellz" id = "calendarHeader"><a href = "#" onclick = "moveCalUp()"><<<</a></th><th colspan="3" class = "cellz" id = "calendarHeader">' + months[curMonthz] + ' ' + curYearz +  '</th><th colspan="1" class = "cellz" id = "calendarHeader"><a href = "#" onclick = "moveCalDown()">>>></a></th> <th colspan="1" class = "cellz" id = "calendarHeader"></th></tr>';
+  stringCal += '<tr>';
+  for(var k = 0; k<7; k++)
   {
-    for(var k = 0; k<7; k++)
-    {
-      stringCal += '<div class="cellz weekDayz col border d-flex justify-content-center align-items-center text-muted">' + fullWeek[k] + '</div>'
-    }
+    stringCal += '<th class="cellz weekDayz  border text-muted"><div class = "ml-1 mr-1">' + smallWeek[k] + '</div></th>'
   }
-  else
-  {
-    for(var k = 0; k<7; k++)
-    {
-      stringCal += '<div class="cellz weekDayz col border d-flex justify-content-center align-items-center text-muted">' + smallWeek[k] + '</div>'
-    }
-  }
-  var tempDay = new Date(yearz, monthz, 1);
-  console.log(tempDay);
-  tempDay = new Date(tempDay.setDate(tempDay.getDate()-beforeDayz+1));
-  console.log(tempDay);
-  console.log(tempDay.getFullYear());
+  stringCal += '</tr>';
+  var tempDay = new Date(curYearz, curMonthz, 1);
+  //console.log(tempDay);
+  tempDay = new Date(tempDay.setDate(tempDay.getDate()-firstDay.getDay()));
+  //console.log(tempDay);
+  //console.log(tempDay.getFullYear());
   for(var i = 0;i<totalDay/7;i++)
   {
-   stringCal += '<div class="w-100"></div>';
+   stringCal += '<tr>';
     for(var j = 0;j<7;j++)
     {
-      if(total < firstDay.getDay() || total >= firstDay.getDay() + dayz)
+      if(total < firstDay.getDay() || total >= firstDay.getDay() + dayzNext)
       {
-         stringCal += ('<div class="cellz col border d-flex justify-content-center align-items-center text-muted">' + (tempDay.getMonth() + 1) + '/' + (tempDay.getDate()) + '/' + (tempDay.getFullYear()) + '</div>');
+         stringCal += ('<td class="cellz  border text-primary"><div class = "datez d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></td>');
+//          stringCal += ('<td class="cellz  border text-muted"><div class = "datez d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
       }
       else
-      {  
-          if((curDayz == todayz)&&(monthz == curMonthz)&&(curYearz == yearz)&&(beforeDayz + curDayz == total))
+      { 
+          if((monthz == curMonthz)&&(curYearz == yearz)&&(firstDay.getDay() + todayz.getDate() - 1 == total))
           {
-            stringCal += ('<div class="cellz col border d-flex justify-content-center align-items-center text-white bg-primary">' + (tempDay.getMonth() + 1) + '/' + (tempDay.getDate()) + '/' + (tempDay.getFullYear()) + '</div>');
+            stringCal += ('<td class="cellz  bordertext-white bg-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></td>');
+//            stringCal += ('<td class="cellz  bordertext-white bg-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
           else
           {
-            stringCal += ('<div class="cellz col border d-flex justify-content-center align-items-center text-primary">' + (tempDay.getMonth() + 1) + '/' + (tempDay.getDate()) + '/' + (tempDay.getFullYear()) + '</div>');
+            stringCal += ('<td class="cellz  border text-danger"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></td>');
+//            stringCal += ('<td class="cellz  border text-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
       }
       tempDay = new Date(tempDay.setDate(tempDay.getDate()+1));
       total++;
     }
+    stringCal += '</tr>';
   }
-  stringCal += '</div>';
   $('#calendarz').html(stringCal);
-
+  cellzChange();
 
     //make sure the date is not before 1900
 }
@@ -128,5 +149,13 @@ function makeCalendar()
 var app = angular.module('myApp', []);
   app.controller('customersCtrl', function($scope, $http) {
     $scope.cal = "calendarz";
-    makeCalendar();
+    
   });
+
+    
+
+function pad(num) 
+{
+  var s = "00" + num;
+  return s.substr(("" + num).length); 
+}

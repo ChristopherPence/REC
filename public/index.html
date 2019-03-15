@@ -11,11 +11,11 @@
   </head>
   <body class = "d-flex w-100 h-100" onload="imageChange"> 
     <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center"> 
-      <div id = "navbarInc" ng-include="'navbar.html'" class = "h-25 w-100"></div>
+      <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
       <section id = "newsData" class = "w-100 rounded">
         <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
           <img class = "clubIm ml-2 mt-3 mr-2 rounded" ng-src='{{"resources/clubs/" + x.organizer + "/" + x.organizer + "Logo.png" | removeSpaces}}' ng-alt="{{x.organizer}} Logo" ng-init="finished();"> 
-          <section class = "newsEvent mt-3 mr-3 media-body"> 
+          <section class = "newsEvent mt-3 mr-3 media-body w-75"> 
               <section class="headingz d-flex align-items-baseline justify-content-between">
                 <a ng-href = '{{"resources/clubs/" + x.organizer | removeSpaces}}'> <h2 class = "title">{{x.title}}</h2></a>
                 <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>

@@ -2,25 +2,13 @@ window.onresize = imageChange;
 
 function imageChange() 
 {
-  var heightz = window.innerHeight;
+
   var widthz = window.innerWidth;
-  if(heightz > widthz * 0.8)
+  if(widthz > 800)
   {
-    heightz = widthz;
-    widthz = (widthz/11)*8.5;
+    widthz = 780;
   }
-  else if(heightz < widthz && heightz <= 400)
-  {
-    widthz = 366;
-    heightz = 487;
-  }
-    else if(heightz < widthz)
-  {
-    widthz = heightz;
-    heightz = (heightz/8.5)*11;
-  }
-  $(".flyerz").css("height", heightz*0.7);
-  $(".flyerz").css("width", widthz*0.7);
+  $(".flyerz").css("width", widthz*0.9);
 }
 
 

@@ -1,11 +1,11 @@
 #newsData {
   word-wrap: break-word; 
+  color: black;
 }
 
 .event {
 /*  background-image: radial-gradient(circle, rgba(255,20,20,1),rgba(255,20,20,1),rgba(255,10,10,1),rgba(255,0,0,1),rgba(245,0,0,1),rgba(235,0,0,1),rgba(213,0,0,1), rgba(170,0,0,1), rgba(150,0,0,1));*/
-  background-color: rgba(170,0,0,0.85);
-  color: white;
+  background-color: rgba(234, 234, 234,0.92);
   width:90%;
   margin: auto;
 }
@@ -22,4 +22,25 @@
 
 .title {
   font-size:calc(28px + 0.3vw);
+}
+
+a:link {
+ color: black;
+}
+
+a:active {
+  color: dimgray;
+}
+
+a:visited {
+  color: gainsboro;
+}
+
+
+a:hover {
+  color: blue;
+}
+
+a {
+  
 }

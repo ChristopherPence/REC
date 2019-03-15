@@ -2,31 +2,13 @@ body {
   background-image: url("back.png");
 }
 #navbarInc {
-  min-height: 170px;
+  min-height: 155px;
 }
 #logo {
-  width: 200px; 
-  height: 80px;
-}
-
-a:link {
- color: white;
-}
-
-a:active {
-  color: blue;
-}
-
-a:visited {
-  color: gainsboro;
-}
-
-a {
-  color: coral;
-}
-
-a:hover {
-  color: lightskyblue;
+  width: 14%; 
+  height: 40%;
+  min-width: 170px;
+  min-height: 70px;
 }
 
 nav {
@@ -53,6 +35,6 @@ nav a:active {
 }
 nav a {
   font-weight: bold;
-  margin-left: 16px;
-  font-size:calc(8px + 1.0vw);
+  margin-left: 13px;
+  font-size:calc(7px + 1.0vw);
 }
