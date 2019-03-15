@@ -7,6 +7,13 @@ const request = require("request");
 const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const app = express();
+const bodyParser = require("body-parser");
+
+// Support JSON-encoded bodies
+app.use(bodyParser.json());
+
+// Suppost URL-encoded bodies
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Cool module that can add color to bash/terminal text
 /*
@@ -104,7 +111,7 @@ function imgurDelete(delhash){
 app.post('/login', function (req, res, next) {
            
   var URL = 'mongodb://localhost:' + mongo_port + '/';
-  
+    
   mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
     if(err) {
       throw err;
@@ -113,24 +120,27 @@ app.post('/login', function (req, res, next) {
       console.log("Connected to database");
 
       var dbo = db.db("REC_database");
+      
+      var query = {
+        username: req.body.username,
+        password: req.body.password
+      };
 
-      dbo.collection('userAccounts', function (err, collection){
+      dbo.collection('userAccounts').find(query).toArray(function(err, result) {
         if(err) {
           throw err;
         }
-
-        var found = collection.find({username : req.username, password : req.password});
-
-        if(!found) {
+        
+        if(result === undefined || result.length == 0){
           console.log("Account not found.");
           res.send("Not Found");
         }
-        else {
+        else{
           console.log("Account found.");
           res.send('Found');
         }
       });
-      
+
       db.close();
     }
   });
@@ -150,25 +160,21 @@ app.post('/register', function(req, res, next) {
       console.log("Connected to database");
 
       var dbo = db.db("REC_database");
-
-      dbo.collection('userAccounts', function (err, collection){
-        if (err) {
-          throw err;
-        }
-
-        collection.insertOne({ organization: req.organization, username : req.username, password : req.password, blurb : req.blurb})
-
-        res.send("Registered");
-
-      });
-
-      dbo.collection('userAccounts').countDocuments(function (err, count) {
-        if (err) {
-          throw err;
-        }
-        console.log("Total Rows: " + count);
-      });
       
+      var document = {
+        organization: req.body.organization,
+        username: req.body.username,
+        password: req.body.password,
+        blurb: req.body.blurb
+      };
+
+      dbo.collection('userAccounts').insertOne(document, function(err, result){
+        if(err) {
+          throw err;
+        }
+        console.log("Account registered");
+      });
+
       db.close();
     }
   });

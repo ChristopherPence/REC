@@ -159,36 +159,53 @@
     var app = angular.module("login", []);
     app.controller("mainController", function($scope, $http){
       
+      $scope.login = function() {
+        
+        console.log($scope.loginUsername);
+        console.log($scope.loginPassword);
+        
+        $http({
+          url: "http://localhost:8080/login",
+          method: "POST",
+          data: {
+            username: $scope.loginUsername,
+            password: $scope.loginPassword
+          }
+        }).then
+          (function success(response){
+            console.log(response);
+            if(response.data == "Found"){
+              alert("Logging In!");
+              window.location.href = '/';
+            } 
+            else {
+              alert("Account not registered!");
+            }
+          },
+          function error(response){
+            alert("Error while logging in!");
+        });
+      }
+      
       $scope.register = function() {
         
         $("#registerModal").modal("hide");
         
         $http({
-          method: "post",
-          url: "http://localhost:8080/register"
+          method: "POST",
+          url: "http://localhost:8080/register",
+          data: {
+            organization: $scope.organization,
+            username: $scope.registerUsername,
+            password: $scope.registerPassword,
+            blurb: $scope.blurb,
+          }
         }).then
-          (function success(data){
-            console.log("Successfully registered");
-            console.log(data);
+          (function success(response){
+            alert("Successfully registered! Please log in now!");
           },
           function error(response){
-            alert("Error while registering");
-        });
-      }
-      
-      $scope.login = function() {
-        $http({
-          method: "post",
-          url: "http://localhost:8080/login"
-        }).then
-          (function success(data){
-            console.log("Logged In!");
-            if(data.data == "Found"){
-              window.location.href = '/';
-            }
-          },
-          function error(response){
-            alert("Error while logging in");
+            alert("Error while registering!");
         });
       }
     });
