@@ -10,11 +10,17 @@
     <link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>
   </head>
   <body class = "w-100 h-100"> 
-    <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100"> 
-      <div ng-include="'navbar.html'" class = "h-25"></div>
-      <section class="mt-1 rounded d-flex align-items-center">
-          <img class = "calendar" src = "resources/calendar/calendarz_ex.png" alt="Calendar Page" width="350" height="500">
-      </section>
+    <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center"> 
+      <div id = "navbarInc" ng-include="'navbar.html'" class = "h-25 w-100"></div>
+      <div class="d-flex justify-content-center">
+        <section class = "w-100 rounded">
+          <section class="rounded d-flex align-items-center justify-content-center">
+              <div id = "calendarz" class="calendar"></div>
+          </section>
+          
+        </section>
+      </div>
+      
         
     </div>
   </body>

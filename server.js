@@ -45,6 +45,12 @@ app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
 
+//send over the news
+app.get('/getnews', function(req, res){
+
+  
+});
+
 //=========================================
 // Flyer uploading
 /*  
