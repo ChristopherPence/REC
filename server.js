@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 
 //custom node modules
 const rss = require('./rss.js');
+const mgo = require('./mongoWrapper.js');
 rss.msg();
 
 
