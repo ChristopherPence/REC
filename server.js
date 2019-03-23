@@ -11,6 +11,8 @@ const bodyParser = require("body-parser");
 
 //custom node modules
 const rss = require('./rss.js');
+rss.msg();
+
 
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
