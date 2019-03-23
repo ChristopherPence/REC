@@ -28,6 +28,7 @@ const mongo = require('mongodb').MongoClient;
 require('dotenv').load();
 const port = process.env.MAIN_PORT;
 const mongo_port = process.env.MONGO_PORT;
+const mongo_url = process.env.MONGO_URL;
 
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
@@ -54,7 +55,7 @@ app.get('/getnews', function(req, res){
 //=========================================
 // Flyer uploading
 /*  
-    POST /flyerUpload
+  POST /flyerUpload
 	DATA: 	imgsrc: image file
 
 	Saves image as a file in /uploads
@@ -115,10 +116,7 @@ function imgurDelete(delhash){
 //========================================
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
-           
-  var URL = 'mongodb://localhost:' + mongo_port + '/';
-    
-  mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
+  mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
     if(err) {
       throw err;
     }
@@ -155,10 +153,7 @@ app.post('/login', function (req, res, next) {
 //========================================
 // MongoDB Connection for the Registration Page
 app.post('/register', function(req, res, next) {
-           
-  var URL = 'mongodb://localhost:' + mongo_port + '/';
-  
-  mongo.connect(URL, { useNewUrlParser: true }, function (err, db){
+  mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
     if(err) {
       throw err;
     }
