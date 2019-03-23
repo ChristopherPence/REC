@@ -191,3 +191,9 @@ app.post('/register', function(req, res, next) {
 app.listen(port, function(){
 	console.log('Server started on port: ' + port)
 });
+
+/*****/
+//test add organization to mongo db
+// const mw = require('./mongoWrapper.js');
+// var testdata = {type: "club", name: "Weightlifting", description: "Deadlift", events: ["Meet 1", "Meet 2"], flyers: []};
+// mw.addOrganization(testdata);
