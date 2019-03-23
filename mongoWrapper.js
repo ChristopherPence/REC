@@ -25,3 +25,9 @@ exports.addOrganization = function(data) {
 
 	});
 }
+
+// get today events
+// create organization
+// get current flyers
+// create event
+// create organization

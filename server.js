@@ -12,6 +12,7 @@ const bodyParser = require("body-parser");
 //custom node modules
 const imgur = require('./imgurWrapper.js');
 const rss = require('./rss.js');
+const mgo = require('./mongoWrapper.js');
 rss.msg();
 
 
