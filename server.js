@@ -9,6 +9,9 @@ const upload = multer({ dest: 'uploads/' });
 const app = express();
 const bodyParser = require("body-parser");
 
+//custom node modules
+const rss = require('./rss.js');
+
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
 
