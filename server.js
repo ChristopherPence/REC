@@ -10,6 +10,7 @@ const app = express();
 const bodyParser = require("body-parser");
 
 //custom node modules
+const imgur = require('./imgurWrapper.js');
 const rss = require('./rss.js');
 rss.msg();
 
