@@ -93,24 +93,21 @@ app.post('/login', function (req, res, next) {
       bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(req.body.password, salt, function(err, hash) {
           
-          var query = {
-            email: req.body.email,
-            password: hash
-          };
-          
-          dbo.collection('userAccounts').find({"email": req.body.email}).toArray(function(err, result) {
+          dbo.collection('userAccounts').find({"email": req.body.email}, {projections: {_id: 1}}).toArray(function(err, result) {
             if(err) {
               throw err;
             }
             
+            console.log(result);
+            
             bcrypt.compare(result.password, hash, function (err, response){
               if(response == true){
-                console.log("Account not found.");
-                res.send("Not Found");
-              }
-              else{
                 console.log("Account found.");
                 res.send('Found');
+              }
+              else{
+                console.log("Account not found.");
+                res.send("Not Found");
               }
             });
           });

@@ -30,6 +30,9 @@
     <div class="someRoundedBorder container bg-warning border px-1 py-5">
       <form>
         
+        <!-- Displays the error (whatever it may be) -->
+        <div ng-model="loginError" id="loginError">{{loginError}}</div>
+        
         <!-- Login email area -->
         <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
@@ -80,6 +83,8 @@
               <div class="modal-body">
                 <form>
                   
+                  <!-- Displays the register error (whatever it may be) -->
+                  <div ng-model="registerError" id="registerError">{{registerError}}</div>
 <!--
                    Organization picture 
                   <div class="form-group col d-flex justify-content-center">
@@ -109,16 +114,17 @@
                   <!-- Register password area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
-                      <label for="password">Password</label>
-                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" placeholder="Password"/>
+                      <label for="registerPassword">Password</label>
+                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Password"/>
                     </div>
                   </div>
                   
                   <!-- Register re-confirm password area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
-                      <label for="password">Confirm Password</label>
-                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" placeholder="Confirm password"/>
+                      <label for="confirmPassword">Confirm Password</label>
+                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
+                      <label for="confirmPassword" id="matchingPassword" class="mt-2">hi</label>
                     </div>
                   </div>
                   

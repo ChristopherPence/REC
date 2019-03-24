@@ -6,3 +6,11 @@
 .someRoundedBorder {
   border-radius: 50px 50px 50px;
 }
+
+#loginError {
+  color: red;
+}
+
+#registerError {
+  color: red;
+}
