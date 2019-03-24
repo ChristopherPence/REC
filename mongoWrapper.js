@@ -30,4 +30,3 @@ exports.addOrganization = function(data) {
 // create organization
 // get current flyers
 // create event
-// create organization
