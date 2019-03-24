@@ -2,3 +2,7 @@
   max-height: 100px !important;
   max-width: 400px !important;
 }
+
+.someRoundedBorder {
+  border-radius: 50px 50px 50px;
+}
