@@ -40,3 +40,4 @@ function imgurDelete(delhash){
 		console.log(err.message);
 		return false;
 	});
+}
