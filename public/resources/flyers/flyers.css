@@ -1,14 +1,29 @@
-.event {
-/*  background-image: radial-gradient(circle, rgba(255,20,20,1),rgba(255,20,20,1),rgba(255,10,10,1),rgba(255,0,0,1),rgba(245,0,0,1),rgba(235,0,0,1),rgba(213,0,0,1), rgba(170,0,0,1), rgba(150,0,0,1));*/
-/*  background-color: rgba(170,0,0,0.85);*/
-  width:75%;
-  margin: auto;
-}
-
 .flyersEvent {
   background-color: white;
-  margin: auto;
   border-color: black;
   border-style: solid;
   border-width: 5px;
+  display: block;
 }
+
+
+.sideScroll {
+  display: block;
+}
+
+
+.horizontal-scroll-wrapper {
+  background-color: rgba(234, 234, 234,0.92);
+  direction: rtl;
+  display: block;
+  position: absolute;
+  clear: left;
+  right: 0;
+  left: 0;
+  margin: 0;
+/*  background: #abc;*/
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform-origin: right top;
+}
+
