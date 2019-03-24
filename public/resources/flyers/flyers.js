@@ -1,12 +1,14 @@
 var numFlyers;
 var num;
-window.onresize = imageChange;
+var fixer;
+window.onresize = function(){imageChange(); fixer = 0};
 
 function imageChange() 
 {
-  var widthz =  parseInt($('html').css('width'));
+  var widthz =  parseInt($('html').width());
+  //var widthz = window.innerWidth;
   var heightz = parseInt($('html').css('height'));;
-  var widthImg = heightz * 0.75;
+  var widthImg = heightz * 0.70;
   
   if(widthImg > widthz*.99)
   {
@@ -17,7 +19,7 @@ function imageChange()
   $(".sideScroll").css("height", widthImg);
   $(".sideScroll").css("width", widthImg);
   
-  $('.horizontal-scroll-wrapper').css('height',widthz);
+  $('.horizontal-scroll-wrapper').css('height',(widthz + fixer));
   $('.horizontal-scroll-wrapper').css('width',widthImg+30);
   $(".squares:first-child").css("padding-top", (widthz*.5  + widthImg*.5));
   
@@ -34,6 +36,27 @@ function imageChange()
   $('.flyerz').css('margin-top',10);
 }
 
+function side(e,event) {
+  if(event.deltaX > event.deltaY)
+  {
+    e.scrollBy(0,event.deltaX);
+  }
+  else
+  {
+    e.scrollBy(0,event.deltaY);
+  }
+}
+
+function side(e,event) {
+  if(event.deltaX > event.deltaY)
+  {
+    e.scrollBy(0,event.deltaX);
+  }
+  else
+  {
+    e.scrollBy(0,event.deltaY);
+  }
+}
 
 var app = angular.module('myApp', []);
   app.controller('customersCtrl', function($scope, $http) {
@@ -49,6 +72,7 @@ var app = angular.module('myApp', []);
           });    
     $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) 
     {
+      fixer = 14;
       imageChange();
     });
   });

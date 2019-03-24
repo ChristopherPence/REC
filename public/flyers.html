@@ -13,7 +13,7 @@
     <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column"> 
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
         <section class = "">
-          <section class = "horizontal-scroll-wrapper squares d-flex flex-column">
+          <section class = "horizontal-scroll-wrapper squares d-flex flex-column" ondragover="side(this,event)" onmousewheel="side(this,event)">
             <section class = "help">
               <section class = "sideScroll d-flex justify-content-center" ng-repeat="x in flyers" on-finish-render="ngRepeatFinished">
                 <img class = "flyerz flyersEvent" ng-src = 'resources/clubs/{{x.club}}/{{x.club}}.jpg' ng-alt = "{{x.club}} Flyer">
@@ -23,6 +23,6 @@
       </section>
     </div>
   </body>
-  <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>
+  <script src="bootstrap-4.2.1-dist/js/jquery-2.1.4.min.js"></script>
   <script src="resources/flyers/flyers.js"></script>
 </html>
