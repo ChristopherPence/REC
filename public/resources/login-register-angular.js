@@ -13,7 +13,7 @@ app.controller("mainController", function($scope, $http){
     // HTTP post request to the database
     $http({
       method: "POST",
-      url: "http://localhost:8080/login",
+      url: "./login",
       data: {
         email: $scope.loginEmail,
         password: $scope.loginPassword
@@ -55,7 +55,7 @@ app.controller("mainController", function($scope, $http){
     // HTTP Post request to store user account in database
     $http({
       method: "POST",
-      url: "http://localhost:8080/register",
+      url: "./register",
       data: {
         organization: $scope.organization,
         email: $scope.registerEmail,

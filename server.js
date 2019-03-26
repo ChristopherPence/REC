@@ -105,9 +105,7 @@ app.post('/login', function (req, res, next) {
             if(err) {
               throw err;
             }
-            
-            console.log(result);
-            
+                        
             bcrypt.compare(result.password, hash, function (err, response){
               if(response == true){
                 console.log("Account found.");
