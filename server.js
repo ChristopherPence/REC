@@ -42,7 +42,8 @@ app.use('/resources', express.static(__dirname + '/resources'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 
 //include the subfolder as a static point in which all the scripts can actually be referenced in the client side
-app.use(express.static('public')); 
+app.use(express.static('public'));
+app.use(parser.urlencoded({extended : true}));
 
 //send the webpage html to the user on localhost port 3000
 app.get('/', function (req, res) 
@@ -62,7 +63,7 @@ app.get('/getnews', function(req, res){
 app.get('/getclubs', function(req, res){
   var page = req.body.page;
   var search = req.body.search;
-
+  console.log(req.body);
   res.send(page);
 });
 
@@ -74,7 +75,7 @@ app.get('/getclubs', function(req, res){
 
 	Saves image as a file in /uploads
 */
-app.use(parser.urlencoded({extended : true}));
+
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 	console.log('Image Upload:');
 	console.log('    Client IP: ' + req.connection.remoteAddress);
