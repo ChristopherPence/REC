@@ -56,7 +56,14 @@ app.get('/upimg', function(req, res){
 //send over the news
 app.get('/getnews', function(req, res){
 
-  
+});
+
+//listen for get clubs request
+app.get('/getclubs', function(req, res){
+  var page = req.body.page;
+  var search = req.body.search;
+
+  res.send(page);
 });
 
 //=========================================
