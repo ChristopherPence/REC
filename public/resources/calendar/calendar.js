@@ -23,8 +23,8 @@ function cellzChange()
   var widthz = window.innerWidth;
   var fontSize = $(".cellz").css('font-size');
   var divHeight;
-//  console.log(widthz);
-//  console.log(heightz);
+  console.log(widthz);
+  console.log(heightz);
   $(".calendar").css("width", widthz*0.8);
   if(heightz < 500)
   {

@@ -7,6 +7,9 @@ const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const app = express();
 const bodyParser = require("body-parser");
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 //custom node modules
 const imgur = require('./imgurWrapper.js');
@@ -39,7 +42,8 @@ app.use('/resources', express.static(__dirname + '/resources'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 
 //include the subfolder as a static point in which all the scripts can actually be referenced in the client side
-app.use(express.static('public')); 
+app.use(express.static('public'));
+app.use(parser.urlencoded({extended : true}));
 
 //send the webpage html to the user on localhost port 3000
 app.get('/', function (req, res) 
@@ -53,7 +57,14 @@ app.get('/upimg', function(req, res){
 //send over the news
 app.get('/getnews', function(req, res){
 
-  
+});
+
+//listen for get clubs request
+app.get('/getclubs', function(req, res){
+  var page = req.body.page;
+  var search = req.body.search;
+  console.log(req.body);
+  res.send(page);
 });
 
 //=========================================
@@ -64,7 +75,7 @@ app.get('/getnews', function(req, res){
 
 	Saves image as a file in /uploads
 */
-app.use(parser.urlencoded({extended : true}));
+
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 	console.log('Image Upload:');
 	console.log('    Client IP: ' + req.connection.remoteAddress);
@@ -81,32 +92,36 @@ app.post('/login', function (req, res, next) {
     if(err) {
       throw err;
     }
+    
     else {
       console.log("Connected to database");
 
       var dbo = db.db("REC_database");
       
-      var query = {
-        username: req.body.username,
-        password: req.body.password
-      };
+      bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+          
+          dbo.collection('userAccounts').find({"email": req.body.email}, {projections: {_id: 1}}).toArray(function(err, result) {
+            if(err) {
+              throw err;
+            }
+                        
+            bcrypt.compare(result.password, hash, function (err, response){
+              if(response == true){
+                console.log("Account found.");
+                res.send('Found');
+              }
+              else{
+                console.log("Account not found.");
+                res.send("Not Found");
+              }
+            });
+          });
 
-      dbo.collection('userAccounts').find(query).toArray(function(err, result) {
-        if(err) {
-          throw err;
-        }
-        
-        if(result === undefined || result.length == 0){
-          console.log("Account not found.");
-          res.send("Not Found");
-        }
-        else{
-          console.log("Account found.");
-          res.send('Found');
-        }
+          db.close();
+          
+        });               
       });
-
-      db.close();
     }
   });
 });
@@ -118,26 +133,35 @@ app.post('/register', function(req, res, next) {
     if(err) {
       throw err;
     }
+    
     else {
       console.log("Connected to database");
 
       var dbo = db.db("REC_database");
       
-      var document = {
-        organization: req.body.organization,
-        username: req.body.username,
-        password: req.body.password,
-        blurb: req.body.blurb
-      };
+      bcrypt.genSalt(saltRounds, function(err, salt) {
+        if(err) throw err;
+        bcrypt.hash(req.body.password, salt, function(err, hash) {
+          if(err) throw err;
 
-      dbo.collection('userAccounts').insertOne(document, function(err, result){
-        if(err) {
-          throw err;
-        }
-        console.log("Account registered");
+          var document = {
+            organization: req.body.organization,
+            email: req.body.email,
+            password: hash,
+            blurb: req.body.blurb
+          };
+          
+          dbo.collection('userAccounts').insertOne(document, function(err, result){
+            if(err) {
+              throw err;
+            }
+            console.log("Account registered");
+            res.send("Registered");
+          });
+          
+          db.close();
+        });
       });
-
-      db.close();
     }
   });
          

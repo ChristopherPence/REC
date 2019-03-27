@@ -10,15 +10,19 @@
      <link href="resources/flyers/flyers.css" rel="stylesheet" type="text/css"/>
   </head>
   <body class = "w-100 h-100"> 
-    <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center"> 
+    <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column"> 
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
-        <section id = "flyersData" class = "w-100 rounded">
-        <section class="mt-1 event rounded d-flex align-items-center justify-content-center" ng-repeat="x in flyers" on-finish-render="ngRepeatFinished">
-          <img class = "flyerz flyersEvent mt-2 mb-2 p-1" ng-src = 'resources/clubs/{{x.club}}/{{x.club}}.jpg' ng-alt = "{{x.club}} Flyer">
-          </section>
-        </section>
+        <section class = "">
+          <section class = "horizontal-scroll-wrapper squares d-flex flex-column" ondragover="side(this,event)" onmousewheel="side(this,event)">
+            <section class = "help">
+              <section class = "sideScroll d-flex justify-content-center" ng-repeat="x in flyers" on-finish-render="ngRepeatFinished">
+                <img class = "flyerz flyersEvent" ng-src = 'resources/clubs/{{x.club}}/{{x.club}}.jpg' ng-alt = "{{x.club}} Flyer">
+              </section>
+            </section>
+        </section>    
+      </section>
     </div>
   </body>
-  <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>
+  <script src="bootstrap-4.2.1-dist/js/jquery-2.1.4.min.js"></script>
   <script src="resources/flyers/flyers.js"></script>
 </html>

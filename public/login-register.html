@@ -27,14 +27,17 @@
     <header class="d-flex justify-content-start pl-5 mb-5 border-bottom"><img class="img-fluid login_logo" src="resources/website_logo.png" alt="Rensselaer Events Calendar Logo"/></header>
     
     <!-- Form to sign in -->
-    <div class="container bg-warning border px-1 py-5 rounded-circle">
+    <div class="someRoundedBorder container bg-warning border px-1 py-5">
       <form>
         
-        <!-- Login username area -->
+        <!-- Displays the error (whatever it may be) -->
+        <div ng-model="loginError" id="loginError">{{loginError}}</div>
+        
+        <!-- Login email area -->
         <div class="form-group col d-flex justify-content-center">
           <div class="col-6">
-            <label for="username">Username</label>
-            <input ng-model="loginUsername" id="loginUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+            <label for="email">Email</label>
+            <input ng-model="loginEmail" id="loginEmail" class="form-control d-flex justify-content-center" type="text" placeholder="Email"/>
           </div>
         </div>
         
@@ -80,6 +83,8 @@
               <div class="modal-body">
                 <form>
                   
+                  <!-- Displays the register error (whatever it may be) -->
+                  <div ng-model="registerError" id="registerError">{{registerError}}</div>
 <!--
                    Organization picture 
                   <div class="form-group col d-flex justify-content-center">
@@ -93,32 +98,33 @@
                   <!-- Register organization name area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
-                      <label for="username">Organization</label>
+                      <label for="organization">Organization</label>
                       <input ng-model="organization" id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
                     </div>
                   </div>
                   
-                  <!-- Register username area -->
+                  <!-- Register email area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
-                      <label for="username">Username</label>
-                      <input ng-model="registerUsername" id="registerUsername" class="form-control d-flex justify-content-center" type="text" placeholder="Username"/>
+                      <label for="email">Email</label>
+                      <input ng-model="registerEmail" id="registerEmail" class="form-control d-flex justify-content-center" type="text" placeholder="Email"/>
                     </div>
                   </div>
 
                   <!-- Register password area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
-                      <label for="password">Password</label>
-                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" placeholder="Password"/>
+                      <label for="registerPassword">Password</label>
+                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Password"/>
                     </div>
                   </div>
                   
                   <!-- Register re-confirm password area -->
                   <div class="form-group col d-flex justify-content-center">
                     <div class="col-6">
-                      <label for="password">Confirm Password</label>
-                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" placeholder="Confirm password"/>
+                      <label for="confirmPassword">Confirm Password</label>
+                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
+                      <label for="confirmPassword" id="matchingPassword" class="mt-2"></label>
                     </div>
                   </div>
                   
@@ -149,65 +155,12 @@
     
   </body>
   
+  <!-- External JS -->
+  <script type="text/javascript" src="resources/login-register-angular.js"></script>
+  
   <!-- jQuery script -->
   <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   
   <!-- Bootstrap JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  
-  <script>
-    var app = angular.module("login", []);
-    app.controller("mainController", function($scope, $http){
-      
-      $scope.login = function() {
-        
-        console.log($scope.loginUsername);
-        console.log($scope.loginPassword);
-        
-        $http({
-          url: "http://localhost:8080/login",
-          method: "POST",
-          data: {
-            username: $scope.loginUsername,
-            password: $scope.loginPassword
-          }
-        }).then
-          (function success(response){
-            console.log(response);
-            if(response.data == "Found"){
-              alert("Logging In!");
-              window.location.href = '/';
-            } 
-            else {
-              alert("Account not registered!");
-            }
-          },
-          function error(response){
-            alert("Error while logging in!");
-        });
-      }
-      
-      $scope.register = function() {
-        
-        $("#registerModal").modal("hide");
-        
-        $http({
-          method: "POST",
-          url: "http://localhost:8080/register",
-          data: {
-            organization: $scope.organization,
-            username: $scope.registerUsername,
-            password: $scope.registerPassword,
-            blurb: $scope.blurb,
-          }
-        }).then
-          (function success(response){
-            alert("Successfully registered! Please log in now!");
-          },
-          function error(response){
-            alert("Error while registering!");
-        });
-      }
-    });
-  </script>
 </html>
