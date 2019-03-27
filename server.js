@@ -153,3 +153,5 @@ app.listen(port, function(){
 // const mw = require('./mongoWrapper.js');
 // var testdata = {type: "club", name: "Weightlifting", description: "Deadlift", events: ["Meet 1", "Meet 2"], flyers: []};
 // mw.addOrganization(testdata);
+
+mgo.listOrganizations(10,10);
