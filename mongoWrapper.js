@@ -13,15 +13,15 @@ exports.addOrganization = function(data) {
 			name: data.name,
 			description: data.description,
 			events: data.events,
-			flyers: data.flyers
+			flyers: data.flyers,
+			img_url: data.img_url
 		};
 
 		dbo.collection('organizations').insertOne(doc, function(err, result) {
 			if (err) throw err;
 			console.log("added organization");
+			db.close();
 		});
-		db.close();
-
 	});
 }
 

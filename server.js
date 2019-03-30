@@ -64,7 +64,7 @@ app.get('/getclubs', function(req, res){
   var page = req.query.page;
   var size = req.query.size;
   var search = req.query.search;
-  mgo.listOrganizations(1, 5, function(err, result) {
+  mgo.listOrganizations(page, size, function(err, result) {
     res.send(result);
   });
 });
