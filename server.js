@@ -186,11 +186,11 @@ app.listen(port, function(){
 // });
 //console.log(mgo.listOrganizations(1, 5));
 
-// mgo.addOrganization({
-//   type:"club",
-//   name:"Rensselaer Rocket Society",
-//   description:"Build a cool rocket and launch it with us!",
-//   events:"[]",
-//   flyers:"[]",
-//   img_url:""
-// });
+/*mgo.addOrganization({
+  type:"club",
+  name:"SASE",
+  description:"Society of Asian Scientists and Engineers",
+  events:"[]",
+  flyers:"[]",
+  img_url:"resources/clubs/SASE/SASELogo.png"
+});*/
