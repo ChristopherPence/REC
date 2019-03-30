@@ -16,6 +16,4 @@ app.controller('clubsCtrl', function($scope, $http) {
             console.log(response);
         });
     }
-
-
 });
