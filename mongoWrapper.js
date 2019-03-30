@@ -2,17 +2,6 @@ const mongo = require('mongodb').MongoClient;
 require('dotenv').load();
 const mongo_url = process.env.MONGO_URL;
 
-
-function copy(o) {
-   var output, v, key;
-   output = Array.isArray(o) ? [] : {};
-   for (key in o) {
-       v = o[key];
-       output[key] = (typeof v === "object") ? copy(v) : v;
-   }
-   return output;
-}
-
 exports.addOrganization = function(data) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
@@ -24,15 +13,15 @@ exports.addOrganization = function(data) {
 			name: data.name,
 			description: data.description,
 			events: data.events,
-			flyers: data.flyers
+			flyers: data.flyers,
+			img_url: data.img_url
 		};
 
 		dbo.collection('organizations').insertOne(doc, function(err, result) {
 			if (err) throw err;
 			console.log("added organization");
+			db.close();
 		});
-		db.close();
-
 	});
 }
 
@@ -60,41 +49,45 @@ exports.addFlyer = function(data) {
 
 }
 
-exports.listOrganizations = function(pagenumber, offset) {
-	page = new Array();
-	mongo.connect(mongo_url, { useNewUrlParser: true }, function(err, db) {
-		if (err) throw err;
-		console.log("Connected to MongoAtlas Database");
-		var dbo = db.db("REC_database");
+// exports.listOrganizations = (async (pagenumber, offset) => {
+// 	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
+// 	let dbo = db.db('REC_database');
+// 	try {
+// 		const res = await dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray();
+// 		console.log(res);
+// 		return res;
+// 	}
+// 	finally {
+// 		db.close();
+// 	}
+// });
 
-		dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray(function(err, result) {
-			if (err) throw err;
-			page = copy(result);
-
-		});
-		db.close();
-
-	});
-	return page;
-}
-
-exports.countOrganizations = function() {
-	var numorgs = 0;
+exports.listOrganizations = function(pagenumber, offset, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to MongoAtlas Database");
 		var dbo = db.db("REC_database");
 
-		dbo.collection('organizations').countDocuments({}, function(err, result) {
-			if (err) throw err;
-			numorgs = result;
-
+		dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray(function(err, result){
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
 		});
-		db.close();
-
 	});
-	return numorgs;
 }
+
+exports.countOrganizations = (async () => {
+	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
+	let dbo = db.db('REC_database');
+	try {
+		const res = await dbo.collection('organizations').countDocuments({});
+		//console.log(res);
+		return res;
+	}
+	finally {
+		db.close();
+	}
+});
 
 
 // get today events

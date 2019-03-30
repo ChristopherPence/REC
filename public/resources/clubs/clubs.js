@@ -8,14 +8,10 @@ app.controller('clubsCtrl', function($scope, $http) {
         console.log("Detected properly");
         $http({
             method : "get",
-            url : '/getclubs',
-            data: {
-                page: pageNumber,
-                size: size,
-                search: query
-            }
+            url : '/getclubs/?page='+pageNumber+'&size='+size+'&search='+query,
         }).then(function mySuccess(response){
-            console.log(response);
+            $scope.clubs = response.data;
+            console.log($scope.clubs);
         });
     }
 });
