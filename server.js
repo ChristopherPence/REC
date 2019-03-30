@@ -64,7 +64,7 @@ app.get('/getclubs', function(req, res){
   var page = req.query.page;
   var size = req.query.size;
   var search = req.query.search;
-  mgo.listOrganizations(page, size, function(err, result) {
+  mgo.listOrganizations(parseInt(page), parseInt(size), function(err, result) {
     res.send(result);
   });
 });
@@ -185,3 +185,12 @@ app.listen(port, function(){
 //   console.log(res);
 // });
 //console.log(mgo.listOrganizations(1, 5));
+
+// mgo.addOrganization({
+//   type:"club",
+//   name:"Rensselaer Rocket Society",
+//   description:"Build a cool rocket and launch it with us!",
+//   events:"[]",
+//   flyers:"[]",
+//   img_url:""
+// });
