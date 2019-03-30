@@ -70,11 +70,11 @@
 
         <!-- Register Modal -->
         <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               
               <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Register</h5>
+                <h3 class="modal-title" id="modalLabel">Register</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -85,54 +85,62 @@
                   
                   <!-- Displays the register error (whatever it may be) -->
                   <div ng-model="registerError" id="registerError">{{registerError}}</div>
-<!--
-                   Organization picture 
-                  <div class="form-group col d-flex justify-content-center">
-                    <div class="col-6">
-                      <label for="organizationPicture">Organization Profile Picture</label>
-                      <input type="file" class="form-control d-flex justify-content-center" />
-                    </div>
-                  </div>
--->
                   
-                  <!-- Register organization name area -->
-                  <div class="form-group col d-flex justify-content-center">
-                    <div class="col-6">
-                      <label for="organization">Organization</label>
-                      <input ng-model="organization" id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
+                  <div class="row">
+                    <!-- Organization picture -->
+                    <div class="col">
+                      <div class="form-group col d-flex justify-content-center">
+                        <div class="col-6">
+                          <label for="organizationPicture">Organization Profile Picture</label>
+                          <input type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>
+                          <div ng-repeat="step in stepsModel">
+                              <img class="form-control d-flex justify-content-center" ng-src="{{step}}"/>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <!-- Register email area -->
-                  <div class="form-group col d-flex justify-content-center">
-                    <div class="col-6">
-                      <label for="email">Email</label>
-                      <input ng-model="registerEmail" id="registerEmail" class="form-control d-flex justify-content-center" type="text" placeholder="Email"/>
-                    </div>
-                  </div>
 
-                  <!-- Register password area -->
-                  <div class="form-group col d-flex justify-content-center">
-                    <div class="col-6">
-                      <label for="registerPassword">Password</label>
-                      <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Password"/>
-                    </div>
-                  </div>
-                  
-                  <!-- Register re-confirm password area -->
-                  <div class="form-group col d-flex justify-content-center">
-                    <div class="col-6">
-                      <label for="confirmPassword">Confirm Password</label>
-                      <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
-                      <label for="confirmPassword" id="matchingPassword" class="mt-2"></label>
-                    </div>
-                  </div>
-                  
-                  <!-- Organization profile blurb/information -->
-                  <div class="form-group col d-flex justify-content-center">
-                    <div class="col-6">
-                      <label for="blurb">Organization Profile Blurb</label>
-                      <textarea ng-model="blurb" id="blurb" class="form-control" type="text" placeholder="Type in your profile description"></textarea>
+                    <div class="col">
+                      <!-- Register organization name area -->
+                      <div class="form-group col d-flex justify-content-center">
+                        <div class="col-6">
+                          <label for="organization">Organization</label>
+                          <input ng-model="organization" id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
+                        </div>
+                      </div>
+
+                      <!-- Register email area -->
+                      <div class="form-group col d-flex justify-content-center">
+                        <div class="col-6">
+                          <label for="email">Email</label>
+                          <input ng-model="registerEmail" id="registerEmail" class="form-control d-flex justify-content-center" type="text" placeholder="Email"/>
+                        </div>
+                      </div>
+
+                      <!-- Register password area -->
+                      <div class="form-group col d-flex justify-content-center">
+                        <div class="col-6">
+                          <label for="registerPassword">Password</label>
+                          <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Password"/>
+                        </div>
+                      </div>
+
+                      <!-- Register re-confirm password area -->
+                      <div class="form-group col d-flex justify-content-center">
+                        <div class="col-6">
+                          <label for="confirmPassword">Confirm Password</label>
+                          <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
+                          <label for="confirmPassword" id="matchingPassword" class="mt-2"></label>
+                        </div>
+                      </div>
+
+                      <!-- Organization profile blurb/information -->
+                      <div class="form-group col d-flex justify-content-center">
+                        <div class="col-6">
+                          <label for="blurb">Organization Profile Blurb</label>
+                          <textarea ng-model="blurb" id="blurb" class="form-control" type="text" placeholder="Type in your profile description"></textarea>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -159,7 +167,7 @@
   <script type="text/javascript" src="resources/login-register-angular.js"></script>
   
   <!-- jQuery script -->
-  <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
   <!-- Bootstrap JS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>

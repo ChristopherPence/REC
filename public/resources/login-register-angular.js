@@ -1,5 +1,8 @@
 var app = angular.module("login", []);
 app.controller("mainController", function($scope, $http){
+  
+  // Array for the uploaded 
+  $scope.stepsModel = [];
 
   // Checks email and password of account for logging in
   $scope.login = function() {
@@ -71,6 +74,18 @@ app.controller("mainController", function($scope, $http){
       function error(response){
         alert("Error while registering!");
     });
+  }
+  
+  $scope.imageUpload = function(image){
+    var reader = new FileReader();
+    reader.onload = $scope.loadedImage;
+    reader.readAsDataURL(image.files[0]);
+  }
+
+  $scope.loadedImage = function(theImage){
+      $scope.$apply(function() {
+          $scope.stepsModel.push(theImage.target.result);
+      });
   }
 });
 
