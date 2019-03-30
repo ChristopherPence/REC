@@ -61,10 +61,12 @@ app.get('/getnews', function(req, res){
 
 //listen for get clubs request
 app.get('/getclubs', function(req, res){
-  var page = req.body.page;
-  var search = req.body.search;
-  console.log(req.body);
-  res.send(page);
+  var page = req.query.page;
+  var size = req.query.size;
+  var search = req.query.search;
+  mgo.listOrganizations(1, 5, function(err, result) {
+    res.send(result);
+  });
 });
 
 //=========================================
@@ -183,7 +185,3 @@ app.listen(port, function(){
 //   console.log(res);
 // });
 //console.log(mgo.listOrganizations(1, 5));
-
-mgo.listOrganizations(1, 5, function(err, res) {
-  console.log(res);
-})
