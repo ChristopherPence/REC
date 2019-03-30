@@ -62,9 +62,21 @@ app.get('/getnews', function(req, res){
 //listen for get clubs request
 app.get('/getclubs', function(req, res){
   var page = req.body.page;
+  var size = req.body.size;
   var search = req.body.search;
   console.log(req.body);
-  res.send(page);
+
+  mongo.connect(mongo_url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    console.log("Connected to MongoAtlas Database");
+    var dbo = db.db("REC_database");
+
+    dbo.collection('organizations').find().sort().toArray(function(err, result) {
+      if (err) throw err;
+      res.send(result);
+      db.close();
+    });
+  });
 });
 
 //=========================================
