@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
-    <!--<link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>-->
+    <link href="resources/clubs/clubs.css" rel="stylesheet" type="text/css"/>
   </head>
 
   <body class = "w-100 h-100" ng-app="clubs" ng-controller="clubsCtrl" ng-init="run();">
@@ -18,7 +18,7 @@
         <div class="card" style="width: 18rem;">
           <!--<img src={{x.picture}} class="card-img-top">-->
           <div class="card-body">
-            <h5 class="card-title">{{ x.title }}</h5>
+            <h5 class="card-title">{{ x.name }}</h5>
             <p class="card-text">{{ x.description }}</p>
             <!--<a href="{{ x.url }}" class="btn btn-primary">Read more</a>-->
           </div>
