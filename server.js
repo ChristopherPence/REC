@@ -62,21 +62,9 @@ app.get('/getnews', function(req, res){
 //listen for get clubs request
 app.get('/getclubs', function(req, res){
   var page = req.body.page;
-  var size = req.body.size;
   var search = req.body.search;
   console.log(req.body);
-
-  mongo.connect(mongo_url, { useNewUrlParser: true }, function(err, db) {
-    if (err) throw err;
-    console.log("Connected to MongoAtlas Database");
-    var dbo = db.db("REC_database");
-
-    dbo.collection('organizations').find().sort().toArray(function(err, result) {
-      if (err) throw err;
-      res.send(result);
-      db.close();
-    });
-  });
+  res.send(page);
 });
 
 //=========================================
@@ -190,6 +178,12 @@ app.listen(port, function(){
 // var testdata = {type: "club", name: "Weightlifting", description: "Deadlift", events: ["Meet 1", "Meet 2"], flyers: []};
 // mw.addOrganization(testdata);
 
-console.log("here");
-console.log(mgo.countOrganizations());
-console.log(mgo.listOrganizations(1, 5));
+// console.log("here");
+// mgo.countOrganizations(function(err, res) {
+//   console.log(res);
+// });
+//console.log(mgo.listOrganizations(1, 5));
+
+mgo.listOrganizations(1, 5, function(err, res) {
+  console.log(res);
+})

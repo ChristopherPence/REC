@@ -49,25 +49,39 @@ exports.addFlyer = function(data) {
 
 }
 
-exports.listOrganizations = (async (pagenumber, offset) => {
-	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
-	let dbo = db.db('REC_database');
-	try {
-		const res = await dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray();
-		console.log(res);
-		return res;
-	}
-	finally {
-		db.close();
-	}
-});
+// exports.listOrganizations = (async (pagenumber, offset) => {
+// 	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
+// 	let dbo = db.db('REC_database');
+// 	try {
+// 		const res = await dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray();
+// 		console.log(res);
+// 		return res;
+// 	}
+// 	finally {
+// 		db.close();
+// 	}
+// });
+
+exports.listOrganizations = function(pagenumber, offset, callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+
+		dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray(function(err, result){
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
+}
 
 exports.countOrganizations = (async () => {
 	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
 	let dbo = db.db('REC_database');
 	try {
 		const res = await dbo.collection('organizations').countDocuments({});
-		console.log(res);
+		//console.log(res);
 		return res;
 	}
 	finally {
