@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const mongo = require('mongodb').MongoClient;
 require('dotenv').load();
 const mongo_url = process.env.MONGO_URL;
