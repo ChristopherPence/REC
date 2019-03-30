@@ -32,7 +32,7 @@ const chalk = require('chalk');
 const mongo = require('mongodb').MongoClient;
 
 //Load in env variables
-require('dotenv').config();
+require('dotenv').load();
 const port = process.env.MAIN_PORT;
 const mongo_port = process.env.MONGO_PORT;
 const mongo_url = process.env.MONGO_URL;
