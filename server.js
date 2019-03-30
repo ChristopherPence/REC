@@ -178,4 +178,6 @@ app.listen(port, function(){
 // var testdata = {type: "club", name: "Weightlifting", description: "Deadlift", events: ["Meet 1", "Meet 2"], flyers: []};
 // mw.addOrganization(testdata);
 
-mgo.listOrganizations(10,10);
+console.log("here");
+console.log(mgo.countOrganizations());
+console.log(mgo.listOrganizations(1, 5));
