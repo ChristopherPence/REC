@@ -9,13 +9,23 @@
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
     <!--<link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>-->
   </head>
-  <body class = "w-100 h-100" ng-app="clubs" ng-controller="clubsCtrl">
 
+  <body class = "w-100 h-100" ng-app="clubs" ng-controller="clubsCtrl" ng-init="run();">
 
-
-    <h1> Hello Chris</h1>
-    <button ng-click="run()"> HI </button>
-
+    <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
+    <div class="row">
+      <span class="col-sm" ng-repeat="x in clubs">
+        <div class="card" style="width: 18rem;">
+          <!--<img src={{x.picture}} class="card-img-top">-->
+          <div class="card-body">
+            <h5 class="card-title">{{ x.title }}</h5>
+            <p class="card-text">{{ x.description }}</p>
+            <!--<a href="{{ x.url }}" class="btn btn-primary">Read more</a>-->
+          </div>
+        </div>
+        <br>
+      </span>
+    </div>
   </body>
 
   <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>

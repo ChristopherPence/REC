@@ -3,8 +3,18 @@ require('dotenv').load();
 const mongo_url = process.env.MONGO_URL;
 
 
+function copy(o) {
+   var output, v, key;
+   output = Array.isArray(o) ? [] : {};
+   for (key in o) {
+       v = o[key];
+       output[key] = (typeof v === "object") ? copy(v) : v;
+   }
+   return output;
+}
+
 exports.addOrganization = function(data) {
-	mongo.connect(mongo_url, function(err, db) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to MongoAtlas Database");
 		var dbo = db.db("REC_database");
@@ -51,18 +61,39 @@ exports.addFlyer = function(data) {
 }
 
 exports.listOrganizations = function(pagenumber, offset) {
-	mongo.connect(mongo_url, function(err, db) {
+	page = new Array();
+	mongo.connect(mongo_url, { useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to MongoAtlas Database");
 		var dbo = db.db("REC_database");
 
-		dbo.collection('organizations').find().sort().toArray(function(err, result) {
+		dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray(function(err, result) {
 			if (err) throw err;
-			console.log(result);
+			page = copy(result);
+
 		});
 		db.close();
 
 	});
+	return page;
+}
+
+exports.countOrganizations = function() {
+	var numorgs = 0;
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+
+		dbo.collection('organizations').countDocuments({}, function(err, result) {
+			if (err) throw err;
+			numorgs = result;
+
+		});
+		db.close();
+
+	});
+	return numorgs;
 }
 
 
