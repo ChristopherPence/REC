@@ -15,7 +15,8 @@ app.controller('clubsCtrl', function($scope, $http) {
                 search: query
             }
         }).then(function mySuccess(response){
-            console.log(response);
+            $scope.clubs = response.data;
+            console.log($scope.clubs);
         });
     }
 });
