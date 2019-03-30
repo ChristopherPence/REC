@@ -42,7 +42,7 @@ var app = angular.module('myApp', []);
           console.log("Detected properly");
           $http({
               method : "get",
-              url : '/getnews',
+              url : '/getnews/?page='+pageNumber+'&size='+size+'&search='+query,
               data: {
                   page: pageNumber,
                   size: size,
