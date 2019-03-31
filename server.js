@@ -1,8 +1,8 @@
 //node modules
+const express = require('express');
 const app = express();
 const fs = require('fs');
 const https = require('https');
-const express = require('express');
 const parser = require("body-parser");
 const request = require("request");
 const multer  = require('multer');
@@ -22,8 +22,8 @@ const port = process.env.MAIN_PORT;
 const mongo_url = process.env.MONGO_URL;
 
 // Support JSON and URL encoded bodies
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(parser.json());
+app.use(parser.urlencoded({extended: true}));
 
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
@@ -43,10 +43,7 @@ app.get('/upimg', function(req, res){
 app.get('/getnews', function(req, res){
 
 });
-app.get('/getclubs', function(req, res){
-  var page = req.query.page;
-  var size = req.query.size;
-  var search = req.query.search;
+app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res){
   mgo.listOrganizations(parseInt(page), parseInt(size), function(err, result) {
     res.send(result);
   });
