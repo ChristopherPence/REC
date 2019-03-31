@@ -10,53 +10,97 @@ function imageChange()
   var heightz = parseInt($('html').css('height'));;
   var widthImg = heightz * 0.70;
   
-  if(widthImg > widthz*.99)
+  if(widthz > heightz)
   {
-    widthImg = widthz * 0.99;
+    console.log("HA");
+    widthImg = heightz * 0.70;
+  }
+  else
+  {
+    console.log("BRO");
+    widthImg = widthz * 0.70;
   }
   
   $(".flyerz").css("height", widthImg);
   $(".sideScroll").css("height", widthImg);
   $(".sideScroll").css("width", widthImg);
   
-  $('.horizontal-scroll-wrapper').css('height',(widthz + fixer));
-  $('.horizontal-scroll-wrapper').css('width',widthImg+30);
-  $(".squares:first-child").css("padding-top", (widthz*.5  + widthImg*.5));
   
-  $(".horizontal-scroll-wrapper").css("transform", "rotate(-90deg) translateY(-" + (widthImg+30)  + "px)");
-
-  $('.sideScroll').css('transform','rotate(90deg)');
+  $('.horizontal-scroll-wrapper').css('height',(widthz));
+  $('.horizontal-scroll-wrapper').css('width',widthImg+30);
+  $(".squares:first-child").css("padding-top", (widthz*.5  - widthImg * 1.1));
+  if(widthz > heightz)
+  {
+    $(".horizontal-scroll-wrapper").css("transform", "rotate(-90deg) translateY(-" + (widthImg+30)  + "px)");
+  }
+  else
+  {
+    $(".horizontal-scroll-wrapper").css("transform", "rotate(-90deg) translateY(-" + (widthImg+30)  + "px)");
+  }
+  $('.sideScroll').css('margin-top',widthImg*0.6);
+  $('.sideScroll').css('margin-bottom',widthImg*0.6);
+  $('.flyerz').css('transform','rotate(90deg)');
+  
   $('.sideScroll').css('transform-origin','right top');
     
    numFlyers = $('.sideScroll').length;
-   num = widthImg;
+   widthFlyers = $('.flyers').css("width");
+   num = widthImg*2.2;
    var width = (numFlyers-1) * (num); 
   $('.help').css('height',(width));
-  $(".help").css("margin-bottom", (widthz*.5  - widthImg*.5));
-  $('.flyerz').css('margin-top',10);
+  $(".help").css("margin-bottom", (widthz*.5  - widthImg*1.1));
+  $('.flyerz').css('margin-left',4);
+  console.log("W " + widthz);
+  console.log($('.horizontal-scroll-wrapper').css('height'));
 }
 
 function side(e,event) {
-  if(event.deltaX > event.deltaY)
+////  console.log("X " + event.deltaX);
+////  console.log("Y " + event.deltaY);
+//  if(Math.abs(event.deltaX) > Math.abs(event.deltaY))
+//  {
+//   event.preventDefault();
+//    e.scrollBy(0,event.deltaX);
+//  }
+//  else
+//  {
+//    e.scrollBy(0,event.deltaY);
+//  }
+}
+var counter = 0;
+$(document).ready(function(){
+    $('.horizontal-scroll-wrapper').scroll(function() {
+      $('.sideScroll').addClass("helperChild");
+      console.log(counter);
+    if(counter == 0)
   {
-    e.scrollBy(0,event.deltaX);
-  }
+   console.log("HEYOOOOOO");
+   //$('.sideScroll').removeClass("helperChild");
+//   $('.horizontal-scroll-wrapper').removeClass("helper");
+    clearTimeout($.data(this, 'scrollTimer'));
+    $.data(this, 'scrollTimer', setTimeout(function() {
+        // do something
+        console.log("Haven't scrolled in 250ms!");
+//        $('.horizontal-scroll-wrapper').addClass("helper");
+        $('.sideScroll').addClass("helperChild");
+        counter = 1;
+    }, 100));
+    }
   else
   {
-    e.scrollBy(0,event.deltaY);
+    console.log("REEEEE");
+//   $('.horizontal-scroll-wrapper').removeClass("helper");
+    clearTimeout($.data(this, 'scrollTimer'));
+    $.data(this, 'scrollTimer', setTimeout(function() {
+        // do something
+        console.log("Haven't scrolled in 250ms! noo");
+//        $('.horizontal-scroll-wrapper').addClass("helper");
+        counter = 0;
+    }, 100));
   }
-}
-
-function side(e,event) {
-  if(event.deltaX > event.deltaY)
-  {
-    e.scrollBy(0,event.deltaX);
-  }
-  else
-  {
-    e.scrollBy(0,event.deltaY);
-  }
-}
+    });
+ 
+});
 
 var app = angular.module('myApp', []);
   app.controller('customersCtrl', function($scope, $http) {

@@ -9,6 +9,11 @@
 
 .sideScroll {
   display: block;
+/*  scroll-snap-align: center;*/
+}
+
+.helperChild {
+  scroll-snap-align: center;
 }
 
 
@@ -25,5 +30,11 @@
   overflow-y: auto;
   overflow-x: hidden;
   transform-origin: right top;
+  scroll-snap-type: y mandatory;
 }
+
+.helper {
+/*  scroll-snap-type: y mandatory;*/
+}
+
 

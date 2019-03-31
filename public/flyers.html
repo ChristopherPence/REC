@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- this is the script that allows for the angular functionality to be included -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
      <link href="resources/flyers/flyers.css" rel="stylesheet" type="text/css"/>
   </head>
@@ -13,7 +13,7 @@
     <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column"> 
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
         <section class = "">
-          <section class = "horizontal-scroll-wrapper squares d-flex flex-column" ondragover="side(this,event)" onmousewheel="side(this,event)">
+          <section class = "horizontal-scroll-wrapper squares d-flex flex-column container x mandatory-scroll-snapping" ondragover="side(this,event)" onmousewheel="side(this,event)">
             <section class = "help">
               <section class = "sideScroll d-flex justify-content-center" ng-repeat="x in flyers" on-finish-render="ngRepeatFinished">
                 <img class = "flyerz flyersEvent" ng-src = 'resources/clubs/{{x.club}}/{{x.club}}.jpg' ng-alt = "{{x.club}} Flyer">
@@ -23,6 +23,8 @@
       </section>
     </div>
   </body>
-  <script src="bootstrap-4.2.1-dist/js/jquery-2.1.4.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="resources/flyers/flyers.js"></script>
 </html>
