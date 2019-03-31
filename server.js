@@ -16,10 +16,8 @@ const imgur = require('./imgurWrapper.js');
 const rss = require('./rss.js');
 const mgo = require('./mongoWrapper.js');
 
-// Support JSON-encoded bodies
+// Support JSON and URL encoded bodies
 app.use(bodyParser.json());
-
-// Suppost URL-encoded bodies
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Cool module that can add color to bash/terminal text
