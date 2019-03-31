@@ -41,9 +41,7 @@ app.get('/upimg', function(req, res){
 
 //GET requests for specific data
 app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
-  /*rss.getEvents(function(events){
-    res.send(events);
-  });*/
+  //rss.getEvents();
 });
 app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res){
   mgo.listOrganizations(parseInt(page), parseInt(size), function(err, result) {

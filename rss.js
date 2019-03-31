@@ -20,17 +20,19 @@ exports.msg = function(){
 	Get the next 100 events from the moment of calling forward 
 	and store non-repeats in the database. Database storage is
 	controlled through the MongoWrapper class.
-
-	@callback (events)
-		events = a REC_database formatted array of events
 */
-exports.getEvents = function(callback){
+exports.getEvents = function(){
 	//make the API call
+	console.log('Loading RPI events into database')
 	request(url_100, function(error, response, body){
 		//destructure the body object into the events array
 		const {bwEventList : {events = []}} = JSON.parse(body);
-		let result = [];
 		//loop through the events and re-format them into REC_database format
+		var matched = 0;
+		var updated = 0;
+		var inserts = 0;
+		var total = events.length;
+		var sofar = 0;
 		for(e in events){
 			var tmp = {};
 			tmp.event_id = events[e].guid;
@@ -40,10 +42,22 @@ exports.getEvents = function(callback){
 			tmp.timeEnd = events[e].end.time;
 			tmp.date = events[e].start.shortdate;
 			tmp.description = events[e].description;
-			//append to the end of the array using spread syntax
-			result = [...result, tmp];
+			//insert into the Database
+			mgo.addEventAutomatic(tmp, function(m, u, i){
+				matched += m;
+				updated += u;
+				inserts += i;
+				if(sofar == total - 1) printStats();
+				sofar++;
+			});
 		}
-		mgo.addEventAutomatic(result);
-		callback(result);
+		
+		function printStats(){
+			//clearInterval(waitForDB);
+			console.log("Connected to database\t RPI Event Additions");
+			console.log('Matched: ' + matched);
+			console.log('Updated: ' + updated);
+			console.log('Inserts: ' + inserts);
+		}	
 	});
 }

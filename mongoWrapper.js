@@ -97,25 +97,35 @@ exports.countOrganizations = (async () => {
 // list organizations
 
 
-exports.addEventAutomatic = function(data){
+/*
+	Add an event to the 'events' collection. Update an already existing event
+	or insert it if it doesn't already exist.
+
+	data is one event in REC_database format
+	callback (matched, updated, inserts)
+		matched = how many events matched ones in the database
+		updated = how many events contained old information
+		inserts = how many events were inserted into the database
+*/
+exports.addEventAutomatic = function(data, callback){
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
-		console.log("Connected to database\t Automatic Event Additions");
 		var dbo = db.db("REC_database");
-		for(i in data){
-			dbo.collection('events').updateOne({ event_id : data[i].event_id }, 
-				{$setOnInsert : {
-					organizer : data[i].organizer,
-					event_id : data[i].event_id,
-					title : data[i].title,
-					timeStart : data[i].timeStart,
-					timeEnd : data[i].timeEnd,
-					date : data[i].date,
-					description : data[i].description  
-				}}, {upsert:true}, function(err, result) {
-				if (err) throw err;
-			});
-		}
-		db.close();
+		//insert the event
+		dbo.collection('events').updateOne({ event_id : data.event_id , date : data.date }, 
+			{$setOnInsert : {
+				organizer : data.organizer,
+				event_id : data.event_id,
+				title : data.title,
+				timeStart : data.timeStart,
+				timeEnd : data.timeEnd,
+				date : data.date,
+				description : data.description  
+			}}, {upsert:true}, function(err, result) {
+			if (err) throw err;
+			//close the database and send the callback
+			db.close();
+			callback(result.matchedCount, result.modifiedCount, result.upsertedCount);
+		});
 	});
 }
