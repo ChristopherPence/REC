@@ -1,0 +1,24 @@
+@media (min-width: 992px) {
+    .modal-lg {
+        width: 900px;
+        height: 900px; /* control height here */
+    }
+}
+
+
+.login_logo {
+  max-height: 100px !important;
+  max-width: 400px !important;
+}
+
+.someRoundedBorder {
+  border-radius: 50px 50px 50px;
+}
+
+#loginError {
+  color: red;
+}
+
+#registerError {
+  color: red;
+}
