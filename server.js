@@ -1,3 +1,5 @@
+//node modules
+const app = express();
 const fs = require('fs');
 const https = require('https');
 const express = require('express');
@@ -5,59 +7,42 @@ const parser = require("body-parser");
 const request = require("request");
 const multer  = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const app = express();
-const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
-
-const saltRounds = 10;
+const chalk = require('chalk');
+const mongo = require('mongodb').MongoClient;
 
 //custom node modules
 const imgur = require('./imgurWrapper.js');
 const rss = require('./rss.js');
 const mgo = require('./mongoWrapper.js');
 
+//Load .ENV variables
+require('dotenv').load();
+const port = process.env.MAIN_PORT;
+const mongo_url = process.env.MONGO_URL;
+
 // Support JSON and URL encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Cool module that can add color to bash/terminal text
-/*
-  var goodColor = chalk.bold.red;
-  console.log(goodColor("The text color is red."));
-*/
-const chalk = require('chalk');
-
-const mongo = require('mongodb').MongoClient;
-
-//Load in env variables
-require('dotenv').load();
-const port = process.env.MAIN_PORT;
-const mongo_port = process.env.MONGO_PORT;
-const mongo_url = process.env.MONGO_URL;
-
 //Send html and static files upon request
 app.use('/resources', express.static(__dirname + '/resources'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
-
-//include the subfolder as a static point in which all the scripts can actually be referenced in the client side
+//allow the user to access static files
 app.use(express.static('public'));
-app.use(parser.urlencoded({extended : true}));
 
-//send the webpage html to the user on localhost port 3000
-app.get('/', function (req, res) 
-{
+//Default GET request
+app.get('/', function (req, res) {
   res.send(__dirname + '/public');
 });
 app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
 
-//send over the news
+//GET requests for specific data
 app.get('/getnews', function(req, res){
 
 });
-
-//listen for get clubs request
 app.get('/getclubs', function(req, res){
   var page = req.query.page;
   var size = req.query.size;
@@ -75,7 +60,6 @@ app.get('/getclubs', function(req, res){
 
 	Saves image as a file in /uploads
 */
-
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 	console.log('Image Upload:');
 	console.log('    Client IP: ' + req.connection.remoteAddress);
@@ -87,6 +71,7 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 
 //========================================
 // MongoDB Connection for the Login Page
+const saltRounds = 10;
 app.post('/login', function (req, res, next) {
   mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
     if(err) {
@@ -192,3 +177,9 @@ app.listen(port, function(){
   flyers:"[]",
   img_url:"resources/clubs/SASE/SASELogo.png"
 });*/
+
+// Cool module that can add color to bash/terminal text
+/*
+  var goodColor = chalk.bold.red;
+  console.log(goodColor("The text color is red."));
+*/
