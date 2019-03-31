@@ -40,8 +40,10 @@ app.get('/upimg', function(req, res){
 });
 
 //GET requests for specific data
-app.get('/getnews', function(req, res){
-
+app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
+  /*rss.getEvents(function(events){
+    res.send(events);
+  });*/
 });
 app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res){
   mgo.listOrganizations(parseInt(page), parseInt(size), function(err, result) {
@@ -76,7 +78,7 @@ app.post('/login', function (req, res, next) {
     }
     
     else {
-      console.log("Connected to database");
+      console.log("Connected to database\t User Login");
 
       var dbo = db.db("REC_database");
       

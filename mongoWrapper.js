@@ -65,9 +65,8 @@ exports.addFlyer = function(data) {
 exports.listOrganizations = function(pagenumber, offset, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
-		console.log("Connected to MongoAtlas Database");
+		console.log("Connected to database\t Listing organizations");
 		var dbo = db.db("REC_database");
-
 		dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
@@ -96,3 +95,27 @@ exports.countOrganizations = (async () => {
 // create event
 // create organization 
 // list organizations
+
+
+exports.addEventAutomatic = function(data){
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to database\t Automatic Event Additions");
+		var dbo = db.db("REC_database");
+		for(i in data){
+			dbo.collection('events').updateOne({ event_id : data[i].event_id }, 
+				{$setOnInsert : {
+					organizer : data[i].organizer,
+					event_id : data[i].event_id,
+					title : data[i].title,
+					timeStart : data[i].timeStart,
+					timeEnd : data[i].timeEnd,
+					date : data[i].date,
+					description : data[i].description  
+				}}, {upsert:true}, function(err, result) {
+				if (err) throw err;
+			});
+		}
+		db.close();
+	});
+}

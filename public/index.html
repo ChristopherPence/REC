@@ -10,7 +10,7 @@
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
   </head>
   <body class = "d-flex w-100 h-100" onload="imageChange"> 
-    <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center"> 
+    <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center" ng-init="run();"> 
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
       <section id = "newsData" class = "w-100 rounded">
         <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
