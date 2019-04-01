@@ -37,8 +37,17 @@ exports.addEvent = function(data) {
 
 }
 
-exports.getDatesEvents = function(date) {
-
+exports.getDatesEvents = function(date, callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to database\t Listing events on " + date);
+		var dbo = db.db("REC_database");
+		dbo.collection('events').find({ date : date }).sort().toArray(function(err, result){
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
 }
 
 exports.getFlyers = function() {

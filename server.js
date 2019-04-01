@@ -42,6 +42,11 @@ app.get('/upimg', function(req, res){
 //GET requests for specific data
 app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
   //rss.getEvents();
+  var today = new Date();
+  var formattedDate = (today.getMonth() + 1) + '/' + today.getDay() + '/' + (today.getFullYear().toString().substring(2));
+  mgo.getDatesEvents(formattedDate, function(err, result){
+    res.send(result);
+  });
 });
 app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res){
   mgo.listOrganizations(parseInt(page), parseInt(size), function(err, result) {
