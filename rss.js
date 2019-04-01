@@ -23,7 +23,7 @@ exports.msg = function(){
 */
 exports.getEvents = function(){
 	//make the API call
-	console.log('Loading RPI events into database')
+	console.log('Loading RPI events into database');
 	request(url_100, function(error, response, body){
 		//destructure the body object into the events array
 		const {bwEventList : {events = []}} = JSON.parse(body);

@@ -37,6 +37,14 @@ exports.addEvent = function(data) {
 
 }
 
+/*
+	Get the events that are occuring on a specified day from the database.
+	
+	date in the format 'month/day/short-year'
+	callback (err, result)
+		err = the err message from the database
+		result = the resulting events from the database query
+*/
 exports.getDatesEvents = function(date, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
