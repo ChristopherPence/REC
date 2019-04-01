@@ -12,7 +12,7 @@ const chalk = require('chalk');
 const mongo = require('mongodb').MongoClient;
 
 //custom node modules
-const imgur = require('./imgurWrapper.js');
+const cloud = require('./cloudinaryWrapper.js');
 const rss = require('./rss.js');
 const mgo = require('./mongoWrapper.js');
 
@@ -63,13 +63,18 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 	Saves image as a file in /uploads
 */
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
-	console.log('Image Upload:');
-	console.log('    Client IP: ' + req.connection.remoteAddress);
-	console.log('    File location: ' + req.file.path); //file name
 	//console.log(req.body); other form fields
-
+  cloud.upload(req.file.path, function(success){
+    fs.unlink(req.file.path, function(err){
+      if (err) throw err;
+    });
+  });
 	res.redirect('/upimg'); //prevent form resubmission
 });
+
+cloud.delete('e3nsnuxgi69tqr1skjr9', function(success){
+  console.log(success);
+})
 
 //========================================
 // MongoDB Connection for the Login Page

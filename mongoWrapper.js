@@ -39,7 +39,7 @@ exports.addEvent = function(data) {
 
 /*
 	Get the events that are occuring on a specified day from the database.
-	
+
 	date in the format 'month/day/short-year'
 	callback (err, result)
 		err = the err message from the database
@@ -153,7 +153,7 @@ exports.addEventAutomatic = function(data){
 		//End the mongo connection and print update stats
 		function endConnection(){
 			db.close();
-			console.log('Completed  database op\t RPI Event Additions');
+			console.log('Completed database op\t RPI Event Additions');
 			console.log('\tMatched: ' + matched);
 			console.log('\tInserts: ' + inserts);
 		}

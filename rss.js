@@ -32,7 +32,7 @@ exports.getEvents = function(){
 		for(e in events){
 			var tmp = {};
 			tmp.event_id = events[e].guid;
-			tmp.organizer = 'RPI ' + events[e].categories[0];
+			tmp.organizer = 'RPI';
 			tmp.title = events[e].summary;
 			tmp.timeStart = events[e].start.time;
 			tmp.timeEnd = events[e].end.time;
