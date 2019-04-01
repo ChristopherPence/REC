@@ -28,11 +28,7 @@ exports.getEvents = function(){
 		//destructure the body object into the events array
 		const {bwEventList : {events = []}} = JSON.parse(body);
 		//loop through the events and re-format them into REC_database format
-		var matched = 0;
-		var updated = 0;
-		var inserts = 0;
-		var total = events.length;
-		var sofar = 0;
+		var result = [];
 		for(e in events){
 			var tmp = {};
 			tmp.event_id = events[e].guid;
@@ -42,22 +38,10 @@ exports.getEvents = function(){
 			tmp.timeEnd = events[e].end.time;
 			tmp.date = events[e].start.shortdate;
 			tmp.description = events[e].description;
-			//insert into the Database
-			mgo.addEventAutomatic(tmp, function(m, u, i){
-				matched += m;
-				updated += u;
-				inserts += i;
-				if(sofar == total - 1) printStats();
-				sofar++;
-			});
+			//insert into the array using spread syntax
+			result = [...result, tmp]; 
 		}
-		
-		function printStats(){
-			//clearInterval(waitForDB);
-			console.log("Connected to database\t RPI Event Additions");
-			console.log('Matched: ' + matched);
-			console.log('Updated: ' + updated);
-			console.log('Inserts: ' + inserts);
-		}	
+		//add the events to the database
+		mgo.addEventAutomatic(result);
 	});
 }

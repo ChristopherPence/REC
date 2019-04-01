@@ -98,34 +98,47 @@ exports.countOrganizations = (async () => {
 
 
 /*
-	Add an event to the 'events' collection. Update an already existing event
-	or insert it if it doesn't already exist.
+	Add an array of events to the 'events' collection. 
+	Update an already existing event or insert it if 
+	it doesn't already exist. 
 
-	data is one event in REC_database format
-	callback (matched, updated, inserts)
-		matched = how many events matched ones in the database
-		updated = how many events contained old information
-		inserts = how many events were inserted into the database
+	data is an array of events in REC_database format
 */
-exports.addEventAutomatic = function(data, callback){
+exports.addEventAutomatic = function(data){
+	//connect to the database
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("REC_database");
-		//insert the event
-		dbo.collection('events').updateOne({ event_id : data.event_id , date : data.date }, 
-			{$setOnInsert : {
-				organizer : data.organizer,
-				event_id : data.event_id,
-				title : data.title,
-				timeStart : data.timeStart,
-				timeEnd : data.timeEnd,
-				date : data.date,
-				description : data.description  
+		console.log("Connected to database\t RPI Event Additions");
+		var matched = 0; var inserts = 0;
+		var total = data.length; var sofar = 0;
+		//loop through the events and insert them into the database
+		for(i in data){ 
+			dbo.collection('events').updateOne({ event_id : data[i].event_id , date : data[i].date }, 
+				{$setOnInsert : {
+					organizer : data[i].organizer,
+					event_id : data[i].event_id,
+					title : data[i].title,
+					timeStart : data[i].timeStart,
+					timeEnd : data[i].timeEnd,
+					date : data[i].date,
+					description : data[i].description  
 			}}, {upsert:true}, function(err, result) {
-			if (err) throw err;
-			//close the database and send the callback
+				if (err) throw err;
+				//update the stats and close the connection if all of the events are added
+				matched += result.matchedCount;
+				inserts += result.upsertedCount;
+				if(sofar == total - 1) endConnection();
+				sofar++;
+			});
+		}
+			
+		//End the mongo connection and print update stats
+		function endConnection(){
 			db.close();
-			callback(result.matchedCount, result.modifiedCount, result.upsertedCount);
-		});
+			console.log('Completed  database op\t RPI Event Additions');
+			console.log('\tMatched: ' + matched);
+			console.log('\tInserts: ' + inserts);
+		}
 	});
 }
