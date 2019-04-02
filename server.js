@@ -56,12 +56,6 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 
 //=========================================
 // Flyer uploading
-/*  
-  POST /flyerUpload
-	DATA: 	imgsrc: image file
-
-	Saves image as a file in /uploads
-*/
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 	//console.log(req.body); other form fields
   cloud.upload(req.file.path, function(success){
@@ -71,10 +65,6 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   });
 	res.redirect('/upimg'); //prevent form resubmission
 });
-
-cloud.delete('e3nsnuxgi69tqr1skjr9', function(success){
-  console.log(success);
-})
 
 //========================================
 // MongoDB Connection for the Login Page
