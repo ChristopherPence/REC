@@ -15,6 +15,7 @@ const mongo = require('mongodb').MongoClient;
 const cloud = require('./cloudinaryWrapper.js');
 const rss = require('./rss.js');
 const mgo = require('./mongoWrapper.js');
+const auth = require('./authentication.js');
 
 //Load .ENV variables
 require('dotenv').load();
@@ -68,48 +69,17 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 
 //========================================
 // MongoDB Connection for the Login Page
-const saltRounds = 10;
-app.post('/login', function (req, res, next) {
-  mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
-    if(err) {
-      throw err;
-    }
-    
-    else {
-      console.log("Connected to database\t User Login");
 
-      var dbo = db.db("REC_database");
-      
-      bcrypt.genSalt(saltRounds, function(err, salt) {
-        bcrypt.hash(req.body.password, salt, function(err, hash) {
-          
-          dbo.collection('userAccounts').find({"email": req.body.email}, {projections: {_id: 1}}).toArray(function(err, result) {
-            if(err) {
-              throw err;
-            }
-                        
-            bcrypt.compare(result.password, hash, function (err, response){
-              if(response == true){
-                console.log("Account found.");
-                res.send('Found');
-              }
-              else{
-                console.log("Account not found.");
-                res.send("Not Found");
-              }
-            });
-          });
-
-          db.close();
-          
-        });               
-      });
-    }
+app.post('/login', function ({body : {email = '', password = ''}}, res, next) {
+  console.log();
+  auth.login(email, password, function(result){
+    res.send(result);
   });
 });
 
 //========================================
 // MongoDB Connection for the Registration Page
+const saltRounds = 10;
 app.post('/register', function(req, res, next) {
   mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
     if(err) {
