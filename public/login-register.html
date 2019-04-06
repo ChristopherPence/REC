@@ -94,7 +94,7 @@
                           <label for="organizationPicture">Organization Profile Picture</label>
                           <input type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>
                           <div ng-repeat="step in stepsModel">
-                              <img class="form-control d-flex justify-content-center" ng-src="{{step}}"/>
+                            <img class="form-control d-flex justify-content-center border" ng-src="{{step}}"/>
                           </div>
                         </div>
                       </div>
