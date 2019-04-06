@@ -5,22 +5,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- this is the script that allows for the angular functionality to be included -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="icon" href="/resources/generalContent/fabicon.png">
     <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
     <link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>
   </head>
   <body class = "w-100 h-100"> 
-    <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center"> 
+    <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100"> 
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
         <section class = "w-100 rounded">
           <section id = "cal" class="rounded w-100">
               <div class = "calendar">
-                <table width = "100%" id = "calendarz" class="bg-light mb-3"></table>
+                <table width = "100%" id = "calendarz" class="bg-light mt-3 mb-3"></table>
               </div>
           </section>
-          
         </section> 
-        
     </div>
   </body>
   <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>
