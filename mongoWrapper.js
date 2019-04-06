@@ -26,16 +26,43 @@ exports.addOrganization = function(data) {
 }
 
 exports.deleteOrganization = function(data) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
 
+		var doc = {
+			type: data.type,
+			name: data.name
+		};
+
+		dbo.collection('organizations').deleteOne(doc, function(err, result) {
+			if (err) throw err;
+			console.log("added organization");
+			db.close();
+		});
+	});
 }
 
 exports.removeFlyer = function(data) {
-
+	const clo = require('./cloudinaryWrapper.js');
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+		clo.delete(data.public_id, function(deleted) {
+			if (deleted) {
+				dbo.collection('flyers').deleteOne({public_id: data.public_id}, function(err, result) {
+					if (err) throw err;
+					console.log("added organization");
+					db.close();
+				});
+			}
+		});
+	});
 }
 
-exports.addEvent = function(data) {
 
-}
 
 /*
 	Get the events that are occuring on a specified day from the database.
@@ -58,26 +85,39 @@ exports.getDatesEvents = function(date, callback) {
 	});
 }
 
-exports.getFlyers = function() {
-
+exports.getFlyers = function(callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db("REC_database");
+		dbo.collection('events').find({}).sort(date: 1).toArray(function(err, result){
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
 }
 
 exports.addFlyer = function(data) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
 
+		var doc = {
+			date: data.date,
+			takedown_date: data.takedown_date,
+			event: data.event,
+			imageid: data.imageid
+		};
+
+		dbo.collection('flyers').insertOne(doc, function(err, result) {
+			if (err) throw err;
+			console.log("added organization");
+			db.close();
+		});
+	});
 }
 
-// exports.listOrganizations = (async (pagenumber, offset) => {
-// 	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
-// 	let dbo = db.db('REC_database');
-// 	try {
-// 		const res = await dbo.collection('organizations').find().sort().skip((pagenumber - 1) * offset).limit(offset).toArray();
-// 		console.log(res);
-// 		return res;
-// 	}
-// 	finally {
-// 		db.close();
-// 	}
-// });
 
 exports.listOrganizations = function(pagenumber, offset, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
@@ -92,18 +132,19 @@ exports.listOrganizations = function(pagenumber, offset, callback) {
 	});
 }
 
-exports.countOrganizations = (async () => {
-	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
-	let dbo = db.db('REC_database');
-	try {
-		const res = await dbo.collection('organizations').countDocuments({});
-		//console.log(res);
-		return res;
-	}
-	finally {
-		db.close();
-	}
-});
+exports.countOrganizations = function(callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to database\t Listing organizations");
+		var dbo = db.db("REC_database");
+		dbo.collection('organizations').countDocuments({}, function(err, res) {
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
+}
+
 
 
 // get today events
