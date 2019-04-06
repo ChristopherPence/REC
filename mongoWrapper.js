@@ -89,7 +89,7 @@ exports.getFlyers = function(callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("REC_database");
-		dbo.collection('events').find({}).sort(date: 1).toArray(function(err, result){
+		dbo.collection('events').find({}).sort({date: 1}).toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
 			db.close();
@@ -97,26 +97,30 @@ exports.getFlyers = function(callback) {
 	});
 }
 
-exports.addFlyer = function(data) {
-	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
-		if (err) throw err;
-		console.log("Connected to MongoAtlas Database");
-		var dbo = db.db("REC_database");
+// exports.addFlyer = function(imagePath, data) {
+// 	const clo = require('cloudinaryWrapper');
+// 	clo.upload(imagePath, function(added, iurl, ipid) {
+// 		mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+// 			if (err) throw err;
+// 			console.log("Connected to MongoAtlas Database");
+// 			var dbo = db.db("REC_database");
 
-		var doc = {
-			date: data.date,
-			takedown_date: data.takedown_date,
-			event: data.event,
-			imageid: data.imageid
-		};
+// 			var doc = {
+// 				date: data.date,
+// 				takedown_date: data.takedown_date,
+// 				event: data.event,
+// 				url: iurl,
+// 				public_id: ipid
+// 			};
 
-		dbo.collection('flyers').insertOne(doc, function(err, result) {
-			if (err) throw err;
-			console.log("added organization");
-			db.close();
-		});
-	});
-}
+// 			dbo.collection('flyers').insertOne(doc, function(err, result) {
+// 				if (err) throw err;
+// 				console.log("added organization");
+// 				db.close();
+// 			});
+// 		});
+// 	});
+// }
 
 
 exports.listOrganizations = function(pagenumber, offset, callback) {
