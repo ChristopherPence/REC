@@ -45,7 +45,21 @@ exports.deleteOrganization = function(data) {
 }
 
 exports.removeFlyer = function(data) {
-
+	const clo = require('./cloudinaryWrapper.js');
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+		clo.delete(data.public_id, function(deleted) {
+			if (deleted) {
+				dbo.collection('flyers').deleteOne({public_id: data.public_id}, function(err, result) {
+					if (err) throw err;
+					console.log("added organization");
+					db.close();
+				});
+			}
+		});
+	});
 }
 
 
