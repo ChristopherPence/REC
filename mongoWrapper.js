@@ -14,6 +14,7 @@ exports.addOrganization = function(data) {
 			description: data.description,
 			events: data.events,
 			flyers: data.flyers,
+			social: data.social,
 			img_url: data.img_url
 		};
 
