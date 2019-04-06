@@ -2,6 +2,13 @@ const mongo = require('mongodb').MongoClient;
 require('dotenv').load();
 const mongo_url = process.env.MONGO_URL;
 
+/*
+Function to add an organization into database:
+	Adds into the organizations collection
+	data field should be a json object with the following fields:
+		type, name, description, events, flyers, social, img_url
+	Will throw error if insertion fails
+*/
 exports.addOrganization = function(data) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
@@ -14,6 +21,7 @@ exports.addOrganization = function(data) {
 			description: data.description,
 			events: data.events,
 			flyers: data.flyers,
+			social: data.social,
 			img_url: data.img_url
 		};
 
@@ -25,6 +33,13 @@ exports.addOrganization = function(data) {
 	});
 }
 
+/*
+Function to delete an organization from the database
+	data parameter is a json object with fields:
+		type and name
+	These fields are used to identify the organization to delete in the 
+	database. If the organization is found, it is deleted
+*/
 exports.deleteOrganization = function(data) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
@@ -44,6 +59,12 @@ exports.deleteOrganization = function(data) {
 	});
 }
 
+/*
+Remove a flyer from the database
+	Uses the cloud wrapper to delete the flyer by providing the appropraite 
+	public_id. Data is a json object that has public_id associated
+	with the flyer to delete.
+*/
 exports.removeFlyer = function(data) {
 	const clo = require('./cloudinaryWrapper.js');
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
@@ -54,7 +75,7 @@ exports.removeFlyer = function(data) {
 			if (deleted) {
 				dbo.collection('flyers').deleteOne({public_id: data.public_id}, function(err, result) {
 					if (err) throw err;
-					console.log("added organization");
+					console.log("deleted flyer");
 					db.close();
 				});
 			}
@@ -85,11 +106,15 @@ exports.getDatesEvents = function(date, callback) {
 	});
 }
 
+/*
+This function returns all flyers in the database. They 
+are sorted by date and returned in the callback funtion as an array
+*/
 exports.getFlyers = function(callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("REC_database");
-		dbo.collection('events').find({}).sort({date: 1}).toArray(function(err, result){
+		dbo.collection('flyers').find({}).sort({date: 1}).toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
 			db.close();
@@ -97,32 +122,57 @@ exports.getFlyers = function(callback) {
 	});
 }
 
-// exports.addFlyer = function(imagePath, data) {
-// 	const clo = require('cloudinaryWrapper');
-// 	clo.upload(imagePath, function(added, iurl, ipid) {
-// 		mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
-// 			if (err) throw err;
-// 			console.log("Connected to MongoAtlas Database");
-// 			var dbo = db.db("REC_database");
+/*
+Function to add a flyer into the database
+	Uses cloud wrapper to add 
+	Parameters: imagePath is the path to the image
+	data is a json object of information to be added
+	callback function is used to display success or failure
+	Calls the cloud wrappper to upload the image based on the path
+		The returned public id and url are stored in the document
+*/
+exports.addFlyer = function(imagePath, data, callback) {
+	const clo = require('./cloudinaryWrapper.js');
+	console.log(imagePath);
+	clo.upload(imagePath, function(added, iurl, ipid) {
+		console.log("entered cloud");
+		console.log(added);
+		if (added) {
+			mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+				if (err) throw err;
+				console.log("Connected to MongoAtlas Database");
+				var dbo = db.db("REC_database");
 
-// 			var doc = {
-// 				date: data.date,
-// 				takedown_date: data.takedown_date,
-// 				event: data.event,
-// 				url: iurl,
-// 				public_id: ipid
-// 			};
+				var doc = {
+					date: data.date,
+					takedown_date: data.takedown_date,
+					event: data.event,
+					url: iurl,
+					public_id: ipid
+				};
 
-// 			dbo.collection('flyers').insertOne(doc, function(err, result) {
-// 				if (err) throw err;
-// 				console.log("added organization");
-// 				db.close();
-// 			});
-// 		});
-// 	});
-// }
+				dbo.collection('flyers').insertOne(doc, function(err, result) {
+					if (err) throw err;
+					console.log("added flyer");
+					callback(true);
+					db.close();
+				});
+			});
+		}
+		else callback(false);
+	});
+}
 
-
+/*
+This function lists all of the organizations based on the input
+Parameters: 
+	pagenumber: Starting at page 1, this will give the documents for the p
+		pagenumber specified
+	offset: offset number are displayed on each page.
+		To make pages of 5 orgs, listOrganizations(2, 5, callback) would 
+			return the second set of 5.
+The resulting query is returned in a callback function
+*/
 exports.listOrganizations = function(pagenumber, offset, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
@@ -136,6 +186,11 @@ exports.listOrganizations = function(pagenumber, offset, callback) {
 	});
 }
 
+/*
+This function returns the amount of organization documents
+in the database.
+ The returned amount is returned in a callback
+*/
 exports.countOrganizations = function(callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;

@@ -58,13 +58,18 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 //=========================================
 // Flyer uploading
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
-	//console.log(req.body); other form fields
-  cloud.upload(req.file.path, function(success){
-    fs.unlink(req.file.path, function(err){
-      if (err) throw err;
-    });
+  console.log("attempting to upload");
+  mgo.addFlyer(req.file.path, req.body, function(added) {
+    console.log("entered mgo");
+    if (added) {
+      fs.unlink(req.file.path, function(err){
+        if (err) throw err;
+      });
+      res.redirect('/upimg'); //prevent form resubmission
+    }
   });
-	res.redirect('/upimg'); //prevent form resubmission
+
+
 });
 
 //========================================
