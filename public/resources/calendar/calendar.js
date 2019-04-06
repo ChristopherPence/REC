@@ -99,7 +99,7 @@ function makeCalendar()
 //    console.log(7-((firstDay.getDay() + dayz))%7);
   var stringCal = "";
   total = 0;
-  stringCal += '<tr class = "border"><th colspan="1" class = "cellz" id = "calendarHeader"></th> <th colspan="1" class = "cellz" id = "calendarHeader"><a href = "#" onclick = "moveCalUp()"><<<</a></th><th colspan="3" class = "cellz" id = "calendarHeader">' + months[curMonthz] + ' ' + curYearz +  '</th><th colspan="1" class = "cellz" id = "calendarHeader"><a href = "#" onclick = "moveCalDown()">>>></a></th> <th colspan="1" class = "cellz" id = "calendarHeader"></th></tr>';
+  stringCal += '<tr class = "border"><th colspan="1" class = "cellz" id = "calendarHeader"></th> <th colspan="1" class = "cellz" id = "calendarHeader"><a href = "#" onclick = "moveCalUp()"><img src="resources/calendar/leftArrow.png" alt ="arrow to go back a month" height = "50"> </a></th><th colspan="3" class = "cellz" id = "calendarHeader">' + months[curMonthz] + ' ' + curYearz +  '</th><th colspan="1" class = "cellz" id = "calendarHeader"><a href = "#" onclick = "moveCalDown()"><img src="resources/calendar/rightArrow.png" alt ="arrow to go forward a month" height = "50"></a></th> <th colspan="1" class = "cellz" id = "calendarHeader"></th></tr>';
   stringCal += '<tr>';
   for(var k = 0; k<7; k++)
   {
