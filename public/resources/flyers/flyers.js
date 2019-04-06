@@ -55,25 +55,24 @@ function imageChange()
 }
 
 function side(e,event) {
-//  console.log("X " + event.deltaX);
-//  console.log("Y " + event.deltaY);
-  if(Math.abs(event.deltaX) > Math.abs(event.deltaY))
-  {
-   event.preventDefault();
-    e.scrollBy(0,event.deltaX);
-  }
-  else
-  {
-    e.scrollBy(0,event.deltaY);
-  }
+////  console.log("X " + event.deltaX);
+////  console.log("Y " + event.deltaY);
+//  if(Math.abs(event.deltaX) > Math.abs(event.deltaY))
+//  {
+//   event.preventDefault();
+//    e.scrollBy(0,event.deltaX);
+//  }
+//  else
+//  {
+//    e.scrollBy(0,event.deltaY);
+//  }
 }
 var counter = 0;
 $(document).ready(function(){
     $('.horizontal-scroll-wrapper').scroll(function() {
-//      $('.sideScroll').addClass("helperChild");
-      $('.horizontal-scroll-wrapper').removeClass("helper");
+      $('.sideScroll').addClass("helperChild");
       console.log(counter);
-//    if(counter == 0)
+    if(counter == 0)
   {
    console.log("HEYOOOOOO");
    //$('.sideScroll').removeClass("helperChild");
@@ -82,23 +81,23 @@ $(document).ready(function(){
     $.data(this, 'scrollTimer', setTimeout(function() {
         // do something
         console.log("Haven't scrolled in 250ms!");
-        $('.horizontal-scroll-wrapper').addClass("helper");
-       //$('.sideScroll').addClass("helperChild");
+//        $('.horizontal-scroll-wrapper').addClass("helper");
+        $('.sideScroll').addClass("helperChild");
         counter = 1;
     }, 100));
     }
-  //else
-//  {
-//    console.log("REEEEE");
+  else
+  {
+    console.log("REEEEE");
 //   $('.horizontal-scroll-wrapper').removeClass("helper");
-//    clearTimeout($.data(this, 'scrollTimer'));
-//    $.data(this, 'scrollTimer', setTimeout(function() {
-//        // do something
-//        console.log("Haven't scrolled in 250ms! noo");
+    clearTimeout($.data(this, 'scrollTimer'));
+    $.data(this, 'scrollTimer', setTimeout(function() {
+        // do something
+        console.log("Haven't scrolled in 250ms! noo");
 //        $('.horizontal-scroll-wrapper').addClass("helper");
-//        counter = 0;
-//    }, 100));
-//  }
+        counter = 0;
+    }, 100));
+  }
     });
  
 });
