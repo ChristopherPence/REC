@@ -92,18 +92,19 @@ exports.listOrganizations = function(pagenumber, offset, callback) {
 	});
 }
 
-exports.countOrganizations = (async () => {
-	let db = await mongo.connect(mongo_url,{ useNewUrlParser: true });
-	let dbo = db.db('REC_database');
-	try {
-		const res = await dbo.collection('organizations').countDocuments({});
-		//console.log(res);
-		return res;
-	}
-	finally {
-		db.close();
-	}
-});
+exports.countOrganizations = function(callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to database\t Listing organizations");
+		var dbo = db.db("REC_database");
+		dbo.collection('organizations').countDocuments({}, function(err, res) {
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
+}
+
 
 
 // get today events
