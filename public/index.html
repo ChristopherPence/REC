@@ -8,16 +8,20 @@
     <link href="resources/news/news.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
   <body class = "d-flex w-100 h-100" onload="imageChange"> 
     <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center" ng-init="run();"> 
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
       <section id = "newsData" class = "w-100 rounded">
         <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
-          <img class = "clubIm ml-2 mt-3 mr-2 rounded" ng-src='{{"resources/clubs/" + x.organizer + "/" + x.organizer + "Logo.png" | removeSpaces}}' ng-alt="{{x.organizer}} Logo" ng-init="finished();"> 
-          <section class = "newsEvent mt-3 mr-3 media-body w-75"> 
+          <img class = "clubIm ml-2 mt-3 mr-2 rounded" ng-src='{{"resources/clubs/" + x.organizer + "/" + x.organizer + "Logo.png" | removeSpaces}}' ng-alt="{{x.organizer}} Logo" ng-init="finished();">
+          <section class = "newsEvent mt-3 mr-3 media-body w-75">
               <section class="headingz d-flex align-items-baseline justify-content-between">
                 <a ng-href = '{{"resources/clubs/" + x.organizer | removeSpaces}}'> <h2 class = "title">{{x.title}}</h2></a>
+
                 <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
               </section>
               <p class="mt-1 align-items-start"> {{x.description}}</p>
@@ -25,7 +29,34 @@
           </section>
         </section>
       </section>
+
+      <button data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+    <!--Code for Modal (from w3schools)-->
+
+
+
   </body>
   <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>
   <script src="resources/news/news.js"></script>

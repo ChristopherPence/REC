@@ -75,53 +75,18 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 //========================================
 // MongoDB Connection for the Login Page
 
-app.post('/login', function ({body : {email = '', password = ''}}, res, next) {
-  console.log();
-  auth.login(email, password, function(result){
+app.post('/login', function (req, res, next) {
+  auth.login(req.body.email, req.body.password, function(result){
     res.send(result);
   });
 });
 
 //========================================
 // MongoDB Connection for the Registration Page
-const saltRounds = 10;
 app.post('/register', function(req, res, next) {
-  mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
-    if(err) {
-      throw err;
-    }
-    
-    else {
-      console.log("Connected to database");
-
-      var dbo = db.db("REC_database");
-      
-      bcrypt.genSalt(saltRounds, function(err, salt) {
-        if(err) throw err;
-        bcrypt.hash(req.body.password, salt, function(err, hash) {
-          if(err) throw err;
-
-          var document = {
-            organization: req.body.organization,
-            email: req.body.email,
-            password: hash,
-            blurb: req.body.blurb
-          };
-          
-          dbo.collection('userAccounts').insertOne(document, function(err, result){
-            if(err) {
-              throw err;
-            }
-            console.log("Account registered");
-            res.send("Registered");
-          });
-          
-          db.close();
-        });
-      });
-    }
+  auth.register(req.body.organization, req.body.email, req.body.password, req.body.blurb, function(result){
+    res.send(result);
   });
-         
 });
 
 //Server listen on port

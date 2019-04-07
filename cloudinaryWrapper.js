@@ -8,9 +8,9 @@
 const cloud = require('cloudinary').v2;
 require('dotenv').load();
 cloud.config({ 
-	cloud_name: process.env.CLOUD_NAME, 
-	api_key: process.env.CLOUD_KEY, 
-	api_secret: process.env.CLOUD_SECRET
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.CLOUD_KEY, 
+  api_secret: process.env.CLOUD_SECRET
 });
 
 /*

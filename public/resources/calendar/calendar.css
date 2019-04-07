@@ -26,6 +26,15 @@ table {
 #cal {
   height: 100%;
 }
+
+.arrow {
+  margin: auto;
+}
+
+.notMonth {
+  color: #9b9ea5;
+  background-color: #d0d3d8;
+}
 /*
 @media only screen and (max-width: 600px) {
   .weekDayz {

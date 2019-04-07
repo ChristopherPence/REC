@@ -16,7 +16,7 @@ app.controller("mainController", function($scope, $http){
     // HTTP post request to the database
     $http({
       method: "POST",
-      url: "./login",
+      url: "/login",
       data: {
         email: $scope.loginEmail,
         password: $scope.loginPassword
@@ -41,7 +41,12 @@ app.controller("mainController", function($scope, $http){
   $scope.register = function() {
     
     // Check if any fields are empty and displays error message
-    if($scope.organization == "" || $scope.email == "" || $scope.blurb == "" || $scope.registerPassword == "" || $scope.confirmPassword == "" || $scope.organization == undefined || $scope.email == undefined || $scope.blurb == undefined || $scope.registerPassword == undefined || $scope.confirmPassword == undefined){
+    if($scope.organization == "" || $scope.registerEmail == "" || $scope.blurb == "" || $scope.registerPassword == "" || $scope.confirmPassword == "" || $scope.organization == undefined || $scope.registerEmail == undefined || $scope.blurb == undefined || $scope.registerPassword == undefined || $scope.confirmPassword == undefined){
+      console.log($scope.organization);
+      console.log($scope.email);
+      console.log($scope.blurb);
+      console.log($scope.registerPassword);
+      console.log($scope.confirmPassword);
       $scope.registerError = "Please fill in missing fields!";
       return false;
     }
@@ -58,7 +63,7 @@ app.controller("mainController", function($scope, $http){
     // HTTP Post request to store user account in database
     $http({
       method: "POST",
-      url: "./register",
+      url: "/register",
       data: {
         organization: $scope.organization,
         email: $scope.registerEmail,
