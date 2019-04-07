@@ -26,6 +26,7 @@ cloud.config({
 */
 exports.upload = function(image, callback){
 	cloud.uploader.upload(image, function(error, result) {
+		console.log(error);
 		if(error) callback(false, null, null);
 		else callback(true, result.url, result.public_id);
 	});
