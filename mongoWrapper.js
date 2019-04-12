@@ -212,6 +212,7 @@ exports.countOrganizations = function(callback) {
 // create event
 // create organization 
 // list organizations
+// list events from a a specified date and greater
 
 
 /*
