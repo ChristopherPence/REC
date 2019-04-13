@@ -1,5 +1,5 @@
 const mongo = require('mongodb').MongoClient;
-require('dotenv').load();
+require('dotenv').config();
 const mongo_url = process.env.MONGO_URL;
 
 /*
@@ -212,6 +212,7 @@ exports.countOrganizations = function(callback) {
 // create event
 // create organization 
 // list organizations
+// list events from a a specified date and greater
 
 
 /*
