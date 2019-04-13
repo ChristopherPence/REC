@@ -204,6 +204,29 @@ exports.countOrganizations = function(callback) {
 	});
 }
 
+/*
+Returns an array of events
+	Events start at the given date
+	The amount of events returned can be limiited by the 
+	amount paramater.
+	Example: getFutureEvents(today, 20, callback) will return
+	the next 20 events starting today.
+	The returned events are sorted by date.
+	If you want all events after the date, make amount very large
+*/
+exports.getFutureEvents = function(fdate, amount, callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to database\t getting events");
+		var dbo = db.db("REC_database");
+		dbo.collection('events').find({date: {$gte: fdate}}).sort({date: 1}).limit(amount).toArray(function(err, result) {
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
+}
+
 
 
 // get today events

@@ -70,6 +70,7 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   });
 });
 
+
 //========================================
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
@@ -117,3 +118,9 @@ app.listen(port, function(){
   var goodColor = chalk.bold.red;
   console.log(goodColor("The text color is red."));
 */
+
+//example function call for future events
+// mgo.getFutureEvents("4/3/19", 5, function(err, result) {
+//   if (err) throw err;
+//   console.log(result);
+// });
