@@ -1,5 +1,5 @@
 const mongo = require('mongodb').MongoClient;
-require('dotenv').load();
+require('dotenv').config();
 const mongo_url = process.env.MONGO_URL;
 
 /*

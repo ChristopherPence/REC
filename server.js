@@ -18,7 +18,7 @@ const mgo = require('./mongoWrapper.js');
 const auth = require('./authentication.js');
 
 //Load .ENV variables
-require('dotenv').load();
+require('dotenv').config();
 const port = process.env.MAIN_PORT;
 const mongo_url = process.env.MONGO_URL;
 
@@ -68,13 +68,10 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
       res.redirect('/upimg'); //prevent form resubmission
     }
   });
-
-
 });
 
 //========================================
 // MongoDB Connection for the Login Page
-
 app.post('/login', function (req, res, next) {
   auth.login(req.body.email, req.body.password, function(result){
     res.send(result);

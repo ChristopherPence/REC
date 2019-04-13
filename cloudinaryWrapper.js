@@ -6,7 +6,7 @@
 
 //load in the API keys and configure the cloud connection
 const cloud = require('cloudinary').v2;
-require('dotenv').load();
+require('dotenv').config();
 cloud.config({ 
   cloud_name: process.env.CLOUD_NAME, 
   api_key: process.env.CLOUD_KEY, 

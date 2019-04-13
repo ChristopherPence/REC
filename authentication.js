@@ -1,7 +1,7 @@
 const saltRounds = 10;
 const mongo = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
-require('dotenv').load();
+require('dotenv').config();
 const mongo_url = process.env.MONGO_URL;
 
 // Logging into the server
