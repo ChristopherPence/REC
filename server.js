@@ -10,6 +10,9 @@ const upload = multer({ dest: 'uploads/' });
 const bcrypt = require('bcrypt');
 const chalk = require('chalk');
 const mongo = require('mongodb').MongoClient;
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+var cookieParser = require('cookie-parser');
 
 //custom node modules
 const cloud = require('./cloudinaryWrapper.js');
@@ -19,24 +22,51 @@ const auth = require('./authentication.js');
 
 //Load .ENV variables
 require('dotenv').config();
-const port = process.env.MAIN_PORT;
+const port = process.env.MAIN_PORT || 3000;
 const mongo_url = process.env.MONGO_URL;
+const session_secret = process.env.SESSION_SECRET;
+const session_age = parseInt(process.env.SESSION_AGE);
 
 // Support JSON and URL encoded bodies
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
+app.use(cookieParser());
+
+//secure sessions stored in mongodb
+const store = new MongoDBStore({
+  uri: mongo_url,
+  databaseName: 'REC_database',
+  collection : 'sessions'
+});
+app.use(session({
+  secret : session_secret,
+  store : store,
+  resave : true,
+  saveUninitialized : true,
+  cookie: {
+    maxAge : session_age
+  }
+}));
+store.on('error', function(error){
+  console.log(error);
+});
 
 //Send html and static files upon request
-app.use('/resources', express.static(__dirname + '/resources'));
-app.use('/scripts', express.static(__dirname + '/scripts'));
-//allow the user to access static files
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public', {redirect : false}));
 
-//Default GET request
+//Default GET request / not used
 app.get('/', function (req, res) {
-  res.send(__dirname + '/public');
+  console.log('default');
+  // req.session.user = 'chris';
+  // console.log(req.session);
+  // res.send(__dirname + '/public');
+  res.sendFile(__dirname + '/public/index.html');
 });
+
+//development REMOVE BEFORE RELEASE
 app.get('/upimg', function(req, res){
+  console.log(req.session);
+  console.log(req.session.user);
   res.sendFile(__dirname + '/upimg.html');
 });
 
@@ -74,8 +104,9 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 //========================================
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
-  auth.login(req.body.email, req.body.password, function(result){
-    res.send(result);
+  auth.login(req.body.email, req.body.password, function(success, user,sendBack){
+    if(success) res.cookie('user', user, { maxAge: session_age, httpOnly: false});
+    res.send(sendBack);
   });
 });
 

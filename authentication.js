@@ -7,32 +7,23 @@ const mongo_url = process.env.MONGO_URL;
 // Logging into the server
 exports.login = function(email, password, callback){
   mongo.connect(mongo_url, { useNewUrlParser: true }, function (err, db){
-    if(err) {
-      throw err;
-    }
-    
+    if(err) throw err;
     else {
       console.log("Connected to database.");
-
       var dbo = db.db("REC_database");
-    
       dbo.collection('userAccounts').find({"email": email}, {projections: {_id: 1}}).toArray(function(err, result) {
-        if(err) {
-          throw err;
-        }
-
+        if(err) throw err;
         bcrypt.compare(password, result[0].password, function (err, response){
           if(response == true){
             console.log("Account found.");
-            callback('Found');
+            callback(true, result[0].email,'Found');
           }
           else{
             console.log("Account not found.");
-            callback("Not Found");
+            callback(false, null,"Not Found");
           }
         });
       });
-
       db.close();
     }
   });
