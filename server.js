@@ -65,8 +65,6 @@ app.get('/', function (req, res) {
 
 //development REMOVE BEFORE RELEASE
 app.get('/upimg', function(req, res){
-  console.log(req.session);
-  console.log(req.session.user);
   res.sendFile(__dirname + '/upimg.html');
 });
 
@@ -89,15 +87,23 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 // Flyer uploading
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   console.log("attempting to upload");
-  mgo.addFlyer(req.file.path, req.body, function(added) {
-    console.log("entered mgo");
-    if (added) {
-      fs.unlink(req.file.path, function(err){
-        if (err) throw err;
-      });
-      res.redirect('/upimg'); //prevent form resubmission
-    }
-  });
+  if(req.session.allowed){
+    mgo.addFlyer(req.file.path, req.body, function(added) {
+      console.log("entered mgo");
+      if (added) {
+        fs.unlink(req.file.path, function(err){
+          if (err) throw err;
+        });
+        res.redirect('/upimg'); //prevent form resubmission
+      }
+    });
+  }
+  else{
+    fs.unlink(req.file.path, function(err){
+      if (err) throw err;
+    });
+    res.redirect('/login-register.html');
+  }
 });
 
 
@@ -105,7 +111,11 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 // MongoDB Connection for the Login Page
 app.post('/login', function (req, res, next) {
   auth.login(req.body.email, req.body.password, function(success, user,sendBack){
-    if(success) res.cookie('user', user, { maxAge: session_age, httpOnly: false});
+    if(success){
+      res.cookie('user', user, { maxAge: session_age, httpOnly: false});
+      req.session.user = user;
+      req.session.allowed = true;
+    } 
     res.send(sendBack);
   });
 });
