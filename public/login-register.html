@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html ng-app="login">
-  
   <head>
     <title> Log In/Registration Page</title>
     <meta charset="utf-8">
@@ -18,7 +17,6 @@
     <!-- Bootstrap links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    
   </head>
   
   <body ng-controller="mainController">
@@ -92,7 +90,7 @@
                       <div class="form-group col d-flex justify-content-center">
                         <div class="col-6">
                           <label for="organizationPicture">Organization Profile Picture</label>
-                          <input type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>
+                          <input name="profilePic" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>
                           <div ng-repeat="step in stepsModel">
                             <img class="form-control d-flex justify-content-center border" ng-src="{{step}}"/>
                           </div>

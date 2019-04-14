@@ -75,6 +75,9 @@ app.controller("mainController", function($scope, $http){
         if(response.data == "Registered"){
           alert("Successfully registered! Please log in now!");
         }
+        else {
+          alert("Email is already taken! Please try a different email!.")
+        }
       },
       function error(response){
         alert("Error while registering!");

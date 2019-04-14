@@ -20,7 +20,7 @@ exports.login = function(email, password, callback){
           }
           else{
             console.log("Account not found.");
-            callback(false, null,"Not Found");
+            callback(false, null, "Not Found");
           }
         });
       });
@@ -41,28 +41,40 @@ exports.register = function(newOrganization, newEmail, newPassword, newBlurb, ca
 
       var dbo = db.db("REC_database");
       
-      bcrypt.genSalt(saltRounds, function(err, salt) {
+      dbo.collection('userAccounts').find({"email": newEmail}, {projections: {_id: 1}}).toArray(function(err, result) {
         if(err) throw err;
-        bcrypt.hash(newPassword, salt, function(err, hash) {
-          if(err) throw err;
-
-          var document = {
-            organization: newOrganization,
-            email: newEmail,
-            password: hash,
-            blurb: newBlurb
-          };
-          
-          dbo.collection('userAccounts').insertOne(document, function(err, result){
-            if(err) {
-              throw err;
-            }
-            console.log("Account registered.");
-            callback("Registered");
-          });
-          
+        console.log(result);
+        if(result.length != 0){
+          console.log("Email already exists. Please try something else.");
+          callback("Register Problem");
           db.close();
-        });
+          return false;
+        }
+        else {
+          bcrypt.genSalt(saltRounds, function(err, salt) {
+            if(err) throw err;
+            bcrypt.hash(newPassword, salt, function(err, hash) {
+              if(err) throw err;
+
+              var document = {
+                organization: newOrganization,
+                email: newEmail,
+                password: hash,
+                blurb: newBlurb
+              };
+
+              dbo.collection('userAccounts').insertOne(document, function(err, result){
+                if(err) {
+                  throw err;
+                }
+                console.log("Account registered.");
+                callback("Registered");
+              });
+
+              db.close();
+            });
+          });
+        }
       });
     }
   });
