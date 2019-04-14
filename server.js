@@ -122,8 +122,8 @@ app.post('/login', function (req, res, next) {
 
 //========================================
 // MongoDB Connection for the Registration Page
-app.post('/register', upload.single('profilePic'), function(req, res, next) {
-  auth.register(req.body.organization, req.body.email, req.body.password, req.body.blurb, req.file.path, function(result){
+app.post('/register', function(req, res, next) {
+  auth.register(req.body.organization, req.body.email, req.body.password, req.body.blurb, function(result){
     res.send(result);
   });
 });
