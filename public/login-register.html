@@ -13,6 +13,7 @@
     
     <!-- External CSS link -->
     <link rel="stylesheet" href="resources/login-register.css">
+    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
     
     <!-- Bootstrap links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -22,7 +23,16 @@
   <body ng-controller="mainController">
     
     <!-- Header -->
-    <header class="d-flex justify-content-start pl-5 mb-5 border-bottom"><img class="img-fluid login_logo" src="resources/website_logo.png" alt="Rensselaer Events Calendar Logo"/></header>
+    <header class="d-flex justify-content-start pl-5"><img class="img-fluid login_logo" src="resources/website_logo.png" alt="Rensselaer Events Calendar Logo"/></header>
+    
+    <!-- Navigation Bar -->
+    <nav class="d-flex mt-2 rounded border bg-danger align-items-center font-weight-bold text-white mb-5">
+      <a href="index.html" class="nav left border-right">RPI News</a>
+      <a href="calendar.html" class="border-right">Events Calendar</a>
+      <a href="flyers.html" class="border-right">Event Flyers</a>
+      <a href="clubs.html" class="mr-auto">Clubs</a>
+      <a href="login-register.html" class="nav right rounded">Club Login</a>
+    </nav>
     
     <!-- Form to sign in -->
     <div class="someRoundedBorder container bg-warning border px-1 py-5">
@@ -85,7 +95,8 @@
                   <div ng-model="registerError" id="registerError">{{registerError}}</div>
                   
                   <div class="row">
-                    <!-- Organization picture -->
+<!--
+                     Organization picture 
                     <div class="col">
                       <div class="form-group col d-flex justify-content-center">
                         <div class="col-6">
@@ -97,6 +108,7 @@
                         </div>
                       </div>
                     </div>
+-->
 
                     <div class="col">
                       <!-- Register organization name area -->
@@ -157,12 +169,13 @@
     </div>
     
     <!-- Footer -->
-    <footer class="d-flex justify-content-center pt-3 pb-3 border-top fixed-bottom"><h5 class="text-muted">Rensselaer Events Calender(REC) Copyright &#169 2019</h5></footer>
+    <footer class="d-flex justify-content-center pt-3 pb-3 border-top fixed-bottom"><h4 class="text-white">Rensselaer Events Calender(REC) Copyright &#169 2019</h4></footer>
     
   </body>
   
   <!-- External JS -->
   <script type="text/javascript" src="resources/login-register-angular.js"></script>
+  <script type="text/javascript" src="resources/news/news.js"></script>
   
   <!-- jQuery script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
