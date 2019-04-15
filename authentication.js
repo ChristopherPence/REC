@@ -16,11 +16,11 @@ exports.login = function(email, password, callback){
         bcrypt.compare(password, result[0].password, function (err, response){
           if(response == true){
             console.log("Account found.");
-            callback(true, result[0].email,'Found');
+            callback(true, result[0].email, result[0].organization,'Found');
           }
           else{
             console.log("Account not found.");
-            callback(false, null, "Not Found");
+            callback(false,null,null,"Not Found");
           }
         });
       });

@@ -1,4 +1,5 @@
 const mongo = require('mongodb').MongoClient;
+const clo = require('./cloudinaryWrapper.js');
 require('dotenv').config();
 const mongo_url = process.env.MONGO_URL;
 
@@ -66,7 +67,6 @@ Remove a flyer from the database
 	with the flyer to delete.
 */
 exports.removeFlyer = function(data) {
-	const clo = require('./cloudinaryWrapper.js');
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to MongoAtlas Database");
@@ -132,7 +132,6 @@ Function to add a flyer into the database
 		The returned public id and url are stored in the document
 */
 exports.addFlyer = function(imagePath, data, callback) {
-	const clo = require('./cloudinaryWrapper.js');
 	console.log(imagePath);
 	clo.upload(imagePath, function(added, iurl, ipid) {
 		console.log("entered cloud");

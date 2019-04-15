@@ -12,7 +12,7 @@ const chalk = require('chalk');
 const mongo = require('mongodb').MongoClient;
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 //custom node modules
 const cloud = require('./cloudinaryWrapper.js');
@@ -41,12 +41,13 @@ const store = new MongoDBStore({
 app.use(session({
   secret : session_secret,
   store : store,
-  resave : true,
-  saveUninitialized : true,
+  resave : true, //Re-save sessions in DB on connect
+  saveUninitialized : false, //Don't save unmodified sessions
   cookie: {
     maxAge : session_age
   }
 }));
+//catch errors on session-storage
 store.on('error', function(error){
   console.log(error);
 });
@@ -57,9 +58,6 @@ app.use(express.static(__dirname + '/public', {redirect : false}));
 //Default GET request / not used
 app.get('/', function (req, res) {
   console.log('default');
-  // req.session.user = 'chris';
-  // console.log(req.session);
-  // res.send(__dirname + '/public');
   res.sendFile(__dirname + '/public/index.html');
 });
 
@@ -68,7 +66,10 @@ app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
 
-//GET requests for specific data
+
+/*==============================================================================
+    Public Facing API Routing
+==============================================================================*/
 app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
   //rss.getEvents();
   var today = new Date();
@@ -77,14 +78,16 @@ app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
     res.send(result);
   });
 });
+
 app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res){
   mgo.listOrganizations(parseInt(page), parseInt(size), function(err, result) {
     res.send(result);
   });
 });
 
-//=========================================
-// Flyer uploading
+/*==============================================================================
+    Inner POST routing
+==============================================================================*/
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   console.log("attempting to upload");
   if(req.session.allowed){
@@ -106,13 +109,16 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   }
 });
 
-
-//========================================
-// MongoDB Connection for the Login Page
+/*==============================================================================
+    Login and Registration POST Routing
+==============================================================================*/
 app.post('/login', function (req, res, next) {
-  auth.login(req.body.email, req.body.password, function(success, user,sendBack){
+  auth.login(req.body.email, req.body.password, function(success,user,org,sendBack){
+    //save the user session on successful login
     if(success){
-      res.cookie('user', user, { maxAge: session_age, httpOnly: false});
+      res.cookie('org', org, {maxAge: session_age, httpOnly: false});
+      res.cookie('user', user, {maxAge: session_age, httpOnly: false});
+      req.session.org = org;
       req.session.user = user;
       req.session.allowed = true;
     } 
@@ -120,18 +126,26 @@ app.post('/login', function (req, res, next) {
   });
 });
 
-//========================================
-// MongoDB Connection for the Registration Page
 app.post('/register', function(req, res, next) {
   auth.register(req.body.organization, req.body.email, req.body.password, req.body.blurb, function(result){
     res.send(result);
   });
 });
 
-//Server listen on port
-app.listen(port, function(){
-	console.log('Server started on port: ' + port)
-});
+//Server listen on specified port
+app.listen(port, function(){console.log('Server started on port: ' + port)});
+
+
+
+
+
+
+
+
+
+
+
+//development code REMOVE BEFORE RELASE
 
 /*****/
 //test add organization to mongo db
