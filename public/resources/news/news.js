@@ -36,7 +36,7 @@ function imageChange()
   $(".clubIm").css("width", widthz*0.1);
 }
 
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngCookies']);
 app.controller('customersCtrl', function($scope, $http) {
     $scope.run = function(){
         console.log("Detected properly");
@@ -62,7 +62,18 @@ app.controller('customersCtrl', function($scope, $http) {
         });
     }
 });
-   
+
+console.log('test');
+app.controller('cookieCtrl', ['$cookies', function($cookies) {
+    // Retrieving a cookie
+    console.log("Hi");
+    console.log($cookies);
+    var favoriteCookie = $cookies.get('user');
+    console.log(favoriteCookie);
+}]);
+
+
+
 app.filter('removeSpaces', [function() {
     return function(string) {
         if (!angular.isString(string)) {
