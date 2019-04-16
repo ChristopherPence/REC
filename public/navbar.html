@@ -5,13 +5,14 @@
   <a href = "flyers.html" class = "border-right">Event Flyers</a>
   <a href = "clubs.html" class = "mr-auto">Clubs</a>
 
-  <span ng-app="navbar" ng-controller="cookieCtrl">
+  <span ng-controller="cookieCtrl">
       <a href = "login-register.html" class = "nav right rounded">Club Login</a>
   </span>
 </nav>
 
 
-<script>
+<!-- <script>
+	console.log('Test');
     var lecookie = angular.module('navbar', ['ngCookies']);
     lecookie.controller('cookieCtrl', ['$cookies', function($cookies) {
         // Retrieving a cookie
@@ -19,5 +20,6 @@
         var favoriteCookie = $cookies.get('user');
         console.log(favoriteCookie);
     }]);
-</script>
+</script> -->
 
+<!-- ng-app="navbar" ng-controller="cookieCtrl" -->
