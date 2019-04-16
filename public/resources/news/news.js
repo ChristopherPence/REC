@@ -63,17 +63,6 @@ app.controller('customersCtrl', function($scope, $http) {
     }
 });
 
-console.log('test');
-app.controller('cookieCtrl', ['$cookies', function($cookies) {
-    // Retrieving a cookie
-    console.log("Hi");
-    console.log($cookies);
-    var favoriteCookie = $cookies.get('user');
-    console.log(favoriteCookie);
-}]);
-
-
-
 app.filter('removeSpaces', [function() {
     return function(string) {
         if (!angular.isString(string)) {
