@@ -91,27 +91,45 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   console.log("attempting to upload");
   if(req.session.allowed){
-    mgo.addFlyer(req.file.path, req.body, function(added) {
-      console.log("entered mgo");
-      if (added) {
-        fs.unlink(req.file.path, function(err){
-          if (err) throw err;
-        });
-        res.redirect('/upimg'); //prevent form resubmission
-      }
-    });
+    if(!req.file) res.send('No Image Selected');
+    else{
+       mgo.addFlyer(req.file.path, req.body, function(added) {
+        console.log("entered mgo");
+        if (added) {
+          fs.unlink(req.file.path, function(err){
+            if (err) throw err;
+          });
+          res.redirect('/upimg'); //prevent form resubmission
+        }
+      });
+    }
   }
   else{
-    fs.unlink(req.file.path, function(err){
-      if (err) throw err;
-    });
-    res.redirect('/login-register.html');
+    if(!req.file) res.send('No Image Selected');
+    else{
+      fs.unlink(req.file.path, function(err){
+        if (err) throw err;
+      });
+      res.redirect('/authFailure.html');
+    } 
+    
+  }
+});
+
+app.post('/eventUpload', function(req,res,next){
+  console.log('Uploading Event');
+  if(req.session.allowed){
+
+  }
+  else{
+    res.redirect('/authFailure.html');
   }
 });
 
 /*==============================================================================
     Login and Registration POST Routing
 ==============================================================================*/
+//login route and session creation
 app.post('/login', function (req, res, next) {
   auth.login(req.body.email, req.body.password, function(success,user,org,sendBack){
     //save the user session on successful login
@@ -126,10 +144,25 @@ app.post('/login', function (req, res, next) {
   });
 });
 
+//registration route
 app.post('/register', function(req, res, next) {
   auth.register(req.body.organization, req.body.email, req.body.password, req.body.blurb, function(result){
     res.send(result);
   });
+});
+
+//logout route and session deletion
+app.post('/logout', function(req, res, next){
+  if(req.session){
+    req.session.destroy(function(err){
+      if(err){
+        return next(err);
+      }
+      else{
+        return res.redirect('/');
+      }
+    });
+  }
 });
 
 //Server listen on specified port
