@@ -15,12 +15,15 @@
     <link rel="stylesheet" href="resources/login-register.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
     
+    <!-- Fontawesome CSS CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
     <!-- Bootstrap links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   </head>
   
-  <body ng-controller="mainController">
+  <body ng-controller="mainController" onload="allowShowPassword();">
     
     <!-- Header -->
     <header class="d-flex justify-content-start pl-5"><img class="img-fluid login_logo" src="resources/website_logo.png" alt="Rensselaer Events Calendar Logo"/></header>
@@ -39,7 +42,7 @@
       <form>
         
         <!-- Displays the error (whatever it may be) -->
-        <div ng-model="loginError" id="loginError">{{loginError}}</div>
+        <div ng-model="loginError" ng-show="loginError" id="loginError" class="d-flex justify-content-center">{{loginError}}</div>
         
         <!-- Login email area -->
         <div class="form-group col d-flex justify-content-center">
@@ -92,7 +95,7 @@
                 <form>
                   
                   <!-- Displays the register error (whatever it may be) -->
-                  <div ng-model="registerError" id="registerError">{{registerError}}</div>
+                  <div ng-model="registerError" ng-show="registerError" id="registerError">{{registerError}}</div>
                   
                   <div class="row">
 <!--
@@ -123,7 +126,8 @@
                       <div class="form-group col d-flex justify-content-center">
                         <div class="col-6">
                           <label for="email">Email</label>
-                          <input ng-model="registerEmail" id="registerEmail" class="form-control d-flex justify-content-center" type="text" placeholder="Email"/>
+                          <input ng-model="registerEmail" id="registerEmail" class="form-control d-flex justify-content-center" onkeyup="checkEmail();" type="text" placeholder="Email"/>
+                          <label for="registerEmail" id="goodEmail" class="mt-2"></label>
                         </div>
                       </div>
 
@@ -131,7 +135,10 @@
                       <div class="form-group col d-flex justify-content-center">
                         <div class="col-6">
                           <label for="registerPassword">Password</label>
-                          <input ng-model="registerPassword" id="registerPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Password"/>
+                          <div class="showPassword">
+                            <input ng-model="registerPassword" id="registerPassword" class="form-control input-field" type="password" onkeyup="checkPassword();" placeholder="Password"/>
+                            <span class="regpass fas fa-eye"></span>
+                          </div>
                         </div>
                       </div>
 
@@ -139,7 +146,15 @@
                       <div class="form-group col d-flex justify-content-center">
                         <div class="col-6">
                           <label for="confirmPassword">Confirm Password</label>
-                          <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
+                          <div class="showConfirmPassword">
+                            <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
+                            <span class="confpass fas fa-eye"></span>
+                          </div>
+                          <label for="confirmPassword" id="lengthRequirement" class="mt-2"></label>
+                          <label for="confirmPassword" id="specialCharRequirement" class="mt-2"></label>
+                          <label for="confirmPassword" id="upperCaseRequirement" class="mt-2"></label>
+                          <label for="confirmPassword" id="lowerCaseRequirement" class="mt-2"></label>
+                          <label for="confirmPassword" id="digitRequirement" class="mt-2"></label>
                           <label for="confirmPassword" id="matchingPassword" class="mt-2"></label>
                         </div>
                       </div>

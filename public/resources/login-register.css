@@ -5,7 +5,6 @@
     }
 }
 
-
 .login_logo {
   max-height: 100px !important;
   max-width: 400px !important;
@@ -21,4 +20,33 @@
 
 #registerError {
   color: red;
+}
+
+
+.showPassword {
+  position: relative;
+}
+
+.showPassword input[type="password"] {
+  padding-right: 30px;
+}
+
+.showPassword .fas {
+  right: 5%;
+  position: absolute;
+  top: 35%;
+}
+
+.showConfirmPassword {
+  position: relative;
+}
+
+.showConfirmPassword input[type="password"] {
+  padding-right: 30px;
+}
+
+.showConfirmPassword .fas {
+  right: 5%;
+  position: absolute;
+  top: 35%;
 }
