@@ -142,9 +142,16 @@ exports.addFlyer = function(imagePath, data, callback) {
 				console.log("Connected to MongoAtlas Database");
 				var dbo = db.db("REC_database");
 
+				var date = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10));
+				var takedown = new Date(data.takedowndate.substring(0,4),
+							data.takedowndate.substring(5,7) - 1,
+							data.takedowndate.substring(8,10));
+
 				var doc = {
-					date: data.date,
-					takedown_date: data.takedown_date,
+					date: date,
+					takedown_date: takedown,
 					event: data.event,
 					url: iurl,
 					public_id: ipid
