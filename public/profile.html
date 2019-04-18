@@ -21,7 +21,8 @@
 						<input type="file" id="imgsrc" name="imgsrc"> <br>
 						Date: <input type="text" id="date" name="date"> <br>
 						Takedown Date: <input type="text" id="takedowndate" name="takedowndate"> <br>
-						Event: <input type="text" id="event" name="event"> <br>
+						Event: <select name="event" id="flyerevent">
+						</select> <br>
 
 						<input type="submit" name="submit">
 					</form>
@@ -29,8 +30,14 @@
 					<img src="" id="imgPrev" height="200" width="200"/>
 				</div>
 				<div class="col col-lg-6">
-					<form>
-						
+					<form action='/eventUpload' method="post">
+						Title: <input type="text" name="title"> <br>
+						Start Time: <input type="time" name="start"> <br>
+						End Time: <input type="time" name="end"> <br>
+						Date: <input type="date" name="date"> <br>
+						Description: <textarea name="desc"></textarea> <br>
+
+						<input type="submit" name="submit">
 					</form>
 				</div>
 			</div>
