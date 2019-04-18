@@ -85,6 +85,12 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
   });
 });
 
+app.get('/getflyers', function({query : {page = 1, size = 20, search = ""}}, res){
+  mgo.getFlyers(function(err, resukt){
+    res.send(result);
+  });
+});
+
 /*==============================================================================
     Inner POST routing
 ==============================================================================*/
