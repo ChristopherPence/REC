@@ -89,7 +89,7 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 });
 
 app.get('/getflyers', function({query : {page = 1, size = 20, search = ""}}, res){
-  mgo.getFlyers(function(err, resukt){
+  mgo.getFlyers(function(err, result){
     res.send(result);
   });
 });
@@ -101,11 +101,15 @@ app.get('/getEvents', function(req, res){
 /*==============================================================================
     Inner POST routing
 ==============================================================================*/
+//upload a flyer
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   console.log("attempting to upload");
+  //check to make sure user logged in
   if(req.session.allowed){
+    //verify image exists
     if(!req.file) res.send('No Image Selected');
     else{
+      //add the flyer to the database and cloud
        mgo.addFlyer(req.file.path, req.body, function(added) {
         console.log("entered mgo");
         if (added) {
@@ -130,9 +134,12 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   }
 });
 
+//upload an event
 app.post('/eventUpload', function(req,res,next){
   console.log('Uploading Event');
+  //check the user is logged in
   if(req.session.allowed){
+    //add the event to the database
     mgo.addEvent(req.session.org, req.body, function(success){
       if(success) res.redirect('/profile.html');
       else res.send('Something went wrong.');

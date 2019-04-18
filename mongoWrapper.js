@@ -226,7 +226,9 @@ exports.getFutureEvents = function(fdate, amount, callback) {
 	});
 }
 
-
+/*
+	Add a user event into the database, pass in organization and req
+*/
 exports.addEvent = function(org ,data, callback){
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
