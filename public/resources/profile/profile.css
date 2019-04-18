@@ -1,3 +1,9 @@
-#content{
-	background-color: rgba(234, 234, 234,0.92);
+.roundedBody {
+  border-radius: 50px 50px 50px !important;
+  background-color: rgba(234, 234, 234,0.92) !important;
+}
+
+.pictureResize {
+  width: 40vw !important;
+  height: 40vh !important;
 }
