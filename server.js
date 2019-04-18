@@ -65,6 +65,9 @@ app.get('/', function (req, res) {
 app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
+app.get('/profile', function(req, res){
+  res.sendFile(__dirname + '/public/profile.html');
+});
 
 
 /*==============================================================================

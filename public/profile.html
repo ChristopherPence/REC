@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US" class = "h-100 w-100 m-0">
+<head>
+	<title>REC Club Profile</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+   	<link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
+    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/profile/profile.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.min.js"></script>
+</head>
+<body class = "d-flex w-100 h-100">
+	<div ng-app="myApp" ng-controller="profileCtrl" class="d-flex h-100 w-100 flex-column align-items-center">
+		<div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
+		<div id="content" class="container">
+			<div class="row">
+				<div class="col col-lg-6">
+					<form action="/flyerUpload" method="post" enctype="multipart/form-data">
+						<input type="file" id="imgsrc" name="imgsrc"> <br>
+						Date: <input type="text" id="date" name="date"> <br>
+						Takedown Date: <input type="text" id="takedowndate" name="takedowndate"> <br>
+						Event: <input type="text" id="event" name="event"> <br>
+
+						<input type="submit" name="submit">
+					</form>
+
+					<img src="" id="imgPrev" height="200" width="200"/>
+				</div>
+				<div class="col col-lg-6">
+					<form>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript" src="resources/profile/profile.js"></script>
+<script src="resources/navbar/navbar.js"></script>
+</html>
