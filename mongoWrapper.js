@@ -248,7 +248,7 @@ Returns an array of events
 	The returned events are sorted by date.
 	If you want all events after the date, make amount very large
 */
-exports.getFutureEvents = function(fdate, amount, callback) {
+/*exports.getFutureEvents = function(fdate, amount, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to database\t getting events");
@@ -259,7 +259,7 @@ exports.getFutureEvents = function(fdate, amount, callback) {
 			else callback(null, result);
 		});
 	});
-}
+}*/
 
 /*
 	Add a user event into the database, pass in organization and req
