@@ -5,6 +5,7 @@ var query = "";
 
 window.onresize = imageChange;
 
+
 function imageChange() 
 {
   var heightz = window.innerHeight;
@@ -50,6 +51,12 @@ app.controller('customersCtrl', function($scope, $http) {
             }
         }).then(function mySuccess(response)
         {
+            for (var i = 0; i < response.data.length; i++) {
+              var start = (new Date(response.data[i].timeStart)).toString();
+              var end = (new Date(response.data[i].timeEnd)).toString();
+              response.data[i].timeStart = start.substring(0, start.indexOf("GMT"));
+              response.data[i].timeEnd = end.substring(0, end.indexOf("GMT"));
+            }
             $scope.news = response.data;
         }, function myError(response)
         {
