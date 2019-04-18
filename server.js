@@ -75,9 +75,8 @@ app.get('/profile', function(req, res){
     Public Facing API Routing
 ==============================================================================*/
 app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
-  //rss.getEvents();
   var today = new Date();
-  mgo.getDatesEvents(today, function(err, result){
+  mgo.getFutureEvents(today, function(err, result){
     res.send(result);
   });
 });
