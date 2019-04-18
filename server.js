@@ -66,6 +66,7 @@ app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
 app.get('/profile', function(req, res){
+  //rss.getEvents();
   res.sendFile(__dirname + '/public/profile.html');
 });
 
@@ -76,8 +77,7 @@ app.get('/profile', function(req, res){
 app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
   //rss.getEvents();
   var today = new Date();
-  var formattedDate = (today.getMonth() + 1) + '/' + today.getDay() + '/' + (today.getFullYear().toString().substring(2));
-  mgo.getDatesEvents(formattedDate, function(err, result){
+  mgo.getDatesEvents(today, function(err, result){
     res.send(result);
   });
 });
@@ -89,7 +89,7 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
 });
 
 app.get('/getflyers', function({query : {page = 1, size = 20, search = ""}}, res){
-  mgo.getFlyers(function(err, resukt){
+  mgo.getFlyers(function(err, result){
     res.send(result);
   });
 });
@@ -101,11 +101,15 @@ app.get('/getEvents', function(req, res){
 /*==============================================================================
     Inner POST routing
 ==============================================================================*/
+//upload a flyer
 app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   console.log("attempting to upload");
+  //check to make sure user logged in
   if(req.session.allowed){
+    //verify image exists
     if(!req.file) res.send('No Image Selected');
     else{
+      //add the flyer to the database and cloud
        mgo.addFlyer(req.file.path, req.body, function(added) {
         console.log("entered mgo");
         if (added) {
@@ -130,13 +134,16 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
   }
 });
 
+//upload an event
 app.post('/eventUpload', function(req,res,next){
   console.log('Uploading Event');
+  //check the user is logged in
   if(req.session.allowed){
-    /*mgo.addEvent(req.session.org, req.body, function(success){
+    //add the event to the database
+    mgo.addEvent(req.session.org, req.body, function(success){
       if(success) res.redirect('/profile.html');
       else res.send('Something went wrong.');
-    }); */
+    }); 
   }
   else{
     res.redirect('/authFailure.html');

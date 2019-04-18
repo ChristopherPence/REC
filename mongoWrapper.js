@@ -98,7 +98,7 @@ exports.getDatesEvents = function(date, callback) {
 		if (err) throw err;
 		console.log("Connected to database\t Listing events on " + date);
 		var dbo = db.db("REC_database");
-		dbo.collection('events').find({ date : date }).sort().toArray(function(err, result){
+		dbo.collection('events').find({ date : {$lt : date} }).sort().toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
 			db.close();
@@ -226,16 +226,28 @@ exports.getFutureEvents = function(fdate, amount, callback) {
 	});
 }
 
-
+/*
+	Add a user event into the database, pass in organization and req
+*/
 exports.addEvent = function(org ,data, callback){
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to MongoAtlas Database");
 		var dbo = db.db("REC_database");
 
-		var date = data.date;
-		var timeStart = data.start;
-		var timeEnd = data.end;
+		var date = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10));
+		var timeStart = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10),
+							data.start.substring(0,2),
+							data.start.substring(3,5));
+		var timeEnd = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10),
+							data.end.substring(0,2),
+							data.end.substring(3,5));
 
 		var doc = {
 			organizer: org,
@@ -247,7 +259,7 @@ exports.addEvent = function(org ,data, callback){
 			description : data.desc
 		};
 
-		dbo.collection('flyers').insertOne(doc, function(err, result) {
+		dbo.collection('events').insertOne(doc, function(err, result) {
 			if (err) throw err;
 			console.log("added event");
 			db.close();
