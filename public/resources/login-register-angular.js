@@ -40,12 +40,6 @@ app.controller("mainController", function($scope, $http){
   // Register user account into database
   $scope.register = function() {
     
-    var upperCase = false;
-    var consistsDigit = false;
-    var specialChar = false;
-    var lowerCase = false;
-    var mark = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/);
-    
     // Check if any fields are empty and displays error message
     if($scope.organization == "" || $scope.registerEmail == "" || $scope.blurb == "" || $scope.registerPassword == "" || $scope.confirmPassword == "" || $scope.organization == undefined || $scope.registerEmail == undefined || $scope.blurb == undefined || $scope.registerPassword == undefined || $scope.confirmPassword == undefined){
       console.log($scope.organization);
@@ -61,31 +55,6 @@ app.controller("mainController", function($scope, $http){
     if($scope.registerPassword != $scope.confirmPassword){
       $scope.registerError = "Passwords do not match!";
       return false;
-    }
-    
-    // Check password and confirm password requirements
-    if($scope.registerPassword.length >= 8 && $scope.confirmPassword.length >= 8){
-      if ($scope.registerPassword.match(".+[A-Z].+")){
-        upperCase = true;
-      }
-      if ($scope.registerPassword.match(".+[a-z].+")){
-        lowerCase = true;
-      }
-      if ($scope.registerPassword.match(".+[1-9].+")){
-        consistsDigit = true;
-      }
-      if (mark.contains($scope.registerPassword)){
-        spChar = true;
-      }
-      
-      if(upperCase != true || lowercase != true || consistsDigit != true || spChar != true){
-        $scope.registerError = "Password must contain an uppercase letter, lowercase letter, a digit, and a special character!";
-        return false;
-      }
-    }
-    else {
-      $scope.registerError = "Password must be at least 8 characters long!";
-        return false;
     }
 
     // Hiding the modal after creating the account to allow the user to log in
@@ -170,7 +139,7 @@ function checkEmail() {
 }
 
 // Function to dynamically display whether or not password and confirm password fields are matching
-function checkPassword() {
+function checkPasswordMatch() {
   if(document.getElementById('registerPassword').value == document.getElementById('confirmPassword').value && document.getElementById('registerPassword').value != "" && document.getElementById('confirmPassword').value != ""){
     document.getElementById('matchingPassword').style.color = 'green';
     document.getElementById('matchingPassword').innerHTML = "Passwords are matching!";
@@ -181,6 +150,86 @@ function checkPassword() {
   else {
     document.getElementById('matchingPassword').style.color = 'red';
     document.getElementById('matchingPassword').innerHTML = "Passwords are NOT matching!";
+  }
+}
+
+// Summation of all password checks that need to be done
+function checkPasswordRequirements() {
+  if(document.getElementById("registerPassword").value != ""){
+    checkPasswordLength();
+    checkPasswordSpecialChar();
+    checkPasswordUppercase();
+    checkPasswordLowercase();
+    checkPasswordDigits();
+  }
+  else {
+    document.getElementById("lengthRequirement").innerHTML = "";
+    document.getElementById("specialCharRequirement").innerHTML = "";
+    document.getElementById("upperCaseRequirement").innerHTML = "";
+    document.getElementById("lowerCaseRequirement").innerHTML = "";
+    document.getElementById("digitRequirement").innerHTML = "";
+  }
+}
+
+// Function that checks that password of registration has a minimum length of 8
+function checkPasswordLength() {
+  if(document.getElementById("registerPassword").value.length >= 8){
+    document.getElementById("lengthRequirement").style.color = "green";
+    document.getElementById("lengthRequirement").innerHTML = "(1) Password meets minimum length of 8 characters!";
+  }
+  else {
+    document.getElementById("lengthRequirement").style.color = "red";
+    document.getElementById("lengthRequirement").innerHTML = "(1) Password does NOT meet minimum length of 8 characters!";
+  }
+}
+
+// Function that checks that password of registration has a special character
+function checkPasswordSpecialChar() {
+  if(/[!@#$%^&*]/.test(document.getElementById("registerPassword"))){
+    document.getElementById("specialCharRequirement").style.color = "green";
+    document.getElementById("specialCharRequirement").innerHTML = "(2) Password must contain special character!";
+  }
+  else {
+    document.getElementById("specialCharRequirement").style.color = "red";
+    document.getElementById("specialCharRequirement").innerHTML = "(2) Password must contain special character!";
+  }
+}
+
+// Function that checks that password of registration has an upper case letter
+function checkPasswordUppercase() {
+  if(/[A-Z]/.test(document.getElementById("registerPassword").value)){
+    document.getElementById("upperCaseRequirement").style.color = "green";
+    document.getElementById("upperCaseRequirement").innerHTML = "(3) Password must contain upper letter!";
+  }
+  else {
+    document.getElementById("upperCaseRequirement").style.color = "red";
+    document.getElementById("upperCaseRequirement").innerHTML = "(3) Password must contain uppercase letter!";
+  }
+}
+
+// Function that checks that password of registration has a lower case letter
+function checkPasswordLowercase() {
+  var lowercaseRegex = new RegExp("(?=.*?[a-z])");
+  if(/[a-z]/.test(document.getElementById("registerPassword").value)){
+    document.getElementById("lowerCaseRequirement").style.color = "green";
+    document.getElementById("lowerCaseRequirement").innerHTML = "(4) Password must contain lowercase letter!";
+  }
+  else {
+    document.getElementById("lowerCaseRequirement").style.color = "red";
+    document.getElementById("lowerCaseRequirement").innerHTML = "(4) Password must contain lowercase letter!";
+  }
+}
+
+// Function that checks that password of registration has a digit
+function checkPasswordDigits() {
+  var digitRegex = new RegExp("(?=.*?[0-9])");
+  if(/[0-9]/.test(document.getElementById("registerPassword").value)){
+    document.getElementById("digitRequirement").style.color = "green";
+    document.getElementById("digitRequirement").innerHTML = "(5) Password must contain digit!";
+  }
+  else {
+    document.getElementById("digitRequirement").style.color = "red";
+    document.getElementById("digitRequirement").innerHTML = "(5) Password must contain digit!";
   }
 }
 

@@ -121,6 +121,8 @@
                           <label for="organization">Organization</label>
                           <input ng-model="organization" id="organization" class="form-control d-flex justify-content-center" type="text" placeholder="Organization"/>
                         </div>
+                        <div class="col-6">
+                        </div>
                       </div>
 
                       <!-- Register email area -->
@@ -128,7 +130,9 @@
                         <div class="col-6">
                           <label for="email">Email</label>
                           <input ng-model="registerEmail" id="registerEmail" class="form-control d-flex justify-content-center" onkeyup="checkEmail();" type="text" placeholder="Email"/>
-                          <label for="registerEmail" id="goodEmail" class="mt-2"></label>
+                          <label for="registerEmail" id="goodEmail"></label>
+                        </div>
+                        <div class="col-6">
                         </div>
                       </div>
 
@@ -137,9 +141,17 @@
                         <div class="col-6">
                           <label for="registerPassword">Password</label>
                           <div class="showPassword">
-                            <input ng-model="registerPassword" id="registerPassword" class="form-control input-field" type="password" onkeyup="checkPassword();" placeholder="Password"/>
+                            <input ng-model="registerPassword" id="registerPassword" class="form-control input-field" type="password" onkeyup="checkPasswordRequirements();" placeholder="Password"/>
                             <span class="regpass fas fa-eye"></span>
                           </div>
+                        </div>
+                        
+                        <div class="col-6">
+                          <p id="lengthRequirement"></p>
+                          <p id="specialCharRequirement"></p>
+                          <p id="upperCaseRequirement"></p>
+                          <p id="lowerCaseRequirement"></p>
+                          <p id="digitRequirement"></p>
                         </div>
                       </div>
 
@@ -148,15 +160,13 @@
                         <div class="col-6">
                           <label for="confirmPassword">Confirm Password</label>
                           <div class="showConfirmPassword">
-                            <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPassword();" placeholder="Confirm password"/>
+                            <input ng-model="confirmPassword" id="confirmPassword" class="form-control" type="password" onkeyup="checkPasswordMatch();" placeholder="Confirm password"/>
                             <span class="confpass fas fa-eye"></span>
                           </div>
-                          <label for="confirmPassword" id="lengthRequirement" class="mt-2"></label>
-                          <label for="confirmPassword" id="specialCharRequirement" class="mt-2"></label>
-                          <label for="confirmPassword" id="upperCaseRequirement" class="mt-2"></label>
-                          <label for="confirmPassword" id="lowerCaseRequirement" class="mt-2"></label>
-                          <label for="confirmPassword" id="digitRequirement" class="mt-2"></label>
-                          <label for="confirmPassword" id="matchingPassword" class="mt-2"></label>
+                        </div>
+                        
+                        <div class="col-6">
+                          <p id="matchingPassword"></p>
                         </div>
                       </div>
 
@@ -165,6 +175,8 @@
                         <div class="col-6">
                           <label for="blurb">Organization Profile Blurb</label>
                           <textarea ng-model="blurb" id="blurb" class="form-control" type="text" placeholder="Type in your profile description"></textarea>
+                        </div>
+                        <div class="col-6">
                         </div>
                       </div>
                     </div>
