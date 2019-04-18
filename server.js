@@ -94,8 +94,10 @@ app.get('/getflyers', function({query : {page = 1, size = 20, search = ""}}, res
   });
 });
 
-app.get('/getEvents', function(req, res){
-  var search = req.session.org;
+app.get('/getOrgEvents', function({session : {org : org}}, res){
+  mgo.getOrgEvents(org, function(result){
+    res.send(result);
+  });
 });
 
 /*==============================================================================

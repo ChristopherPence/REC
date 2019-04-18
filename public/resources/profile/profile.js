@@ -1,13 +1,13 @@
 var app = angular.module('myApp', ['ngCookies']);
 app.controller('profileCtrl', function($scope, $http) {
-    $scope.run = function(){
-        console.log("Detected properly");
+    $scope.init = function(){
         $http({
             method : "get",
-            url : '/getclubs/?page='+pageNumber+'&size='+size+'&search='+query,
+            url : '/getOrgEvents'
         }).then(function mySuccess(response){
-            $scope.clubs = response.data;
-            console.log($scope.clubs);
+            $.each(response.data, function(i,item){
+                $('#flyerevent').append('<option value=\"' + item.event_id + '\">'+item.title+'</option>');
+            });
         });
     }
 });
