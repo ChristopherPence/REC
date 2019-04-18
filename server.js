@@ -65,6 +65,9 @@ app.get('/', function (req, res) {
 app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
+app.get('/profile', function(req, res){
+  res.sendFile(__dirname + '/public/profile.html');
+});
 
 
 /*==============================================================================
@@ -85,6 +88,16 @@ app.get('/getclubs', function({query : {page = 1, size = 20, search = ""}}, res)
   });
 });
 
+app.get('/getflyers', function({query : {page = 1, size = 20, search = ""}}, res){
+  mgo.getFlyers(function(err, resukt){
+    res.send(result);
+  });
+});
+
+app.get('/getEvents', function(req, res){
+  var search = req.session.org;
+});
+
 /*==============================================================================
     Inner POST routing
 ==============================================================================*/
@@ -99,8 +112,9 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
           fs.unlink(req.file.path, function(err){
             if (err) throw err;
           });
-          res.redirect('/upimg'); //prevent form resubmission
+          res.redirect('/profile.html'); //prevent form resubmission
         }
+        else res.send('Something went wrong.');
       });
     }
   }
@@ -119,7 +133,10 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 app.post('/eventUpload', function(req,res,next){
   console.log('Uploading Event');
   if(req.session.allowed){
-
+    /*mgo.addEvent(req.session.org, req.body, function(success){
+      if(success) res.redirect('/profile.html');
+      else res.send('Something went wrong.');
+    }); */
   }
   else{
     res.redirect('/authFailure.html');

@@ -192,11 +192,10 @@ function makeCalendar()
 }
 
 
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngCookies']);
   app.controller('customersCtrl', function($scope, $http) {
-    $scope.cal = "calendarz";
-    
-  });
+    $scope.cal = "calendarz"; 
+});
 
     
 

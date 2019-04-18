@@ -219,14 +219,42 @@ exports.getFutureEvents = function(fdate, amount, callback) {
 		console.log("Connected to database\t getting events");
 		var dbo = db.db("REC_database");
 		dbo.collection('events').find({date: {$gte: fdate}}).sort({date: 1}).limit(amount).toArray(function(err, result) {
+			db.close();
 			if (err) callback(err, null);
 			else callback(null, result);
-			db.close();
 		});
 	});
 }
 
 
+exports.addEvent = function(org ,data, callback){
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+
+		var date = data.date;
+		var timeStart = data.start;
+		var timeEnd = data.end;
+
+		var doc = {
+			organizer: org,
+			event_id: data.title + date,
+			title: data.title,
+			timeStart : timeStart,
+			timeEnd : timeEnd,
+			date : date,
+			description : data.desc
+		};
+
+		dbo.collection('flyers').insertOne(doc, function(err, result) {
+			if (err) throw err;
+			console.log("added event");
+			db.close();
+			callback(true);
+		});
+	});
+}
 
 // get today events
 // create organization
