@@ -13,6 +13,7 @@ exports.login = function(email, password, callback){
       var dbo = db.db("REC_database");
       dbo.collection('userAccounts').find({"email": email}, {projections: {_id: 1}}).toArray(function(err, result) {
         if(err) throw err;
+        if(result.length == 0) callback(false, null, null, "Not Found");
         bcrypt.compare(password, result[0].password, function (err, response){
           if(response == true){
             console.log("Account found.");
