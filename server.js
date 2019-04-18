@@ -66,6 +66,7 @@ app.get('/upimg', function(req, res){
   res.sendFile(__dirname + '/upimg.html');
 });
 app.get('/profile', function(req, res){
+  //rss.getEvents();
   res.sendFile(__dirname + '/public/profile.html');
 });
 
@@ -76,8 +77,7 @@ app.get('/profile', function(req, res){
 app.get('/getnews', function({query : {page = 1, size = 20, search = ""}}, res){
   //rss.getEvents();
   var today = new Date();
-  var formattedDate = (today.getMonth() + 1) + '/' + today.getDay() + '/' + (today.getFullYear().toString().substring(2));
-  mgo.getDatesEvents(formattedDate, function(err, result){
+  mgo.getDatesEvents(today, function(err, result){
     res.send(result);
   });
 });
@@ -133,10 +133,10 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 app.post('/eventUpload', function(req,res,next){
   console.log('Uploading Event');
   if(req.session.allowed){
-    /*mgo.addEvent(req.session.org, req.body, function(success){
+    mgo.addEvent(req.session.org, req.body, function(success){
       if(success) res.redirect('/profile.html');
       else res.send('Something went wrong.');
-    }); */
+    }); 
   }
   else{
     res.redirect('/authFailure.html');
