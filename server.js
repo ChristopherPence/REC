@@ -142,7 +142,7 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
 });
 
 //upload a club photo
-app.post('/clubImageUpload', upload.single('imgsrc'), function(req, res, next){
+app.post('/clubImageUpload', upload.single('profilePic'), function(req, res, next){
   console.log("attempting to upload");
   //check to make sure user logged in
   if(req.session.allowed){
@@ -218,6 +218,8 @@ app.post('/register', function(req, res, next) {
 //logout route and session deletion
 app.post('/logout', function(req, res, next){
   if(req.session){
+    cookies.set('user', {expires: Date.now(0)});
+    cookies.set('org', {expires: Date.now(0)});
     req.session.destroy(function(err){
       if(err){
         return next(err);

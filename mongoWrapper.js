@@ -57,7 +57,7 @@ exports.addOrganizationImage = function(imagePath, orgname, callback) {
 					img_public_id: ipid
 				}
 
-				dbo.collection('organizations').updateOne({name: orgname}, {$set: doc}, function(err, result) {
+				dbo.collection('organizations').updateOne({organization: orgname}, {$set: doc}, function(err, result) {
 					if (err) throw err;
 					console.log("added organization image");
 					callback(true);
