@@ -6,16 +6,12 @@ app.controller('cookieCtrl', ['$cookies', '$scope', '$sce', function($cookies, $
     console.log(favoriteCookie);
     if (favoriteCookie == null){
         console.log('logged in');
-        $scope.html = '<h1> HI </h1>';
+        $scope.html = '<a href = "login-register.html" class = "nav right rounded">Club Login</a>';
         $scope.trustedHtml = $sce.trustAsHtml($scope.html);
-        //self.NAVPART = $sce.trustAsHtml();
-            // '<a href = "login-register.html" class = "nav right rounded">Club Login</a>'
     }
     else{
         console.log('logged out');
-        $scope.html = '<h1> HI PT 2 </h1>';
+        $scope.html = '<a href = "profile.html" class = "nav right rounded">Profile</a>' + '<form method="post" action="/logout"> <input type="submit" value="Log Out" class="form-inline my-2 my-lg-0"></input></form>';
         $scope.trustedHtml = $sce.trustAsHtml($scope.html);
-       //self.NAVPART = $sce.trustAsHtml('<h1> HI PT 2 </h1>');
-            //'<a href = "profile.html" class = "nav right rounded">Profile</a>' + '<a href = "profile.html" class = "nav right rounded">Log Out</a>'
     }
 }]);

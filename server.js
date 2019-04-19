@@ -218,8 +218,8 @@ app.post('/register', function(req, res, next) {
 //logout route and session deletion
 app.post('/logout', function(req, res, next){
   if(req.session){
-    cookies.set('user', {expires: Date.now(0)});
-    cookies.set('org', {expires: Date.now(0)});
+    res.clearCookie('user');
+    res.clearCookie('org');
     req.session.destroy(function(err){
       if(err){
         return next(err);
