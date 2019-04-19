@@ -25,7 +25,7 @@
         <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
           <h2 class="d-flex justify-content-center mb-3"><b>Club Profile Image</b></h2>
           <form action="/clubImageUpload" method="post" enctype="multipart/form-data">
-            <label for="profilePic">Upload Flyer</label>
+            <label for="profilePic">Upload Profile Picture</label>
             <input name="profilePic" id="profilePic" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUploadProfile(this)"/>
             <div ng-repeat="profile in profileModel">
               <img class="form-control d-flex justify-content-center pictureResize border" ng-src="{{profile}}"/>

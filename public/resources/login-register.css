@@ -12,6 +12,7 @@
 
 .someRoundedBorder {
   border-radius: 50px 50px 50px;
+  background-color: rgba(234, 234, 234,0.92) !important;
 }
 
 #loginError {
