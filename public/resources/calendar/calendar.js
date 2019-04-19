@@ -244,7 +244,7 @@ function goNext(el,event,num)
 {
   textboxes = $("input");
     currentBoxNumber = textboxes.index(el);
-    if(num == 0 && currentBoxNumber == 2)
+    if(num == 0 && el.id == "yearInp")
     {
       var divLink = document.getElementById("search");
       divLink.click();
