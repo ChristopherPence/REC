@@ -52,10 +52,17 @@ app.controller('customersCtrl', function($scope, $http) {
         }).then(function mySuccess(response)
         {
             for (var i = 0; i < response.data.length; i++) {
-              var start = (new Date(response.data[i].timeStart)).toString();
-              var end = (new Date(response.data[i].timeEnd)).toString();
-              response.data[i].timeStart = start.substring(0, start.indexOf("GMT"));
-              response.data[i].timeEnd = end.substring(0, end.indexOf("GMT"));
+              if(response.data[i].title.length > 35)
+              {
+                response.data[i].title = (response.data[i].title).substring(0,35) + "...";
+              }
+              var tempDateStart = (new Date(response.data[i].timeStart));
+              var tempDateEnd = (new Date(response.data[i].timeEnd));
+              console.log((tempDateStart.getMonth()+1) + "/" + tempDateStart.getDate() + "/" + tempDateStart.getYear());
+              var start = (tempDateStart.getMonth()+1) + "/" + tempDateStart.getDate() + "/" + (tempDateStart.getYear()).toString().substring(1,3);
+              var end = (tempDateEnd.getMonth()+1) + "/" + tempDateEnd.getDate() + "/" + (tempDateEnd.getYear()).toString().substring(1,3);
+              response.data[i].timeStart = start;
+              response.data[i].timeEnd = end;
             }
             $scope.news = response.data;
         }, function myError(response)
@@ -91,6 +98,18 @@ app.directive('onFinishRender', function ($timeout) {
 		}
 	}
 });
+
+//app.directive('onErrorSrc', function() {
+//    return {
+//        link: function(scope, element, attrs) {
+//          element.bind('error', function() {
+//            if (attrs.src != attrs.onErrorSrc) {
+//              attrs.$set('src', attrs.onErrorSrc);
+//            }
+//          });
+//        }
+//    }
+//});
 
     
     
