@@ -35,12 +35,12 @@ exports.getEvents = function(){
 			tmp.organizer = 'RPI';
 			tmp.title = events[e].summary;
 			tmp.timeStart = new Date(events[e].start.datetime.substring(0,4),
-							events[e].start.datetime.substring(4,6), 
+							events[e].start.datetime.substring(4,6) - 1, 
 							events[e].start.datetime.substring(6,8),
 							events[e].start.datetime.substring(9,11),
 							events[e].start.datetime.substring(11,12));
 			tmp.timeEnd = new Date(events[e].end.datetime.substring(0,4),
-							events[e].end.datetime.substring(4,6), 
+							events[e].end.datetime.substring(4,6) - 1, 
 							events[e].end.datetime.substring(6,8),
 							events[e].end.datetime.substring(9,11),
 							events[e].end.datetime.substring(11,12));
@@ -50,6 +50,7 @@ exports.getEvents = function(){
 			result = [...result, tmp]; 
 		}
 		//add the events to the database
+		//console.log(result);
 		mgo.addEventAutomatic(result);
 	});
 }
