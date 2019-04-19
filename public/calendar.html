@@ -8,6 +8,7 @@
     <link rel="icon" href="/resources/generalContent/fabicon.png">
     <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
+    <link href="resources/news/news.css" rel="stylesheet" type="text/css"/>
     <link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.min.js"></script>
   </head>
@@ -21,33 +22,34 @@
               </div>
           </section>
         </section> 
-    </div>
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+    
+      <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-xl">
 
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header d-flex align-self-center">
-              <h4 class="modal-title" id = "modalDate"></h4>
-            </div>
-            <div class="modal-body">
-              <section id = "newsData" class = "w-100 rounded">
-                <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
-                  <section class = "newsEvent mt-3 ml-4 mr-3 media-body w-75">
-                      <section class="headingz d-flex align-items-baseline justify-content-between">
-                          <h2 class = "title">{{x.title}}</h2>
-                        <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
-                      </section>
-                      <p class="mt-1 align-items-start"> {{x.description}}</p>
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header d-flex align-self-center">
+                <h4 class="modal-title" id = "modalDate"></h4>
+              </div>
+              <div class="modal-body">
+                <section id = "newsData" class = "w-100 rounded">
+                  <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
+                    <section class = "newsEvent mt-3 ml-4 mr-3 media-body w-75">
+                        <section class="headingz d-flex align-items-baseline justify-content-between">
+                            <h2 class = "title">{{x.title}}</h2>
+                          <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
+                        </section>
+                        <p class="mt-1 align-items-start"> {{x.description}}</p>
+                    </section>
                   </section>
                 </section>
-              </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
 
+          </div>
         </div>
       </div>
   </body>

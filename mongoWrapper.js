@@ -137,9 +137,9 @@ exports.getDatesEvents = function(date, callback) {
 		var dbo = db.db("REC_database");
 
 		var midnight = new Date(date);
-		midnight.setHours(-5,0,0,0);
+		midnight.setHours(0,0,0,0);
 		tomorrow = new Date(date);
-		tomorrow.setHours(-5,0,0,0);
+		tomorrow.setHours(0,0,0,0);
 		tomorrow.setDate(tomorrow.getDate() + 1);
 
 		dbo.collection('events').find({ date : {$gte : midnight, $lt: tomorrow} }).sort({date : 1}).toArray(function(err, result){

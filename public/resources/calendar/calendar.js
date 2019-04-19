@@ -20,9 +20,6 @@ window.onload = makeCalendar;
 
 function changeArrow(elem,eve)
 {
-//  console.log(elem);
-//  console.log(eve.type);
-  
   if(elem.id == "leftArrow" && eve.type == "mousedown")
   {
     dragged = 1;
@@ -54,12 +51,12 @@ function changeArrow(elem,eve)
   }
 }
 
+
 function imageChange() 
 {
   var heightz = window.innerHeight;
   var widthz = window.innerWidth;
-  
-  if(widthz < 850)
+  if(widthz < 1200)
   {
     $('.headingz').addClass('flex-column');
   }
@@ -90,6 +87,7 @@ function cellzChange()
   var heightz = window.innerHeight;
   var widthz = window.innerWidth;
   var divHeight;
+  imageChange();
   $(".calendar").css("width", widthz*0.8);
   if(heightz < 500)
   {
@@ -101,9 +99,6 @@ function cellzChange()
     divHeight = $(".sizer").css('height');
     divHeight = parseInt(divHeight.substring(0,divHeight.length-2))*2.3;
     $(".cellz").css('height',divHeight);
-    console.log("JK");
-    console.log(divHeight);
-    console.log(parseFloat($(".cellz").css('width')));
     if(divHeight*0.6 < parseFloat($(".cellz").css('width')) * 0.8)
     {
       $(".arrow").css("height", divHeight*0.6);
@@ -118,15 +113,11 @@ function cellzChange()
   $('#placeHolder').html("DD");
   $("#dayInp").css('width',$('#placeHolder').width() + 16);
   $('#placeHolder').html("YYYY");
-  console.log($('#placeHolder').width());
   $("#yearInp").css('width',$('#placeHolder').width() + 16);
   $('#placeHolder').html("");
 }
 
 function moveCalUp() {
-//  console.log(firstDay);
-//  console.log(firstDay.getDay());
-
   //when whole new month above
   curDate = new Date(curYearz, curMonthz-1, 1);
   curMonthz = curDate.getMonth();
@@ -137,9 +128,6 @@ function moveCalUp() {
 }
 
 function moveCalDown() {
-
-//  console.log(firstDay);
-//  console.log(firstDay.getDay());
   //when whole new month above
   curDate = new Date(curYearz, curMonthz+1, 1);
   curMonthz = curDate.getMonth();
@@ -200,13 +188,13 @@ function makeCalendar()
           if((monthz == curMonthz)&&(curYearz == yearz)&&(firstDay.getDay() + todayz.getDate() - 1 == total))
           {
             counter++;
-            stringCal += ('<td class="cellz  border today"><a href = "#" class = "todayLink h-100 w-100" ng-click = "help(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
+            stringCal += ('<td class="cellz  border today"><a href = "#" class = "todayLink h-100 w-100" onclick="angular.element(this).scope().run(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
 //            stringCal += ('<td class="cellz  bordertext-white bg-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
           else
           {
             counter++;
-            stringCal += ('<td class="cellz  border monthDays"><a href = "#" class = "monthDaysLink h-100 w-100" ng-click = "help(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1 sizer"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
+            stringCal += ('<td class="cellz  border monthDays"><a href = "#" class = "monthDaysLink h-100 w-100" onclick="angular.element(this).scope().run(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1 sizer"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
 //            stringCal += ('<td class="cellz  border text-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
       }
@@ -233,17 +221,12 @@ function moverRight(el,event)
 
 function nextInp(el,event)
 {
-  console.log($('input').prop("selectionStart"));
-  console.log(event);
-  console.log(el.value.length);
-  console.log(el);
   if(event.keyCode == 39 && cursorNext)
   {
      goNext(el,event,1);
   }
   if(event.keyCode == 37 && $(el).prop("selectionStart")==0)
   {
-    console.log("EOO");
     goBack(el,event);
   }
   else if(el.value.length == 2 && (el.id == "monthInp" || el.id == "dayInp") && event.keyCode != 9 && event.keyCode != 39 && event.keyCode != 37)
@@ -261,10 +244,8 @@ function goNext(el,event,num)
 {
   textboxes = $("input");
     currentBoxNumber = textboxes.index(el);
-  console.log("HEYOOOO" + currentBoxNumber);
     if(num == 0 && currentBoxNumber == 2)
     {
-      console.log("GOTIT");
       var divLink = document.getElementById("search");
       divLink.click();
     }
@@ -281,7 +262,6 @@ function goBack(el,event)
 {
   textboxes = $("input");
     currentBoxNumber = textboxes.index(el);
-  console.log("Pool" + currentBoxNumber);
      if (textboxes[currentBoxNumber - 1] != null) {
         nextBox = textboxes[currentBoxNumber - 1];
         nextBox.focus();
@@ -293,7 +273,6 @@ function goBack(el,event)
 
 function searchDate()
 {
-  console.log($("#yearInp").val());
   if($("#monthInp").val().length == 0 && $("#dayInp").val().length == 0 && $("#yearInp").val().length == 0)
   {
     alert("Please input a date to search for. Thank you.");
@@ -308,9 +287,6 @@ function searchDate()
   var yearSearch = parseInt($("#yearInp").val());
   var searchDate = new Date(yearSearch,monthSearch,daySearch);
   var testDate;
-  console.log(isNaN(searchDate));
-  console.log(searchDate);
-                            console.log(isNaN(monthSearch));
   if((isNaN(monthSearch) && $("#monthInp").val().length != 0) || (isNaN(daySearch) && $("#dayInp").val().length != 0) || (isNaN(yearSearch) && $("#yearInp").val().length != 0))
   {
     alert("Ensure that all of your inputs are numbers.");
@@ -385,14 +361,11 @@ function searchDate()
 var app = angular.module('myApp', ['ngCookies']);
   app.controller('customersCtrl', function($scope, $http) {
     $scope.cal = "calendarz"; 
-    $scope.help = function(){
-      console.log("LEO");
-    }
-    $scope.run = function(){
+    $scope.run = function(el){
         console.log("Detected properly");
         $http({
             method : "get",
-            url : '/getDatesEvents?year='+curYearz+'&month='+curMonthz+'&day='+1
+            url : '/getDatesEvents?year='+curYearz+'&month='+(curMonthz+1)+'&day='+el.id
         }).then(function mySuccess(response)
         {
             for (var i = 0; i < response.data.length; i++) {
@@ -400,11 +373,9 @@ var app = angular.module('myApp', ['ngCookies']);
               {
                 response.data[i].title = (response.data[i].title).substring(0,35) + "...";
               }
-              console.log(response.data[i].timeStart);
               var endDateString = "";
               var tempDateStart = (new Date(response.data[i].timeStart));
               var tempDateEnd = (new Date(response.data[i].timeEnd));
-              console.log((tempDateStart.getMonth()+1) + "/" + tempDateStart.getDate() + "/" + tempDateStart.getYear());
               if(tempDateStart.getHours() >= 12)
               {
                 if(tempDateStart.getHours() == 12)
@@ -420,10 +391,6 @@ var app = angular.module('myApp', ['ngCookies']);
               {
                 var start = (tempDateStart.getMonth()+1) + "/" + tempDateStart.getDate() + "/" + (tempDateStart.getYear()).toString().substring(1,3) + " " + ((tempDateStart.getHours()+11)%12 +1)+":"+pad(tempDateStart.getMinutes()) + "AM";
               }
-              console.log("HERE");
-                console.log(tempDateEnd.getMonth() != tempDateStart.getMonth());
-                console.log(tempDateEnd.getDay() != tempDateStart.getDay());
-                console.log(tempDateEnd.getYear() != tempDateStart.getYear());
               if(tempDateEnd.getMonth() != tempDateStart.getMonth() || tempDateEnd.getDay() != tempDateStart.getDay() || tempDateEnd.getYear() != tempDateStart.getYear())
               {
                 endDateString = (tempDateEnd.getMonth()+1) + "/" + tempDateEnd.getDate() + "/" + (tempDateEnd.getYear()).toString().substring(1,3) + " ";
@@ -445,15 +412,16 @@ var app = angular.module('myApp', ['ngCookies']);
               }
               response.data[i].timeStart = start;
               response.data[i].timeEnd = end;
-              console.log(tempDateStart.getHours());
             }
-            $scope.news = response.data;
-            
+            $(".modal").modal("show");
+            $("#modalDate").html("Date: " + (curMonthz+1) + "/" + el.id + "/" + curYearz);
+            imageChange();
+            $scope.news = response.data;            
         }, function myError(response)
         {
             console.log(response);
         });
-        //$("#modalDate").html("Date: " + (curMonthz+1) + "/" + el.id + "/" + curYearz);
+        
         $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent)
         {
             imageChange();

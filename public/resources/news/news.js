@@ -56,11 +56,9 @@ app.controller('customersCtrl', function($scope, $http) {
               {
                 response.data[i].title = (response.data[i].title).substring(0,35) + "...";
               }
-              console.log(response.data[i].timeStart);
               var endDateString = "";
               var tempDateStart = (new Date(response.data[i].timeStart));
               var tempDateEnd = (new Date(response.data[i].timeEnd));
-              console.log((tempDateStart.getMonth()+1) + "/" + tempDateStart.getDate() + "/" + tempDateStart.getYear());
               if(tempDateStart.getHours() >= 12)
               {
                 if(tempDateStart.getHours() == 12)
@@ -76,10 +74,6 @@ app.controller('customersCtrl', function($scope, $http) {
               {
                 var start = (tempDateStart.getMonth()+1) + "/" + tempDateStart.getDate() + "/" + (tempDateStart.getYear()).toString().substring(1,3) + " " + ((tempDateStart.getHours()+11)%12 +1)+":"+pad(tempDateStart.getMinutes()) + "AM";
               }
-              console.log("HERE");
-                console.log(tempDateEnd.getMonth() != tempDateStart.getMonth());
-                console.log(tempDateEnd.getDay() != tempDateStart.getDay());
-                console.log(tempDateEnd.getYear() != tempDateStart.getYear());
               if(tempDateEnd.getMonth() != tempDateStart.getMonth() || tempDateEnd.getDay() != tempDateStart.getDay() || tempDateEnd.getYear() != tempDateStart.getYear())
               {
                 endDateString = (tempDateEnd.getMonth()+1) + "/" + tempDateEnd.getDate() + "/" + (tempDateEnd.getYear()).toString().substring(1,3) + " ";
@@ -101,7 +95,6 @@ app.controller('customersCtrl', function($scope, $http) {
               }
               response.data[i].timeStart = start;
               response.data[i].timeEnd = end;
-              console.log(tempDateStart.getHours());
             }
             $scope.news = response.data;
         }, function myError(response)
