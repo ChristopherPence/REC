@@ -329,12 +329,12 @@ exports.addEvent = function(org ,data, callback){
 		var timeStart = new Date(data.date.substring(0,4),
 							data.date.substring(5,7) - 1,
 							data.date.substring(8,10),
-							data.start.substring(0,2),
+							data.start.substring(0,2) - 1,
 							data.start.substring(3,5));
 		var timeEnd = new Date(data.date.substring(0,4),
 							data.date.substring(5,7) - 1,
 							data.date.substring(8,10),
-							data.end.substring(0,2),
+							data.end.substring(0,2) - 1,
 							data.end.substring(3,5));
 
 		var doc = {
