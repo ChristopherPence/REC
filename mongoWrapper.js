@@ -23,8 +23,7 @@ exports.addOrganization = function(data) {
 			events: data.events,
 			flyers: data.flyers,
 			social: data.social,
-			img_url: data.img_url,
-			img_public_id: data.img_public_id
+			img_url: data.img_url
 		};
 
 		dbo.collection('organizations').insertOne(doc, function(err, result) {
@@ -134,6 +133,14 @@ exports.getDatesEvents = function(date, callback) {
 	});
 }
 
+/*
+Returns an array of events
+	Events start at the given date
+	Example: getFutureEvents(today, 20, callback) will return
+	the next 20 events starting today.
+	The returned events are sorted by date.
+	If you want all events after the date, make amount very large
+*/
 exports.getFutureEvents = function(date, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
@@ -148,7 +155,7 @@ exports.getFutureEvents = function(date, callback) {
 }
 
 /*
-	
+	Get the events of the specific organization
 */
 exports.getOrgEvents = function(org, callback){
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
