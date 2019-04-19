@@ -119,6 +119,7 @@ function moveCalDown() {
 
 function makeCalendar()
 {
+  var counter = 0;
   firstDay = new Date(curYearz, curMonthz, 1);
   nextMonthDayz = 7-((firstDay.getDay() + curDayz))%7;
   if(nextMonthDayz == 7)
@@ -167,12 +168,14 @@ function makeCalendar()
       { 
           if((monthz == curMonthz)&&(curYearz == yearz)&&(firstDay.getDay() + todayz.getDate() - 1 == total))
           {
-            stringCal += ('<td class="cellz  border today"><a href = "#" class = "todayLink h-100 w-100"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
+            counter++;
+            stringCal += ('<td class="cellz  border today"><a href = "#" class = "todayLink h-100 w-100" onclick = "openModal(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
 //            stringCal += ('<td class="cellz  bordertext-white bg-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
           else
           {
-            stringCal += ('<td class="cellz  border monthDays"><a href = "#" class = "monthDaysLink h-100 w-100"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1 sizer"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
+            counter++;
+            stringCal += ('<td class="cellz  border monthDays"><a href = "#" class = "monthDaysLink h-100 w-100" onclick = "openModal(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1 sizer"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
 //            stringCal += ('<td class="cellz  border text-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
       }
@@ -328,6 +331,7 @@ function searchDate()
     curMonthz = monthSearch;
     curYearz = yearSearch;
     makeCalendar();
+    $("#" + daySearch).click();
     return;
   }
   else
@@ -345,12 +349,13 @@ function searchDate()
     makeCalendar();
     return;
   }
-  
-  
-  
-  
+}
+
+function openModal(el)
+{
+  console.log("DAY " + el.id + " month " + curMonthz + " year " + curYearz);
   $("#myModal").modal("show");
-  
+  $("#modalDate").html("Date: " + (curMonthz+1) + "/" + el.id + "/" + curYearz);
 }
 
 var app = angular.module('myApp', ['ngCookies']);
