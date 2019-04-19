@@ -11,7 +11,7 @@ exports.login = function(email, password, callback){
     else {
       console.log("Connected to database.");
       var dbo = db.db("REC_database");
-      dbo.collection('userAccounts').find({"email": email}, {projections: {_id: 1}}).toArray(function(err, result) {
+      dbo.collection('organizations').find({"email": email}, {projections: {_id: 1}}).toArray(function(err, result) {
         if(err) throw err;
         if(result.length == 0) callback(false, null, null, "Not Found");
         bcrypt.compare(password, result[0].password, function (err, response){
@@ -42,7 +42,7 @@ exports.register = function(newOrganization, newEmail, newPassword, newBlurb, ca
 
       var dbo = db.db("REC_database");
       
-      dbo.collection('userAccounts').find({"email": newEmail}, {projections: {_id: 1}}).toArray(function(err, result) {
+      dbo.collection('organizations').find({"email": newEmail}, {projections: {_id: 1}}).toArray(function(err, result) {
         if(err) throw err;
         console.log(result);
         if(result.length != 0){
@@ -61,10 +61,10 @@ exports.register = function(newOrganization, newEmail, newPassword, newBlurb, ca
                 organization: newOrganization,
                 email: newEmail,
                 password: hash,
-                blurb: newBlurb
+                description: newBlurb
               };
 
-              dbo.collection('userAccounts').insertOne(document, function(err, result){
+              dbo.collection('organizations').insertOne(document, function(err, result){
                 if(err) {
                   throw err;
                 }

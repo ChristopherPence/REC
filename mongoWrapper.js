@@ -38,28 +38,38 @@ exports.addOrganization = function(data) {
 Function to add an image to an existing organization
 	If the organization does not exist, nothing in the database will change
 	Parameters: 
-		image_url -> the url for the image to be associated with the organization
-		public_id -> the id for cloudinary associated with the image
+		imagePath -> path to the image to be uploaded
 		orgname -> the unique name of the organization to add the image to
+	This function will upload the image to cloudinary which will then allow 
+	the picture to be displayed and used in the website
 */
-exports.addOrganizationImage = function(image_url, public_id, orgname) {
-	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
-		if (err) throw err;
-		console.log("Connected to MongoAtlas Database");
-		var dbo = db.db("REC_database");
+exports.addOrganizationImage = function(imagePath, orgname, callback) {
+	clo.upload(imagePath, function(added, iurl, ipid) {
+		console.log("entered cloud");
+		console.log(added);
+		if (added) {
+			mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+				if (err) callback(false);
+				console.log("Connected to MongoAtlas Database");
+				var dbo = db.db("REC_database");
 
-		var doc = {
-			img_url: image_url,
-			img_public_id: public_id
+				var doc = {
+					img_url: iurl,
+					img_public_id: ipid
+				}
+
+				dbo.collection('organizations').updateOne({organization: orgname}, {$set: doc}, function(err, result) {
+					if (err) throw err;
+					console.log("added organization image");
+					callback(true);
+					db.close();
+				});
+			});
 		}
-
-		dbo.collection('organizations').updateOne({name: orgname}, {$set: doc}, function(err, result) {
-			if (err) throw err;
-			console.log("added organization image");
-			db.close();
-		});
+		else callback(false);
 	});
 }
+
 
 /*
 Function to delete an organization from the database
@@ -154,7 +164,7 @@ exports.getFutureEvents = function(date, callback) {
 		if (err) throw err;
 		console.log("Connected to database\t Listing events on " + date);
 		var dbo = db.db("REC_database");
-		dbo.collection('events').find({ date : {$gte : date} }).sort({date : 1}).toArray(function(err, result){
+		dbo.collection('events').find({ date : {$gte : date} }).sort({date : 1}).limit(20).toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
 			db.close();

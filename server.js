@@ -99,8 +99,8 @@ app.get('/getOrgEvents', function({session : {org : org}}, res){
   });
 });
 
-app.get('/getDatesEvents', function(req, res){
-  mgo.getDatesEvents(new Date('2019', '03', '19'),function(err,result){
+app.get('/getDatesEvents', function({query : {year=1999, month=1, day=15}}, res){
+  mgo.getDatesEvents(new Date(year, month - 1, day),function(err,result){
     res.send(result);
   });
 });
@@ -118,6 +118,39 @@ app.post('/flyerUpload', upload.single('imgsrc'), function (req, res, next) {
     else{
       //add the flyer to the database and cloud
        mgo.addFlyer(req.file.path, req.body, function(added) {
+        console.log("entered mgo");
+        if (added) {
+          fs.unlink(req.file.path, function(err){
+            if (err) throw err;
+          });
+          res.redirect('/profile.html'); //prevent form resubmission
+        }
+        else res.send('Something went wrong.');
+      });
+    }
+  }
+  else{
+    if(!req.file) res.send('No Image Selected');
+    else{
+      fs.unlink(req.file.path, function(err){
+        if (err) throw err;
+      });
+      res.redirect('/authFailure.html');
+    } 
+    
+  }
+});
+
+//upload a club photo
+app.post('/clubImageUpload', upload.single('profilePic'), function(req, res, next){
+  console.log("attempting to upload");
+  //check to make sure user logged in
+  if(req.session.allowed){
+    //verify image exists
+    if(!req.file) res.send('No Image Selected');
+    else{
+      //add the flyer to the database and cloud
+       mgo.addOrganizationImage(req.file.path, req.session.org, function(added) {
         console.log("entered mgo");
         if (added) {
           fs.unlink(req.file.path, function(err){
@@ -185,6 +218,8 @@ app.post('/register', function(req, res, next) {
 //logout route and session deletion
 app.post('/logout', function(req, res, next){
   if(req.session){
+    cookies.set('user', {expires: Date.now(0)});
+    cookies.set('org', {expires: Date.now(0)});
     req.session.destroy(function(err){
       if(err){
         return next(err);

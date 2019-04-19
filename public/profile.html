@@ -3,6 +3,7 @@
 <head>
 	<title>REC Club Profile</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="icon" href="/resources/generalContent/fabicon.png">
    	<link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -25,9 +26,9 @@
 
         <!-- Profile picture upload section -->
         <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
-          <h2 class="d-flex justify-content-center mb-3"><b>Flyer Upload</b></h2>
-          <form action="/flyerUpload" method="post" enctype="multipart/form-data">
-            <label for="profilePic">Upload Flyer</label>
+          <h2 class="d-flex justify-content-center mb-3"><b>Club Profile Image</b></h2>
+          <form action="/clubImageUpload" method="post" enctype="multipart/form-data">
+            <label for="profilePic">Upload Profile Picture</label>
             <input name="profilePic" id="profilePic" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUploadProfile(this)"/>
             <div ng-repeat="profile in profileModel">
               <img class="form-control d-flex justify-content-center pictureResize border" ng-src="{{profile}}"/>
@@ -39,7 +40,7 @@
 
         <!-- Flyer upload section -->
         <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
-          <h2 class="d-flex justify-content-center mb-3"><b>Club Profile Image</b></h2>
+          <h2 class="d-flex justify-content-center mb-3"><b>Flyer Upload</b></h2>
           <form action="/flyerUpload" method="post" enctype="multipart/form-data">
             <label for="imgsrc">Upload Flyer</label>
             <input name="imgsrc" id="imgsrc" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>

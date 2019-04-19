@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- this is the script that allows for the angular functionality to be included -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="icon" href="/resources/generalContent/fabicon.png">
     <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
     <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
     <link href="resources/clubs/clubs.css" rel="stylesheet" type="text/css"/>
@@ -21,7 +22,7 @@
         <div class="card" style="width: 18rem; height: 400px;">
           <img src={{x.img_url}} class="card-img-top">
           <div class="card-body">
-            <h5 class="card-title">{{ x.name }}</h5>
+            <h5 class="card-title">{{ x.organization }}</h5>
             <p class="card-text">{{ x.description }}</p>
             <!--<a href="{{ x.url }}" class="btn btn-primary">Read more</a>-->
           </div>

@@ -33,7 +33,17 @@
               <h4 class="modal-title" id = "modalDate"></h4>
             </div>
             <div class="modal-body">
-              <p>Some text in the modal.</p>
+              <section id = "newsData" class = "w-100 rounded">
+                <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
+                  <section class = "newsEvent mt-3 ml-4 mr-3 media-body w-75">
+                      <section class="headingz d-flex align-items-baseline justify-content-between">
+                          <h2 class = "title">{{x.title}}</h2>
+                        <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
+                      </section>
+                      <p class="mt-1 align-items-start"> {{x.description}}</p>
+                  </section>
+                </section>
+              </section>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
