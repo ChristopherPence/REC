@@ -48,7 +48,7 @@ exports.addOrganizationImage = function(image_url, public_id, orgname) {
 		console.log("Connected to MongoAtlas Database");
 		var dbo = db.db("REC_database");
 
-		var doc {
+		var doc = {
 			img_url: image_url,
 			img_public_id: public_id
 		}
@@ -146,7 +146,7 @@ exports.getFutureEvents = function(date, callback) {
 		if (err) throw err;
 		console.log("Connected to database\t Listing events on " + date);
 		var dbo = db.db("REC_database");
-		dbo.collection('events').find({ date : {$gt : date} }).sort({date : 1}).toArray(function(err, result){
+		dbo.collection('events').find({ date : {$gte : date} }).sort({date : 1}).toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
 			db.close();
