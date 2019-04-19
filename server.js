@@ -99,6 +99,12 @@ app.get('/getOrgEvents', function({session : {org : org}}, res){
   });
 });
 
+app.get('/getDatesEvents', function(req, res){
+  mgo.getDatesEvents(new Date('2019', '03', '19'),function(err,result){
+    res.send(result);
+  });
+});
+
 /*==============================================================================
     Inner POST routing
 ==============================================================================*/

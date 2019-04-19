@@ -109,7 +109,6 @@ var app = angular.module('myApp', ['ngCookies']);
           url : '/getflyers'
           }).then(function mySuccess(response) 
           {
-            console.log(response.data);
             $scope.flyers = response.data;
           }, function myError(response) 
           {
