@@ -100,7 +100,7 @@ app.get('/getOrgEvents', function({session : {org : org}}, res){
 });
 
 app.get('/getDatesEvents', function({query : {year=1999, month=1, day=15}}, res){
-  mgo.getDatesEvents(new Date(year, month, day),function(err,result){
+  mgo.getDatesEvents(new Date(year, month - 1, day),function(err,result){
     res.send(result);
   });
 });
