@@ -17,7 +17,7 @@
           <section class = "horizontal-scroll-wrapper squares d-flex flex-column container x mandatory-scroll-snapping" ondragover="side(this,event)" onmousewheel="side(this,event)">
             <section class = "help">
               <section class = "sideScroll d-flex justify-content-center" ng-repeat="x in flyers" on-finish-render="ngRepeatFinished">
-                <img class = "flyerz flyersEvent" ng-src = 'resources/clubs/{{x.club}}/{{x.club}}.jpg' ng-alt = "{{x.club}} Flyer">
+                <img class = "flyerz flyersEvent" ng-src = '{{x.url}}' ng-alt = "{{x.club}} Flyer">
               </section>
             </section>
         </section>    

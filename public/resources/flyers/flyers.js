@@ -106,9 +106,10 @@ var app = angular.module('myApp', ['ngCookies']);
   app.controller('customersCtrl', function($scope, $http) {
     $http({
           method : "get",
-          url : 'resources/flyers/flyers.json'
+          url : '/getflyers'
           }).then(function mySuccess(response) 
           {
+            console.log(response.data);
             $scope.flyers = response.data;
           }, function myError(response) 
           {
