@@ -34,9 +34,17 @@ exports.getEvents = function(){
 			tmp.event_id = events[e].guid;
 			tmp.organizer = 'RPI';
 			tmp.title = events[e].summary;
-			tmp.timeStart = events[e].start.time;
-			tmp.timeEnd = events[e].end.time;
-			tmp.date = events[e].start.shortdate;
+			tmp.timeStart = new Date(events[e].start.datetime.substring(0,4),
+							events[e].start.datetime.substring(4,6), 
+							events[e].start.datetime.substring(6,8),
+							events[e].start.datetime.substring(9,11),
+							events[e].start.datetime.substring(11,12));
+			tmp.timeEnd = new Date(events[e].end.datetime.substring(0,4),
+							events[e].end.datetime.substring(4,6), 
+							events[e].end.datetime.substring(6,8),
+							events[e].end.datetime.substring(9,11),
+							events[e].end.datetime.substring(11,12));
+			tmp.date = tmp.timeStart;
 			tmp.description = events[e].description;
 			//insert into the array using spread syntax
 			result = [...result, tmp]; 

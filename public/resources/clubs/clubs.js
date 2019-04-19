@@ -2,7 +2,7 @@ var pageNumber = 1;
 var size = 20;
 var query = "";
 
-var app = angular.module('clubs', []);
+var app = angular.module('clubs', ['ngCookies']);
 app.controller('clubsCtrl', function($scope, $http) {
     $scope.run = function(){
         console.log("Detected properly");

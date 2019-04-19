@@ -102,7 +102,7 @@ var counter = 0;
 // 
 //});
 
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['ngCookies']);
   app.controller('customersCtrl', function($scope, $http) {
     $http({
           method : "get",

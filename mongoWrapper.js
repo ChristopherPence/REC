@@ -1,4 +1,5 @@
 const mongo = require('mongodb').MongoClient;
+const clo = require('./cloudinaryWrapper.js');
 require('dotenv').config();
 const mongo_url = process.env.MONGO_URL;
 
@@ -66,7 +67,6 @@ Remove a flyer from the database
 	with the flyer to delete.
 */
 exports.removeFlyer = function(data) {
-	const clo = require('./cloudinaryWrapper.js');
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to MongoAtlas Database");
@@ -98,9 +98,37 @@ exports.getDatesEvents = function(date, callback) {
 		if (err) throw err;
 		console.log("Connected to database\t Listing events on " + date);
 		var dbo = db.db("REC_database");
-		dbo.collection('events').find({ date : date }).sort().toArray(function(err, result){
+		dbo.collection('events').find({ date : {$gt : date} }).sort({date : 1}).toArray(function(err, result){
 			if (err) callback(err, null);
 			else callback(null, result);
+			db.close();
+		});
+	});
+}
+
+exports.getFutureEvents = function(date, callback) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to database\t Listing events on " + date);
+		var dbo = db.db("REC_database");
+		dbo.collection('events').find({ date : {$gt : date} }).sort({date : 1}).toArray(function(err, result){
+			if (err) callback(err, null);
+			else callback(null, result);
+			db.close();
+		});
+	});
+}
+
+/*
+	
+*/
+exports.getOrgEvents = function(org, callback){
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db("REC_database");
+		dbo.collection('events').find({ organizer : org }).toArray(function(err, result){
+			if (err) callback([]);
+			else callback(result);
 			db.close();
 		});
 	});
@@ -132,7 +160,6 @@ Function to add a flyer into the database
 		The returned public id and url are stored in the document
 */
 exports.addFlyer = function(imagePath, data, callback) {
-	const clo = require('./cloudinaryWrapper.js');
 	console.log(imagePath);
 	clo.upload(imagePath, function(added, iurl, ipid) {
 		console.log("entered cloud");
@@ -143,9 +170,16 @@ exports.addFlyer = function(imagePath, data, callback) {
 				console.log("Connected to MongoAtlas Database");
 				var dbo = db.db("REC_database");
 
+				var date = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10));
+				var takedown = new Date(data.takedowndate.substring(0,4),
+							data.takedowndate.substring(5,7) - 1,
+							data.takedowndate.substring(8,10));
+
 				var doc = {
-					date: data.date,
-					takedown_date: data.takedown_date,
+					date: date,
+					takedown_date: takedown,
 					event: data.event,
 					url: iurl,
 					public_id: ipid
@@ -214,20 +248,60 @@ Returns an array of events
 	The returned events are sorted by date.
 	If you want all events after the date, make amount very large
 */
-exports.getFutureEvents = function(fdate, amount, callback) {
+/*exports.getFutureEvents = function(fdate, amount, callback) {
 	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		console.log("Connected to database\t getting events");
 		var dbo = db.db("REC_database");
 		dbo.collection('events').find({date: {$gte: fdate}}).sort({date: 1}).limit(amount).toArray(function(err, result) {
+			db.close();
 			if (err) callback(err, null);
 			else callback(null, result);
+		});
+	});
+}*/
+
+/*
+	Add a user event into the database, pass in organization and req
+*/
+exports.addEvent = function(org ,data, callback){
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+
+		var date = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10));
+		var timeStart = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10),
+							data.start.substring(0,2),
+							data.start.substring(3,5));
+		var timeEnd = new Date(data.date.substring(0,4),
+							data.date.substring(5,7) - 1,
+							data.date.substring(8,10),
+							data.end.substring(0,2),
+							data.end.substring(3,5));
+
+		var doc = {
+			organizer: org,
+			event_id: data.title + date,
+			title: data.title,
+			timeStart : timeStart,
+			timeEnd : timeEnd,
+			date : date,
+			description : data.desc
+		};
+
+		dbo.collection('events').insertOne(doc, function(err, result) {
+			if (err) throw err;
+			console.log("added event");
 			db.close();
+			callback(true);
 		});
 	});
 }
-
-
 
 // get today events
 // create organization

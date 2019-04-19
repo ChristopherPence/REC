@@ -4,6 +4,24 @@
   <a href = "calendar.html" class = " border-right">Events Calendar</a>
   <a href = "flyers.html" class = "border-right">Event Flyers</a>
   <a href = "clubs.html" class = "mr-auto">Clubs</a>
-  <a href = "login-register.html" class = "nav right rounded">Club Login</a>
+
+  <span ng-controller="cookieCtrl">
+      <a href = "login-register.html" class = "nav right rounded">Club Login</a>
+  </span>
 </nav>
 
+
+
+<!--  <script>
+      console.log('test');
+      app.controller('cookieCtrl', ['$cookies', function($scope,$cookies) {
+          // Retrieving a cookie
+          console.log("Hi");
+          var favoriteCookie = $cookies.get('user');
+          console.log(favoriteCookie);
+      }]);
+
+
+ </script> -->
+
+<!-- ng-app="navbar" ng-controller="cookieCtrl" -->

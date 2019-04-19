@@ -5,6 +5,7 @@ var query = "";
 
 window.onresize = imageChange;
 
+
 function imageChange() 
 {
   var heightz = window.innerHeight;
@@ -36,33 +37,39 @@ function imageChange()
   $(".clubIm").css("width", widthz*0.1);
 }
 
-var app = angular.module('myApp', []);
-  app.controller('customersCtrl', function($scope, $http) {
-      $scope.run = function(){
-          console.log("Detected properly");
-          $http({
-              method : "get",
-              url : '/getnews/?page='+pageNumber+'&size='+size+'&search='+query,
-              data: {
-                  page: pageNumber,
-                  size: size,
-                  search: query
-              }
-          }).then(function mySuccess(response)
-          {
-              $scope.news = response.data;
-          }, function myError(response)
-          {
-              console.log(response);
-          });
+var app = angular.module('myApp', ['ngCookies']);
+app.controller('customersCtrl', function($scope, $http) {
+    $scope.run = function(){
+        console.log("Detected properly");
+        $http({
+            method : "get",
+            url : '/getnews/?page='+pageNumber+'&size='+size+'&search='+query,
+            data: {
+                page: pageNumber,
+                size: size,
+                search: query
+            }
+        }).then(function mySuccess(response)
+        {
+            for (var i = 0; i < response.data.length; i++) {
+              var start = (new Date(response.data[i].timeStart)).toString();
+              var end = (new Date(response.data[i].timeEnd)).toString();
+              response.data[i].timeStart = start.substring(0, start.indexOf("GMT"));
+              response.data[i].timeEnd = end.substring(0, end.indexOf("GMT"));
+            }
+            $scope.news = response.data;
+        }, function myError(response)
+        {
+            console.log(response);
+        });
 
-          $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent)
-          {
-              imageChange();
-          });
-      }
-  });
-   
+        $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent)
+        {
+            imageChange();
+        });
+    }
+});
+
 app.filter('removeSpaces', [function() {
     return function(string) {
         if (!angular.isString(string)) {
