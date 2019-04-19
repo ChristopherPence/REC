@@ -23,8 +23,8 @@
 
         <!-- Profile picture upload section -->
         <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
-          <h2 class="d-flex justify-content-center mb-3"><b>Flyer Upload</b></h2>
-          <form action="/flyerUpload" method="post" enctype="multipart/form-data">
+          <h2 class="d-flex justify-content-center mb-3"><b>Club Profile Image</b></h2>
+          <form action="/clubImageUpload" method="post" enctype="multipart/form-data">
             <label for="profilePic">Upload Flyer</label>
             <input name="profilePic" id="profilePic" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUploadProfile(this)"/>
             <div ng-repeat="profile in profileModel">
@@ -37,7 +37,7 @@
 
         <!-- Flyer upload section -->
         <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
-          <h2 class="d-flex justify-content-center mb-3"><b>Club Profile Image</b></h2>
+          <h2 class="d-flex justify-content-center mb-3"><b>Flyer Upload</b></h2>
           <form action="/flyerUpload" method="post" enctype="multipart/form-data">
             <label for="imgsrc">Upload Flyer</label>
             <input name="imgsrc" id="imgsrc" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>
