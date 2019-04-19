@@ -37,7 +37,7 @@ function imageChange()
   $(".clubIm").css("width", widthz*0.1);
 }
 
-var app = angular.module('myApp', ['ngCookies']);
+var app = angular.module('myApp', ['ngCookies', 'ngSanitize']);
 app.controller('customersCtrl', function($scope, $http) {
     $scope.run = function(){
         console.log("Detected properly");
