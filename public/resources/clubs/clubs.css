@@ -11,7 +11,7 @@
 }
 
 .card {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /* Small devices (landscape phones, 576px and up)*/
