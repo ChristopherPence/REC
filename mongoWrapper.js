@@ -23,12 +23,40 @@ exports.addOrganization = function(data) {
 			events: data.events,
 			flyers: data.flyers,
 			social: data.social,
-			img_url: data.img_url
+			img_url: data.img_url,
+			img_public_id: data.img_public_id
 		};
 
 		dbo.collection('organizations').insertOne(doc, function(err, result) {
 			if (err) throw err;
 			console.log("added organization");
+			db.close();
+		});
+	});
+}
+
+/*
+Function to add an image to an existing organization
+	If the organization does not exist, nothing in the database will change
+	Parameters: 
+		image_url -> the url for the image to be associated with the organization
+		public_id -> the id for cloudinary associated with the image
+		orgname -> the unique name of the organization to add the image to
+*/
+exports.addOrganizationImage = function(image_url, public_id, orgname) {
+	mongo.connect(mongo_url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		console.log("Connected to MongoAtlas Database");
+		var dbo = db.db("REC_database");
+
+		var doc {
+			img_url: image_url,
+			img_public_id: public_id
+		}
+
+		dbo.collection('organizations').updateOne({name: orgname}, {$set: doc}, function(err, result) {
+			if (err) throw err;
+			console.log("added organization image");
 			db.close();
 		});
 	});
