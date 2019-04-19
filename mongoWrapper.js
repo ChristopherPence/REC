@@ -38,9 +38,10 @@ exports.addOrganization = function(data) {
 Function to add an image to an existing organization
 	If the organization does not exist, nothing in the database will change
 	Parameters: 
-		image_url -> the url for the image to be associated with the organization
-		public_id -> the id for cloudinary associated with the image
+		imagePath -> path to the image to be uploaded
 		orgname -> the unique name of the organization to add the image to
+	This function will upload the image to cloudinary which will then allow 
+	the picture to be displayed and used in the website
 */
 exports.addOrganizationImage = function(imagePath, orgname, callback) {
 	clo.upload(imagePath, function(added, iurl, ipid) {
