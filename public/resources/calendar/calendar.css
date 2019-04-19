@@ -3,16 +3,91 @@ table {
   width:100%;
 }
 
+.monthDays:link {
+  background-color: #ffffff;
+}
+
+.monthDays:visited {
+  background-color: #ffffff;
+}
+
+.monthDays:hover {
+  background-color: #e2e3e5;
+}
+
+.monthDays:active {
+  background-color: #9a9a9a;
+}
+
+.monthDays {
+  background-color: #ffffff;
+}
+.monthDaysLink {
+  color: #78797b;
+}
+
+.today:link {
+  background-color: #007aff;
+}
+
+.today:visited {
+  background-color: #007aff;
+}
+
+.today:hover {
+  background-color: #016bdf;
+}
+
+.today:active {
+  background-color: #015ec3;
+}
+
+.today {
+  background-color: #007aff;
+}
+.todayLink {
+  color: white;
+}
+.todayLink:link {
+  color: white;
+}
+.todayLink:active {
+  color: white;
+}
+.todayLink:visited {
+  color: white;
+}
+.todayLink:hover {
+  color: white;
+}
+
 .calendar {
   margin: auto;
 }
 
 .cellz {
   word-wrap: break-word; 
-  font-size:calc(6px + 0.4vw + 1.0vh);
+  font-size:calc(0.4vw + 1.8vh);
   text-align: center;
 }
-
+.dateText {
+  font-size:calc(6px + 0.3vw + 0.9vh);
+  height:calc(0.4vw + 1.7vh);
+}
+.tabs {
+  background-color: #d0d3d8; 
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+#search { 
+  font-size:calc(6px + 0.4vw + 0.4vh);
+}
+input {
+  height: calc(16px + 0.4vw + 1.0vh);
+  padding-left: 5px;
+  padding-right: 5px;
+}
 .calendarsEvent {
   margin: auto;
 }
@@ -35,9 +110,21 @@ table {
   color: #9b9ea5;
   background-color: #d0d3d8;
 }
-/*
-@media only screen and (max-width: 600px) {
-  .weekDayz {
-    
-  }
-}*/
+
+#placeHolder {
+  font-size:calc(6px + 0.3vw + 0.9vh);
+  font-weight: normal;
+}
+
+.borderTop {
+  border-top: solid gray 3px;
+}
+
+.borderBottom {
+  border-bottom: solid gray 3px;
+}
+
+.borderMixed {
+  border-left: solid gray 3px;
+  border-right: solid gray 3px;
+}

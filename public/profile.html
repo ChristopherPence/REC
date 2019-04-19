@@ -11,41 +11,85 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.min.js"></script>
 </head>
+  
 <body class = "d-flex w-100 h-100">
 	<div ng-app="myApp" ng-controller="profileCtrl" class="d-flex h-100 w-100 flex-column align-items-center" ng-init="init();">
-		<div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
-		<div id="content" class="container">
-			<div class="row">
-				<div class="col col-lg-6">
-					<form action="/flyerUpload" method="post" enctype="multipart/form-data">
-						<input type="file" id="imgsrc" name="imgsrc"> <br>
-						Date: <input type="date" id="date" name="date"> <br>
-						Takedown Date: <input type="date" id="takedowndate" name="takedowndate"> <br>
-						Event: <select name="event" id="flyerevent">
-							<option value="null">~No Event~</option>
-						</select> <br>
+      
+      <!-- Navigation Bar -->
+      <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
 
-						<input type="submit" name="submit">
-					</form>
+      <!-- Container for the entire page -->
+      <div class="container">
 
-					<img src="" id="imgPrev" height="200" width="200"/>
-				</div>
-				<div class="col col-lg-6">
-					<form action='/eventUpload' method="post">
-						Title: <input type="text" name="title"> <br>
-						Start Time: <input type="time" name="start"> <br>
-						End Time: <input type="time" name="end"> <br>
-						Date: <input type="date" name="date"> <br>
-						Description: <textarea name="desc"></textarea> <br>
+        <!-- Profile picture upload section -->
+        <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
+          <h2 class="d-flex justify-content-center mb-3"><b>Flyer Upload</b></h2>
+          <form action="/flyerUpload" method="post" enctype="multipart/form-data">
+            <label for="profilePic">Upload Flyer</label>
+            <input name="profilePic" id="profilePic" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUploadProfile(this)"/>
+            <div ng-repeat="profile in profileModel">
+              <img class="form-control d-flex justify-content-center pictureResize border" ng-src="{{profile}}"/>
+            </div>
 
-						<input type="submit" name="submit">
-					</form>
-				</div>
-			</div>
-		</div>
+            <input type="submit" class="btn btn-primary mt-5" name="submit">
+          </form>
+        </div>
+
+        <!-- Flyer upload section -->
+        <div class="roundedBody pl-5 pr-5 pb-5 pt-2 mb-5 mt-5">
+          <h2 class="d-flex justify-content-center mb-3"><b>Flyer Upload</b></h2>
+          <form action="/flyerUpload" method="post" enctype="multipart/form-data">
+            <label for="imgsrc">Upload Flyer</label>
+            <input name="imgsrc" id="imgsrc" type='file' class="btn btn-primary" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)"/>
+            <div ng-repeat="step in stepsModel">
+              <img class="form-control d-flex justify-content-center pictureResize border" ng-src="{{step}}"/>
+            </div>
+
+            <label for="date" class="mt-5">Date:</label>
+            <input type="date" id="date" name="date" class="form-control">
+
+            <label for="takedowndate" class="mt-3">Takedown Date:</label>
+            <input type="date" id="takedowndate" name="takedowndate" class="form-control">
+
+            <label for="flyerevent" class="mt-3">Event:</label>
+            <select name="event" id="flyerevent" class="form-control">
+                <option value="null">~No Event~</option>
+            </select>
+
+            <input type="submit" class="btn btn-primary mt-5" name="submit">
+          </form>
+        </div>
+
+        <!-- Event publication section -->
+        <div class="roundedBody pl-5 pr-5 pb-5 pt-5 mb-5">
+          <h2 class="d-flex justify-content-center mb-4"><b>Event Publication</b></h2>
+          <form action='/eventUpload' method="post">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" class="form-control">
+
+            <label for="start" class="mt-3">Start Time:</label> 
+            <input type="time" name="start" id="start" class="form-control">
+
+            <label for="end" class="mt-3">End Time:</label>
+            <input type="time" name="end" id="end" class="form-control">
+
+            <label for="date" class="mt-3">Date:</label>
+            <input type="date" name="date" id="date" class="form-control mb-3"> 
+
+            <label class="desc">Description:</label>
+            <textarea name="desc" class="form-control" id="desc"></textarea>
+
+            <input type="submit" name="submit" class="btn btn-primary mt-5">
+          </form>
+        </div>
+      </div>
 	</div>
 </body>
 
+<!-- External JS file-->
 <script type="text/javascript" src="resources/profile/profile.js"></script>
+
+<!-- External Navigation Bar included -->
 <script src="resources/navbar/navbar.js"></script>
+  
 </html>

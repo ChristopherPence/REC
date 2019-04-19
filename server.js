@@ -203,7 +203,7 @@ app.listen(port, function(){console.log('Server started on port: ' + port)});
 
 
 
-//development code REMOVE BEFORE RELASE
+//development code REMOVE BEFORE RELEASE
 
 /*****/
 //test add organization to mongo db
