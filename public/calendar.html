@@ -1,63 +1,85 @@
+<!-- This webpage conatins the calendar that allows users to click on certain dates,
+that allows users to serach up dates, and maneuver to different dates within the calendar. By clicking on, or searching one of the dates, the user can see a modal of any events that are already planned for that day. The calendar also has some error checing concering what dates are allowed.-->
+
+<!--  -->
 <!DOCTYPE html>
 <html lang="en-US" class = "h-100 w-100 m-0">
   <head>
+    <!-- REC Calendar Events Page -->
     <title>REC Calendar</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- this is the favicon, which is a minicalendar for the website -->
+    <link rel="icon" href="/resources/generalContent/fabicon.png">
+    <!-- The news css is included here, since the same code is essentially used for the display 
+    of the events for certain days, just with the events in a modal -->
+    <link href="resources/news/news.css" rel="stylesheet" type="text/css"/>
+    <!-- this css is used to style primarily the calendar -->
+    <link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>
+    <!-- this includes the general css for the navbar which is on every page -->
+    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
+    <!-- this is the cdn link to include the bootstrap for dynamic styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <!-- this is the script that allows for the angular functionality to be included -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <link rel="icon" href="/resources/generalContent/fabicon.png">
-    <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
-    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
-    <link href="resources/news/news.css" rel="stylesheet" type="text/css"/>
-    <link href="resources/calendar/calendar.css" rel="stylesheet" type="text/css"/>
+    <!-- this is the script that allows for angular cookies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.min.js"></script>
+    <!-- this is the script that allows for sanitation of html inputs -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
-
   </head>
   <body class = "w-100 h-100"> 
+    <!-- this div contains the angular controller for this webpage -->
     <div ng-app="myApp" ng-controller="customersCtrl" class="h-100 w-100"> 
+      <!-- this is the generic navbar that is universal across the REC website -->
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100"></div>
-        <section class = "w-100 rounded">
-          <section id = "cal" class="rounded w-100">
-              <div class = "calendar">
-                <table width = "100%" id = "calendarz" class="rounded mb-3"></table>
-              </div>
-          </section>
-        </section> 
+      
+      <!-- this is the section that contains the calendar -->
+      <section class = "w-100 rounded">
+        <section id = "cal" class="rounded w-100">
+            <div class = "calendar">
+              <table width = "100%" id = "calendarz" class="rounded mb-3"></table>
+            </div>
+        </section>
+      </section> 
     
+      <!-- this div contains the modal of the events for a particular day that is chosen by the user -->
       <div id="myModal" class="modal fade" role="dialog">
-          <div class="modal-dialog modal-xl">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header d-flex align-self-center">
-                <h4 class="modal-title" id = "modalDate"></h4>
-              </div>
-              <div class="modal-body">
-                <section id = "newsData" class = "w-100 rounded">
-                  <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
-                    <section class = "newsEvent mt-3 ml-4 mr-3 media-body w-75">
-                        <section class="headingz d-flex align-items-baseline justify-content-between">
-                            <h2 class = "title">{{x.title}}</h2>
-                          <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
-                        </section>
-                        <p class="mt-1 align-items-start"> {{x.description}}</p>
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header d-flex align-self-center">
+              <!-- this is where the date that a user chooses is shown at the top of the modal -->
+              <h4 class="modal-title" id = "modalDate"></h4>
+            </div>
+            <div class="modal-body">
+              <!-- in this modal body, the events are pulled for that date, then are repeated and displayed like the news page -->
+              <section id = "newsData" class = "w-100 rounded">
+                <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
+                  <section class = "newsEvent mt-3 ml-4 mr-3 media-body w-75">
+                    <section class="headingz d-flex align-items-baseline justify-content-between">
+                        <h2 class = "title">{{x.title}}</h2>
+                      <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
                     </section>
+                    <p class="mt-1 align-items-start"> {{x.description}}</p>
                   </section>
                 </section>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+              </section>
             </div>
-
+            <div class="modal-footer">
+              <!-- button to close the modal -->
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
         </div>
       </div>
+    </div>
   </body>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- this is the script that includes the javascript necessary for the new webpage -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- CARLOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <!-- this cdn includes the javascript necessary for bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!--  -->
   <script src="resources/calendar/calendar.js"></script>
+  <!-- this is the script necessary to have angular include the necessary login/logout options -->
   <script src="resources/navbar/navbar.js"></script>
 </html>
