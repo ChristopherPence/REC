@@ -1,10 +1,25 @@
-<a href = "index.html"><img class = "rounded mt-2 ml-2" id = "logo" src = "resources/generalContent/logo3.png" alt = "REC Logo"></a>
+<!-- This is the general "header" of the webpage which includes the logo, the navbar, and a logout and login option  -->
+
+<!-- this is the logo of the website REC, which links to the homepage of most current news. -->
+<a href = "index.html">
+  <img class = "rounded mt-2 ml-2" id = "logo" src = "resources/generalContent/logo3.png" alt = "REC Logo">
+</a>
+<!-- this is the general navbar for the website -->
 <nav class = "d-flex mt-2 rounded border bg-danger align-items-center font-weight-bold text-white">
+  <!-- link to the most current events, which serves as the homepage of theREC web application  -->
   <a href = "index.html" class = "nav left border-right">RPI News</a>
+  
+  <!-- this is the link to the calendar webpage -->
   <a href = "calendar.html" class = " border-right">Events Calendar</a>
+  
+  <!-- this is the link to the flyers webpage, which presents each club's flyer -->
   <a href = "flyers.html" class = "border-right">Event Flyers</a>
+  
+  <!-- this is the clubs webpage which presents clubs that are affiliated with the wesite -->
   <a href = "clubs.html" class = "mr-auto">Clubs</a>
 
+  <!-- this is the link to either sign up for a club login, or if already logged in,
+  to the profile or the link to logout-->
   <span ng-controller="cookieCtrl" class = "right">
       <!--<a href = "login-register.html" class = "nav right rounded">Club Login</a>-->
     <span ng-bind-html="trustedHtml">

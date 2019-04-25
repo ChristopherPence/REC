@@ -1,72 +1,98 @@
-body {
+/*this is the css that styles the navbar that is used throughout the REC website.*/
+
+/*_________________________________________________*/
+/*this is the background image designed to tessellate so that for whatever size the webpage
+is, the image still looks good */
+body 
+{
   background-image: url("back.png");
 }
-#navbarInc {
-  height: calc(110px + 1.1vw + 0.3vh);
-}
-#logo { 
-  height: 25%;
-  min-width: 100px;
-  min-height: 50px;
-}
 
-nav {
+/* this ensures the correct text and height sizing of the nav*/
+nav 
+{
   height: calc(30px + 1.1vw + 0.3vh);
   min-height: 15px;
 }
-nav a:link {
+
+/*this is the css to style the nav link for whatever state the link is in*/
+nav a:link 
+{
   color: white;
   padding-left: 10px;
   padding-right: 10px;
 }
-
-/* visited link */
-nav a:visited {
+nav a:visited 
+{
   color: white;
 }
-
-/* mouse over link */
-nav a:hover {
+nav a:hover 
+{
   color: lightskyblue;
 }
-
-/* selected link */
-nav a:active {
+nav a:active 
+{
   color: blue;
 }
-nav a {
+/*this styles the nav links generally*/
+nav a 
+{
   font-weight: bold;
   font-size:calc(7px + 1.0vw);
 }
 
-.left {
+/*_________________________________________________*/
+/*this class styles the text so the text is all the way to the left (but no overlapping with
+other text, it moves the text to the leftmost point with regard to other spacing)*/
+.left 
+{
   margin-left: calc(8px + 1.2vw + 0.4vh);
   padding-left: 0;
 }
 
-.right {
+/*this class styles the text so the text is all the way to the right (but no overlapping with
+other text, it moves the text to the rightmost point with regard to other spacing)*/
+.right 
+{
   padding-left: 10px;
   margin-right: calc(8px + 1.2vw + 0.4vh);
   padding-right: 0;
 }
 
-
-::-webkit-scrollbar {
+/*_________________________________________________*/
+/*this styles the scroll bar for the entire website so that it is consistent*/
+::-webkit-scrollbar 
+{
   width: 15px;
 }
-
 /* Track */
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track 
+{
   box-shadow: inset 0 0 3px grey; 
 }
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
+/* Handle or the "bar" seen as the user position in the scroll bar */
+::-webkit-scrollbar-thumb 
+{
   background: grey; 
   border-radius: 10px;
 }
-
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover 
+{
   background: #000000; 
+}
+
+/*_________________________________________________*/
+/*this styles the navbar height to be dynamic to the webpage size*/
+#navbarInc 
+{
+  height: calc(110px + 1.1vw + 0.3vh);
+}
+
+/*this styles the logo of the webpage to resize depending on the page size*/
+#logo 
+{ 
+  height: 25%;
+  min-width: 100px;
+  min-height: 50px;
 }

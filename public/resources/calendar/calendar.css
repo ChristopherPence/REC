@@ -1,130 +1,184 @@
-table {
+/*this is the css that styles the calendar page*/
+
+/*_________________________________________________*/
+/*this styles the css so that the cells all touch one another, and so that the size of the table
+is as big as it can fit in the webpage*/
+table 
+{
   table-layout: fixed;
   width:100%;
 }
 
-.monthDays:link {
-  background-color: #ffffff;
+/*this styles the input so that the size of the input is dynamic, and there is spacing*/
+input 
+{
+  height: calc(16px + 0.4vw + 1.0vh);
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-.monthDays:visited {
+/*_________________________________________________*/
+/*this styles the links for the days of the current month, that are not the current day*/
+.monthDays:link 
+{
   background-color: #ffffff;
 }
-
-.monthDays:hover {
+.monthDays:visited 
+{
+  background-color: #ffffff;
+}
+.monthDays:hover 
+{
   background-color: #e2e3e5;
 }
-
-.monthDays:active {
+.monthDays:active 
+{
   background-color: #9a9a9a;
 }
-
-.monthDays {
+.monthDays 
+{
   background-color: #ffffff;
 }
-.monthDaysLink {
+
+/*this makes sure that the text color of the regular month days is one color*/
+.monthDaysLink 
+{
   color: #78797b;
 }
 
-.today:link {
+/*this styles the cell of the day the is the current day. This shows the user that that cell 
+represents "today" and stands out*/
+.today:link 
+{
   background-color: #007aff;
 }
-
-.today:visited {
+.today:visited 
+{
   background-color: #007aff;
 }
-
-.today:hover {
+.today:hover 
+{
   background-color: #016bdf;
 }
-
-.today:active {
+.today:active 
+{
   background-color: #015ec3;
 }
-
-.today {
+.today 
+{
   background-color: #007aff;
 }
-.todayLink {
+
+/*this styles the link so that the text is white for all the stages a link can be in*/
+.todayLink:link 
+{
   color: white;
 }
-.todayLink:link {
+.todayLink:active 
+{
   color: white;
 }
-.todayLink:active {
+.todayLink:visited 
+{
   color: white;
 }
-.todayLink:visited {
+.todayLink:hover 
+{
   color: white;
 }
-.todayLink:hover {
+.todayLink 
+{
   color: white;
 }
 
-.calendar {
+/*this styles the entire calendar to be centered horizontally*/
+.calendar 
+{
   margin: auto;
 }
 
-.cellz {
+/*this styles each of the table cells to have dynamically sized text and to center the text*/
+.cellz 
+{
   word-wrap: break-word; 
-  font-size:calc(0.4vw + 1.8vh);
+  font-size: calc(0.4vw + 1.8vh);
   text-align: center;
 }
-.dateText {
-  font-size:calc(6px + 0.3vw + 0.9vh);
-  height:calc(0.4vw + 1.7vh);
+
+/*this styles the inputs to have dynamic element and text sizing*/
+.dateText 
+{
+  font-size: calc(6px + 0.3vw + 0.9vh);
+  height: calc(0.4vw + 1.7vh);
 }
-.tabs {
+
+/*this styles the color of the "tab" that the inputs are in for the calendar date search*/
+.tabs 
+{
   background-color: #d0d3d8; 
   border-top: 1px solid gray;
   border-left: 1px solid gray;
   border-right: 1px solid gray;
 }
-#search { 
-  font-size:calc(6px + 0.4vw + 0.4vh);
-}
-input {
-  height: calc(16px + 0.4vw + 1.0vh);
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.calendarsEvent {
+
+/*this ensures that the arrow to go back or forward a month is always horizontally centered*/
+.arrow 
+{
   margin: auto;
 }
 
-#calendarHeader {
+/*this ensures that cells containing dates that are not of the month the user is looking at
+are all of a darker shade to indicate they are of a different month*/
+.notMonth 
+{
+  color: #9b9ea5;
+  background-color: #d0d3d8;
+}
+
+/*this is a class to ensure that there is a gray border on top of the element*/
+.borderTop 
+{
+  border-top: solid gray 3px;
+}
+
+/*this is a class to ensure that there is a gray border on bottom of the element*/
+.borderBottom 
+{
+  border-bottom: solid gray 3px;
+}
+
+/*this is a class to ensure that there is a gray border on the left and right side of the element*/
+.borderMixed 
+{
+  border-left: solid gray 3px;
+  border-right: solid gray 3px;
+}
+/*_________________________________________________*/
+/*this styles the title (month/year) of the calendar*/
+#calendarHeader 
+{
   word-wrap: break-word; 
   font-size:calc(16px + 0.2vw + 1.3vh);
   text-align: center;
 }
 
-#cal {
+/*this styles the button to search for a date in the calendar*/
+#search 
+{ 
+  font-size:calc(6px + 0.4vw + 0.4vh);
+}
+
+/*this styles the section that contains the entire calendar to take up the rest of the space in the webpage below the navbar*/
+#cal 
+{
   height: 100%;
 }
 
-.arrow {
-  margin: auto;
-}
-
-.notMonth {
-  color: #9b9ea5;
-  background-color: #d0d3d8;
-}
-
-#placeHolder {
+/*this styles the "invisible" text to correctly find the width of the inputs*/
+#placeHolder 
+{
   font-size:calc(6px + 0.3vw + 0.9vh);
   font-weight: normal;
 }
 
-.borderTop {
-  border-top: solid gray 3px;
-}
 
-.borderBottom {
-  border-bottom: solid gray 3px;
-}
-
-.borderMixed {
-  border-left: solid gray 3px;
-  border-right: solid gray 3px;
-}

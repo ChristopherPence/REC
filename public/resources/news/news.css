@@ -1,47 +1,62 @@
-#newsData {
-  word-wrap: break-word; 
-  color: black;
+/*this is the css that styles the REC recent news page*/
+
+/*_________________________________________________*/
+/*this colors the links in the REC news page for different link states*/
+a:link 
+{
+ color: black;
+}
+a:active 
+{
+  color: dimgray;
+}
+a:visited 
+{
+  color: gainsboro;
+}
+a:hover 
+{
+  color: blue;
+}
+a {
 }
 
-.event {
-/*  background-image: radial-gradient(circle, rgba(255,20,20,1),rgba(255,20,20,1),rgba(255,10,10,1),rgba(255,0,0,1),rgba(245,0,0,1),rgba(235,0,0,1),rgba(213,0,0,1), rgba(170,0,0,1), rgba(150,0,0,1));*/
-  background-color: rgba(234, 234, 234,0.92);
+/*_________________________________________________*/
+/*this styles the sections of each individual event (clubs or RRS). This is the section that
+gets repeated with all of the news data*/
+.event 
+{
+  background-color: rgba(234, 234, 234, 0.92);
   width:90%;
   margin: auto;
 }
 
-.newsEvent {
+/*this is an inner section that gives margins to the information in the news, so that there is 
+a dynamic spacing of the data so that the titles and descriptions are not touching the sides of 
+thier section*/
+.newsEvent 
+{
   width:90%;
   margin: auto;
 }
 
-.times {
+/*this changes the font size of the time within an event, which sizes to the page size*/
+.times 
+{
   font-size:calc(16px + 0.3vw);
-  
 }
 
-.title {
+/*this underlines the title and makes a dynamic sizing for the font size of the title*/
+.title 
+{
   font-size:calc(28px + 0.3vw);
   text-decoration: underline;
 }
 
-a:link {
- color: black;
-}
-
-a:active {
-  color: dimgray;
-}
-
-a:visited {
-  color: gainsboro;
-}
-
-
-a:hover {
-  color: blue;
-}
-
-a {
-  
+/*_________________________________________________*/
+/*this is the entire section that containsall of the events, and sets the text color and wrapping*/
+#newsData 
+{
+  word-wrap: break-word; 
+  color: black;
 }

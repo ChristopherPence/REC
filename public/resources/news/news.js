@@ -1,11 +1,16 @@
-// Variables for request
-var pageNumber = 1;
-var size = 80;
-var query = "";
 
+//_____________________________________________________________________________________________________________________________
+//GLOBAL VARIABLES
+var pageNumber = 1;   // variables for request
+var size = 80;        //
+var query = "";       //
+
+//_____________________________________________________________________________________________________________________________
+//
 window.onresize = imageChange;
 
-
+//_____________________________________________________________________________________________________________________________
+//
 function imageChange() 
 {
   var heightz = window.innerHeight;
@@ -37,10 +42,11 @@ function imageChange()
   $(".clubIm").css("width", widthz*0.1);
 }
 
+//_____________________________________________________________________________________________________________________________
+//
 var app = angular.module('myApp', ['ngCookies', 'ngSanitize']);
 app.controller('customersCtrl', function($scope, $http) {
     $scope.run = function(){
-        console.log("Detected properly");
         $http({
             method : "get",
             url : '/getnews/?page='+pageNumber+'&size='+size+'&search='+query,
@@ -109,6 +115,7 @@ app.controller('customersCtrl', function($scope, $http) {
     }
 });
 
+//
 app.filter('removeSpaces', [function() {
     return function(string) {
         if (!angular.isString(string)) {
@@ -118,6 +125,7 @@ app.filter('removeSpaces', [function() {
     };
 }]);
   
+//
 app.directive('onFinishRender', function ($timeout) {
 	return {
 		restrict: 'A',
@@ -131,25 +139,10 @@ app.directive('onFinishRender', function ($timeout) {
 	}
 });
 
-
+//_____________________________________________________________________________________________________________________________
+//
 function pad(num) 
 {
   var s = "00" + num;
   return s.substr(("" + num).length); 
 }
-
-//app.directive('onErrorSrc', function() {
-//    return {
-//        link: function(scope, element, attrs) {
-//          element.bind('error', function() {
-//            if (attrs.src != attrs.onErrorSrc) {
-//              attrs.$set('src', attrs.onErrorSrc);
-//            }
-//          });
-//        }
-//    }
-//});
-
-    
-    
-   

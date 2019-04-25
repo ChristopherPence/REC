@@ -1,8 +1,16 @@
-var numFlyers;
-var num;
-var fixer;
+
+//_____________________________________________________________________________________________________________________________
+//GLOBAL VARIABLES
+var numFlyers;  //
+var num;        //
+var fixer;      //
+
+//_____________________________________________________________________________________________________________________________
+//
 window.onresize = function(){imageChange(); fixer = 0};
 
+//_____________________________________________________________________________________________________________________________
+//
 function imageChange() 
 {
   var widthz =  parseInt($('html').width());
@@ -12,12 +20,10 @@ function imageChange()
   
   if(widthz > heightz)
   {
-    console.log("HA");
     widthImg = heightz * 0.70;
   }
   else
   {
-    console.log("BRO");
     widthImg = widthz * 0.70;
   }
   
@@ -50,13 +56,11 @@ function imageChange()
   $('.help').css('height',(width));
   $(".help").css("margin-bottom", (widthz*.5  - widthImg*1.1));
   $('.flyerz').css('margin-left',4);
-  console.log("W " + widthz);
-  console.log($('.horizontal-scroll-wrapper').css('height'));
 }
 
+//_____________________________________________________________________________________________________________________________
+//
 function side(e,event) {
-//  console.log("X " + event.deltaX);
-//  console.log("Y " + event.deltaY);
   if(Math.abs(event.deltaX) > Math.abs(event.deltaY))
   {
    event.preventDefault();
@@ -67,60 +71,29 @@ function side(e,event) {
     e.scrollBy(0,event.deltaY);
   }
 }
-var counter = 0;
-//$(document).ready(function(){
-//    $('.horizontal-scroll-wrapper').scroll(function() {
-//      $('.sideScroll').addClass("helperChild");
-//      console.log(counter);
-//    if(counter == 0)
-//  {
-//   console.log("HEYOOOOOO");
-//   //$('.sideScroll').removeClass("helperChild");
-////   $('.horizontal-scroll-wrapper').removeClass("helper");
-//    clearTimeout($.data(this, 'scrollTimer'));
-//    $.data(this, 'scrollTimer', setTimeout(function() {
-//        // do something
-//        console.log("Haven't scrolled in 250ms!");
-////        $('.horizontal-scroll-wrapper').addClass("helper");
-//        $('.sideScroll').addClass("helperChild");
-//        counter = 1;
-//    }, 100));
-//    }
-//  else
-//  {
-//    console.log("REEEEE");
-////   $('.horizontal-scroll-wrapper').removeClass("helper");
-//    clearTimeout($.data(this, 'scrollTimer'));
-//    $.data(this, 'scrollTimer', setTimeout(function() {
-//        // do something
-//        console.log("Haven't scrolled in 250ms! noo");
-////        $('.horizontal-scroll-wrapper').addClass("helper");
-//        counter = 0;
-//    }, 100));
-//  }
-//    });
-// 
-//});
 
+//_____________________________________________________________________________________________________________________________
+//
 var app = angular.module('myApp', ['ngCookies']);
-  app.controller('customersCtrl', function($scope, $http) {
-    $http({
-          method : "get",
-          url : '/getflyers'
-          }).then(function mySuccess(response) 
-          {
-            $scope.flyers = response.data;
-          }, function myError(response) 
-          {
-            console.log(response);
-          });    
-    $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) 
-    {
-      fixer = 14;
-      imageChange();
-    });
+app.controller('customersCtrl', function($scope, $http) {
+  $http({
+        method : "get",
+        url : '/getflyers'
+        }).then(function mySuccess(response) 
+        {
+          $scope.flyers = response.data;
+        }, function myError(response) 
+        {
+          console.log(response);
+        });    
+  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) 
+  {
+    fixer = 14;
+    imageChange();
   });
-   
+});
+
+//
 app.filter('removeSpaces', [function() {
     return function(string) {
         if (!angular.isString(string)) {
@@ -130,6 +103,7 @@ app.filter('removeSpaces', [function() {
     };
 }]);
 
+//
 app.directive('onFinishRender', function ($timeout) {
 	return {
 		restrict: 'A',

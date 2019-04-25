@@ -1,4 +1,10 @@
-.flyersEvent {
+/*this is the css styling for the flyers webpage*/
+
+/*_________________________________________________*/
+/*this styles the image of the flyer so that it has a nice border, whenever its color is black
+or white. It also ensures that it is a block display*/
+.flyersEvent 
+{
   background-color: white;
   border-color: black;
   border-style: solid;
@@ -6,19 +12,16 @@
   display: block;
 }
 
-
-.sideScroll {
+/* this ensures that the section that contains the flyer image is styled as a block*/
+.sideScroll 
+{
   display: block;
-/*  scroll-snap-align: center;*/
 }
 
-.helperChild {
-  scroll-snap-align: center;
-}
-
-
-.horizontal-scroll-wrapper {
-  background-color: rgba(234, 234, 234,0.92);
+/*this ensures that the section that contains all the flyers can be side scrolled*/
+.horizontal-scroll-wrapper 
+{
+  background-color: rgba(234, 234, 234, 0.92);
   direction: rtl;
   display: block;
   position: absolute;
@@ -26,15 +29,9 @@
   right: 0;
   left: 0;
   margin: 0;
-/*  background: #abc;*/
   overflow-y: auto;
   overflow-x: hidden;
   transform-origin: right top;
-  scroll-snap-type: y mandatory;
-}
-
-.helper {
-/*  scroll-snap-type: y mandatory;*/
 }
 
 

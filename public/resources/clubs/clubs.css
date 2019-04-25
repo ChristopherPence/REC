@@ -1,45 +1,59 @@
-.row{
-    vertical-align: center;
-    margin-left: 10%;
-    margin-right: 10%;
+/**/
+/*_________________________________________________*/
+.row
+{
+  vertical-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
-.btn-primary {
-    background-color: purple;
-    border-color: purple;
-    color: white;
+.btn-primary 
+{
+  background-color: purple;
+  border-color: purple;
+  color: white;
 }
 
-.card {
+.card 
+{
   overflow-y: auto;
 }
 
+/*_________________________________________________*/
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-    .row{
-        margin-left: 20%;
-    }
+@media (min-width: 576px) 
+{
+  .row
+  {
+    margin-left: 20%;
+  }
 }
 
 /* Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {
-    .row{
-        margin-left: 25%;
-    }
+@media (min-width: 768px)
+{
+  .row
+  {
+    margin-left: 25%;
+  }
 }
 
 /* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) {
-    .row{
-        margin-left: 15%;
-        margin-right: 15%;
-    }
+@media (min-width: 992px) 
+{
+  .row
+  {
+    margin-left: 15%;
+    margin-right: 15%;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) {
-    .row{
-        margin-left: 5%;
-        margin-right: 5%;
-    }
+@media (min-width: 1200px) 
+{
+  .row
+  {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }

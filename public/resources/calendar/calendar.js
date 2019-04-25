@@ -1,23 +1,33 @@
-var total = 0;
-var todayz = new Date();
-var yearz = todayz.getFullYear();
-var monthz = todayz.getMonth();
-var dayzNext = new Date(yearz, monthz+1, 0).getDate();
-var curDate = new Date();
-var curYearz = todayz.getFullYear();
-var curMonthz = todayz.getMonth();
-var curDayz = curDayz = new Date(curYearz, curMonthz+1, 0).getDate();
-var firstDay;
-var nextMonthDayz;
-var totalDay;
-var cursorNext = 0;
+//
+//_____________________________________________________________________________________________________________________________
+//GLOBAL VARIABLES
+var total = 0;                                                          //         
+var todayz = new Date();                                                //
+var yearz = todayz.getFullYear();                                       //
+var monthz = todayz.getMonth();                                         //
+var dayzNext = new Date(yearz, monthz+1, 0).getDate();                  //
+var curDate = new Date();                                               //
+var curYearz = todayz.getFullYear();                                    //
+var curMonthz = todayz.getMonth();                                      //
+var curDayz = curDayz = new Date(curYearz, curMonthz+1, 0).getDate();   //
+var firstDay;                                                           //
+var nextMonthDayz;                                                      //
+var totalDay;                                                           //
+var cursorNext = 0;                                                     //
+var dragged = 0;                                                        //
+
+//
 var fullWeek = ['Sunday','Monday','Tuesday','Wednesday','Thrusday','Friday','Saturday'];
 var smallWeek = ['Sun','Mon','Tue','Wed','Thr','Fri','Sat'];
 var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
-var dragged = 0;
+
+//_____________________________________________________________________________________________________________________________
+//
 window.onresize = cellzChange;
 window.onload = makeCalendar;
 
+//_____________________________________________________________________________________________________________________________
+//
 function changeArrow(elem,eve)
 {
   if(elem.id == "leftArrow" && eve.type == "mousedown")
@@ -51,7 +61,7 @@ function changeArrow(elem,eve)
   }
 }
 
-
+//
 function imageChange() 
 {
   var heightz = window.innerHeight;
@@ -82,6 +92,7 @@ function imageChange()
   $(".clubIm").css("width", widthz*0.1);
 }
 
+//
 function cellzChange() 
 {
   var heightz = window.innerHeight;
@@ -117,7 +128,10 @@ function cellzChange()
   $('#placeHolder').html("");
 }
 
-function moveCalUp() {
+//_____________________________________________________________________________________________________________________________
+//
+function moveCalUp() 
+{
   //when whole new month above
   curDate = new Date(curYearz, curMonthz-1, 1);
   curMonthz = curDate.getMonth();
@@ -127,7 +141,9 @@ function moveCalUp() {
 
 }
 
-function moveCalDown() {
+//
+function moveCalDown() 
+{
   //when whole new month above
   curDate = new Date(curYearz, curMonthz+1, 1);
   curMonthz = curDate.getMonth();
@@ -136,6 +152,8 @@ function moveCalDown() {
   makeCalendar();
 }
 
+//_____________________________________________________________________________________________________________________________
+//
 function makeCalendar()
 {
   var counter = 0;
@@ -146,12 +164,6 @@ function makeCalendar()
     nextMonthDayz = 0;
   }
   totalDay = firstDay.getDay() + curDayz + nextMonthDayz;
-//  console.log(firstDay.getDay());
-//  console.log(dayzNext);
-//  console.log(nextMonthDayz);
-//  console.log(curDayz);
-//    console.log(firstDay);
-//    console.log(7-((firstDay.getDay() + dayz))%7);//<button type="button" class="btn btn-light search">Date</button>
   var stringCal = "";
   total = 0;
   stringCal += '<tr class = "dateText bg-transparent"><th colspan="4" class = "bg-transparent p-0 dateText"><div class = "h-100 rounded-top d-flex flex-row flex-wrap align-items-center justify-content-center mr-5 tabs"><input type = "text" placeHolder = "MM" maxlength= "2" class = "ml-2 mt-2 mb-2" id = "monthInp" onkeyup = "nextInp(this,event)" onkeydown = "moverRight(this,event)"><input type = "text" placeHolder = "DD" maxlength= "2" class = "mt-2 mb-2" id = "dayInp" onkeyup = "nextInp(this,event)"  onkeydown = "moverRight(this,event)"><input type = "text" placeHolder = "YYYY" maxlength= "4" class = "mt-2 mb-2 mr-2" id = "yearInp" onkeyup = "nextInp(this,event)"><button type="button" class="border btn btn-light pb-1 pt-1 pl-2 pr-2 mr-2 mt-2 mb-2 border-dark" id = "search" onclick="searchDate()">Search</button><div id = "placeHolder"></div></div></th><th colspan="3" class = "bg-transparent"></th></tr>  <tr class = "borderMixed borderTop"><th colspan="1" class = "cellz bg-white" id = "calendarHeader"></input></th> <th colspan="1" class = "cellz bg-white" id = "calendarHeader"><a href = "#" onclick = "moveCalUp();"><img alt = "Move back a month." src = "resources/calendar/leftArrow1.png" class = "arrow" onmousedown = "changeArrow(this,event)" onmouseup = "changeArrow(this,event)" onmouseout = "changeArrow(this,event)" id = "leftArrow"></a></th><th colspan="3" class = "cellz align-items-center bg-white" id = "calendarHeader">' + months[curMonthz] + ' ' + curYearz +  '</th><th colspan="1" class = "cellz bg-white" id = "calendarHeader"><a href = "#" onclick = "moveCalDown();"><img alt = "Move forward a month." src = "resources/calendar/rightArrow1.png" class = "arrow" onmousedown = "changeArrow(this,event)" onmouseup = "changeArrow(this,event)" onmouseout = "changeArrow(this,event)" id = "rightArrow"></a></th> <th colspan="1" class = "cellz bg-white" id = "calendarHeader"></th></tr>';
@@ -162,10 +174,7 @@ function makeCalendar()
   }
   stringCal += '</tr>';
   var tempDay = new Date(curYearz, curMonthz, 1);
-  //console.log(tempDay);
   tempDay = new Date(tempDay.setDate(tempDay.getDate()-firstDay.getDay()));
-  //console.log(tempDay);
-  //console.log(tempDay.getFullYear());
   for(var i = 0;i<totalDay/7;i++)
   {
     if(i == totalDay/7 - 1)
@@ -181,7 +190,6 @@ function makeCalendar()
       if(total < firstDay.getDay() || total >= firstDay.getDay() + curDayz)
       {
          stringCal += ('<td class="cellz  border notMonth"><div class = "datez d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></td>');
-//          stringCal += ('<td class="cellz  border text-muted"><div class = "datez d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
       }
       else
       { 
@@ -189,13 +197,11 @@ function makeCalendar()
           {
             counter++;
             stringCal += ('<td class="cellz  border today"><a href = "#" class = "todayLink h-100 w-100" onclick="angular.element(this).scope().run(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
-//            stringCal += ('<td class="cellz  bordertext-white bg-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
           else
           {
             counter++;
             stringCal += ('<td class="cellz  border monthDays"><a href = "#" class = "monthDaysLink h-100 w-100" onclick="angular.element(this).scope().run(this)" id = "' + counter + '"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1 sizer"><div>' + (tempDay.getDate()) + '</div></div></a></td>');
-//            stringCal += ('<td class="cellz  border text-primary"><div class = "d-flex flex-wrap justify-content-center ml-1 mr-1"><div>' + pad(tempDay.getMonth() + 1) + '</div>/<div>' + pad(tempDay.getDate()) + '</div>/<div>' + (tempDay.getFullYear()) + '</div></div></td>');
           }
       }
       tempDay = new Date(tempDay.setDate(tempDay.getDate()+1));
@@ -207,6 +213,8 @@ function makeCalendar()
   cellzChange();
 }
 
+//_____________________________________________________________________________________________________________________________
+//
 function moverRight(el,event)
 {
   if($(el).prop("selectionStart")==2)
@@ -219,6 +227,7 @@ function moverRight(el,event)
   }
 }
 
+//
 function nextInp(el,event)
 {
   if(event.keyCode == 39 && cursorNext)
@@ -240,6 +249,7 @@ function nextInp(el,event)
   
 }
 
+//
 function goNext(el,event,num)
 {
   textboxes = $("input");
@@ -258,6 +268,7 @@ function goNext(el,event,num)
     return false;
 }
 
+//
 function goBack(el,event)
 {
   textboxes = $("input");
@@ -271,6 +282,7 @@ function goBack(el,event)
     return false;
 }
 
+//
 function searchDate()
 {
   if($("#monthInp").val().length == 0 && $("#dayInp").val().length == 0 && $("#yearInp").val().length == 0)
@@ -358,11 +370,12 @@ function searchDate()
   }
 }
 
+//_____________________________________________________________________________________________________________________________
+//
 var app = angular.module('myApp', ['ngCookies']);
   app.controller('customersCtrl', function($scope, $http) {
     $scope.cal = "calendarz"; 
     $scope.run = function(el){
-        console.log("Detected properly");
         $http({
             method : "get",
             url : '/getDatesEvents?year='+curYearz+'&month='+(curMonthz+1)+'&day='+el.id
@@ -429,8 +442,8 @@ var app = angular.module('myApp', ['ngCookies']);
     }
 });
 
-//$("#modalDate").html("Date: " + (curMonthz+1) + "/" + el.id + "/" + curYearz);
-
+//_____________________________________________________________________________________________________________________________
+//
 function pad(num) 
 {
   var s = "00" + num;

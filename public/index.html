@@ -1,42 +1,61 @@
+<!-- This is the landin page for users that would log onto the REC webpage. This webpage, like all others in the REC project,
+allows the user to travel to other pages through the multi-page navbar (which allows the user to easily traverse the REC website).
+The user will also be able to see the latest of RPI news/current events. These events are pulled from the RRS feed, and are submitted
+by clubs that are affiliated with the website.-->
+
 <!DOCTYPE html>
 <html lang="en-US" class = "h-100 w-100 m-0">
   <head>
+    <!-- Current Events Page -->
     <title>REC News</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- this is the favicon, which is a minicalendar for the website -->
+    <link rel="icon" href="/resources/generalContent/fabicon.png">
+    <!-- this is the css styling for the news page, which includes dynamic styling -->
+    <link href="resources/news/news.css" rel="stylesheet" type="text/css"/>
+    <!-- this includes the general css for the navbar which is on every page -->
+    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
+    <!-- this is the cdn link to include the bootstrap for dynamic styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- this is the script that allows for the angular functionality to be included -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <link rel="icon" href="/resources/generalContent/fabicon.png">
-    <link href="resources/news/news.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="bootstrap-4.2.1-dist/css/bootstrap.min.css">
-    <link href="resources/generalContent/nav.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- this is the script that allows for angular cookies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-cookies.min.js"></script>
+    <!-- this is the script that allows for sanitation of html inputs -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
   </head>
+
   <body class = "d-flex w-100 h-100" onload="imageChange"> 
+    <!-- this is the div used in order to have the angular controller app, used as a general wrapper around the html -->
     <div ng-app="myApp" ng-controller="customersCtrl" class="d-flex h-100 w-100 flex-column align-items-center" ng-init="run();"> 
+      <!-- this is the generic navbar that is universal across the REC website -->
       <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100 mb-2"></div>
+      
+      <!--  this is the section that contains all of the most recent news -->
       <section id = "newsData" class = "w-100 rounded">
+        <!-- this section is repeated so that for every news source that gets loaded in, this section repeats and shows the necessary information -->
         <section class="mt-1 event border border-light rounded media" ng-repeat="x in news" on-finish-render="ngRepeatFinished">
-<!--          <img class = "clubIm ml-2 mt-3 mr-2 rounded" ng-src='{{"resources/clubs/" + x.organizer + "/" + x.organizer + "Logo.png" | removeSpaces}}' ng-alt="{{x.organizer}} Logo" ng-init="finished();" on-error-src="#">-->
           <section class = "newsEvent mt-3 ml-4 mr-3 media-body w-75">
-              <section class="headingz d-flex align-items-baseline justify-content-between">
-<!--                <a ng-href = '{{"resources/clubs/" + x.organizer | removeSpaces}}'> -->
-                  <h2 class = "title">{{x.title}}</h2>
-<!--                </a>-->
-
-                <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
-              </section>
-              <p class="mt-1 align-items-start"> {{x.description}}</p>
-
+            <!-- this is the section that contains the title and the times of the events. This is used so that id the page
+            gets resized, that the time correctly moves underneath the title, in order to look nice -->
+            <section class="headingz d-flex align-items-baseline justify-content-between">
+              <h2 class = "title">{{x.title}}</h2>
+              <h3 class = "times"> Time: {{x.timeStart}} - {{x.timeEnd}}</h3>
+            </section>
+            <!-- this is the description of the event -->
+            <p class="mt-1 align-items-start"> {{x.description}}</p>
           </section>
         </section>
       </section>
     </div>
   </body>
-  <script src="bootstrap-4.2.1-dist/js/jquery-1.4.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <!-- CARLOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <!-- this cdn includes the javascript necessary for bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- this is the script that includes the javascript necessary for the new webpage -->
   <script src="resources/news/news.js"></script>
+  <!-- this is the script necessary to have angular include the necessary login/logout options -->
   <script src="resources/navbar/navbar.js"></script>
 </html>
