@@ -1,20 +1,19 @@
-
+//this page shows the flyers for the users in chronological order, and takes down the nessary flyers
 //_____________________________________________________________________________________________________________________________
 //GLOBAL VARIABLES
-var numFlyers;  //
-var num;        //
-var fixer;      //
+var numFlyers;  //the number of flyers obtained and to be displayed
+var num;        //the width of the section containing one flyer
+var fixer;      //a pixel fix due to rotation for side scroll
 
 //_____________________________________________________________________________________________________________________________
-//
+//this ensures that when the page is resized that the flyers are dynamically changed
 window.onresize = function(){imageChange(); fixer = 0};
 
 //_____________________________________________________________________________________________________________________________
-//
+//this function dynamically changes the sizing of the flyers and the sidescrolling length depending on the window height
 function imageChange() 
 {
   var widthz =  parseInt($('html').width());
-  //var widthz = window.innerWidth;
   var heightz = parseInt($('html').css('height'));;
   var widthImg = heightz * 0.70;
   
@@ -59,7 +58,7 @@ function imageChange()
 }
 
 //_____________________________________________________________________________________________________________________________
-//
+//this function allows the user to swipe left and right on the mousepad to scroll left and right respectively
 function side(e,event) {
   if(Math.abs(event.deltaX) > Math.abs(event.deltaY))
   {
@@ -73,7 +72,7 @@ function side(e,event) {
 }
 
 //_____________________________________________________________________________________________________________________________
-//
+//this angular obtains the flyers necessary to display for the user
 var app = angular.module('myApp', ['ngCookies']);
 app.controller('customersCtrl', function($scope, $http) {
   $http({
@@ -93,7 +92,7 @@ app.controller('customersCtrl', function($scope, $http) {
   });
 });
 
-//
+//this function removes spaces in angular {} 
 app.filter('removeSpaces', [function() {
     return function(string) {
         if (!angular.isString(string)) {
@@ -103,7 +102,7 @@ app.filter('removeSpaces', [function() {
     };
 }]);
 
-//
+//this function runs the javascript styling of the angular obtained flyers after they are obtained and rendered
 app.directive('onFinishRender', function ($timeout) {
 	return {
 		restrict: 'A',
