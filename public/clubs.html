@@ -26,7 +26,9 @@ There are pictures of the clubs, descriptions, and names.-->
   <body class = "w-100 h-100" ng-app="clubs" ng-controller="clubsCtrl" ng-init="run();">
     <!-- this is the generic navbar that is universal across the REC website -->
     <div id = "navbarInc" ng-include="'navbar.html'" class = "w-100 mb-2"></div>
-    
+
+    <!--Bootstrap Card, which generates for each club-->
+
     <div class="container">
       <div class="row">
         <span class="col-sm" ng-repeat="x in clubs">
